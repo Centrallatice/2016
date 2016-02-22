@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="form">
+                <div class="thumbnail"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/169963/hat.svg"/></div>
+                <form class="login-form"  novalidate>
+                    <input type="text" id="email" ng-model='user.email' placeholder="Adresse Mail"/>
+                    <input type="password" ng-model='user.password' id="password" placeholder="Mot de passe"/>
+                    <div class="alert alert-danger" ng-if="Error">
+                        {{ Message }}
+                    </div>
+                    <button type="submit" ng-click='setConnexion(user)'>Connexion</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

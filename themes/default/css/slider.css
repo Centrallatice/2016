@@ -1,0 +1,93 @@
+a.carousel-control.left{
+    background:url('../img/sliders/fleche-changementgauche.png') no-repeat left center;
+    opacity:0.9;
+}
+a.carousel-control.right{
+    background:url('../img/sliders/fleche-changementdroite.png') no-repeat right center;
+    opacity:0.9;
+}
+.carousel-caption{
+    background-color:#262626;
+    left:7%;
+    width:30%;
+    padding:0px;
+    text-align: left;
+}
+.carousel-caption .inner{
+    background:url('../img/sliders/top-carousel-caption.jpg') repeat-x top left;
+    padding:40px;
+    border-left:4px solid #c2d022;
+    border-right:4px solid #e14a91;
+}
+.carousel-caption .carousel-footer{
+    background:url('../img/sliders/carousel-footer.jpg') repeat-x bottom left;
+    height:4px;
+    width:100%;
+}
+@media only screen and (min-width : 1200px){
+    a.carousel-control.left{
+        left:-28px;
+    }
+    a.carousel-control.right{
+        right:-28px;
+    }
+    .carousel-caption .inner{
+        min-height:300px;
+    }
+}
+@media only screen and (min-width : 979px) and (max-width : 1199px){
+    a.carousel-control.left{
+        left:-28px;
+    }
+    a.carousel-control.right{
+        right:-28px;
+    }
+    .carousel-caption{
+        width:45%;
+    }   
+    .carousel-caption .inner{
+        max-height:200px;
+        padding:30px 20px 20px 20px;
+    }
+}
+
+@media only screen and (min-width : 767px) and (max-width : 978px){
+    a.carousel-control.left{
+        left:0px;
+    }
+    a.carousel-control.right{
+        right:0px;
+    }
+    .carousel-caption{
+        width:45%;
+    } 
+    .carousel-caption .inner{
+        min-height:150px;
+        padding:30px 20px 20px 20px;
+    }
+}
+
+@media only screen and (min-width : 480px) and (max-width : 766px) {
+    a.carousel-control.left{
+        left:0px;
+    }
+    a.carousel-control.right{
+        right:0px;
+    }
+    .carousel-caption .inner{
+        max-height:150px;
+        padding:30px 20px 20px 20px;
+    }
+    .carousel-caption{
+        width:45%;
+    } 
+}
+
+@media only screen and (min-width : 320px) and (max-width : 479px){
+    a.carousel-control.left{
+        left:0px;
+    }
+    a.carousel-control.right{
+        right:0px;
+    }
+}

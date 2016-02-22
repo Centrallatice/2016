@@ -1,0 +1,60 @@
+<div class="row">
+    <div class="col-xs-12">
+        <section class="panel">
+            <header class="panel-heading">
+                <span class="title">Gestion des Coordonnées</span>
+            </header>
+            <div class="panel-body panel-action">
+                <div class="col-xs-12">
+                    <form class="addCat-form" novalidate role="form">
+                        <div class="form-group">
+                            <label for="nom">Nom</label>
+                            <input type="text" class="form-control" ng-model='Coordonnees.nom' id="nom">
+                        </div>
+                        <div class="form-group">
+                            <label for="adresse">Adresse</label>
+                            <input type="text" class="form-control" ng-model='Coordonnees.adresse' id="adresse">
+                        </div>
+                        <div class="form-group">
+                            <label for="cp">Code Postal</label>
+                            <input type="text" class="form-control" ng-model='Coordonnees.cp' id="cp">
+                        </div>
+                        <div class="form-group">
+                            <label for="ville">Ville</label>
+                            <input type="text" class="form-control" ng-model='Coordonnees.ville' id="ville">
+                        </div>
+                        <div class="form-group">
+                            <label for="tel">Téléphone</label>
+                            <input type="text" class="form-control" ng-model='Coordonnees.tel' id="tel">
+                        </div>
+                        <div class="form-group">
+                            <label for="fax">Fax</label>
+                            <input type="text" class="form-control" maxlength="20" ng-model='Coordonnees.fax' id="fax">
+                        </div>
+                        <div class="form-group">
+                            <label for="mail">Mail</label>
+                            <input type="text" class="form-control" maxlength="20" ng-model='Coordonnees.mail' id="mail">
+                        </div>
+                        <div class="form-group">
+                            <label for="horaires">Bloc Horaires</label>
+                            <textarea class="form-control" rows="5" ng-model='Coordonnees.horaires' id="horaires"></textarea>
+                        </div>
+                        
+                        
+                        <div class="text-center block-center">
+                            <button type="submit" class="btn btn-success" ng-click='updateCoord(Coordonnees)'>
+                                Modifier les coordonnées
+                            </button>
+                        </div>
+                    </form>
+                <hr />
+                </div>
+            </div>
+            <div class="panel-body" ng-show="coordsError!==null">
+                <div class="col-xs-12">
+                    {{ coordsError }}
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

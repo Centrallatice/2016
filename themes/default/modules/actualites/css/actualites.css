@@ -1,0 +1,76 @@
+.actualites-center .owl-theme .owl-controls .owl-pagination{
+    position:absolute;
+    top:-35px;
+    right:10px;
+}
+.actualites-center .owl-theme .owl-controls .owl-page span{
+    background:#cdcdcd;
+    margin: 5px 4px;
+}
+
+.actualites-center .owl-theme .owl-controls .owl-page.active span{
+    background:#9200ab;
+}
+
+.actualites-center{
+    background-color: #fcfafb;
+    padding:5px 20px 0px 20px;
+    margin-top:50px;
+    border:1px solid #ebebeb;
+    -moz-box-shadow: 1px 2px 10px 5px #cfcfcf;
+    -webkit-box-shadow: 1px 2px 10px 5px #cfcfcf;
+    -o-box-shadow: 1px 2px 10px 5px #cfcfcf;
+    box-shadow: 1px 2px 10px 5px #cfcfcf;
+    filter:progid:DXImageTransform.Microsoft.Shadow(color=#cfcfcf, Direction=153, Strength=10);
+}
+.actualites-center h1{
+    color:#2c2c2c;
+    font-size:32px;
+    text-transform: uppercase;
+    font-family: 'Lato', sans-serif;
+    font-weight:900;
+    letter-spacing:-1px;
+}
+.actualites-center .blocActualite.borderLeft{
+    background:url('../img/pxgrey.jpg')  top left repeat-y;
+}
+.actualites-center .blocActualite .triangle{
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 20px 20px 0 20px;
+    margin:auto;
+}
+.actualites-center .blocActualite .detailActualite .media-heading{
+    text-transform: uppercase;
+    font-family: 'Lato', sans-serif;
+    letter-spacing:-1px;
+    font-weight:900;
+}
+.actualites-center .blocActualite .detailActualite .resumeActivite{
+    font-size:12px;
+    text-align: justify;
+}
+.actualites-center .blocActualite .detailActualite .readmoreActu{
+    padding:2px 0;
+    margin:10px 0 25px 0;
+    border-top:1px dashed black;
+    border-bottom:1px dashed black;
+    font-size: 12px;
+}
+.actualites-center .triangle-top{
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 15px 17px 15px;
+    border-color: transparent transparent #242424 transparent;
+    margin:auto;
+}
+.triangle-bottom-actu{
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 17px 15px 0 15px;
+    border-color: #242424 transparent transparent transparent;
+    margin:auto;
+}

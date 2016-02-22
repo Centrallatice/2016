@@ -1,0 +1,28 @@
+<header class="header">
+    <a ng-href="#/" class="logo">Administration</a>
+    <nav class="navbar navbar-static-top" role="navigation">
+        <div class="navbar-right">
+            <ul class="nav navbar-nav">
+                <li class="dropdown user user-menu" uib-dropdown>
+                    <a href="#" class="dropdown-toggle" uib-dropdown-toggle>
+                        <i class="fa fa-user"></i>
+                        <span>  {{ userData.username }}  <i class="caret"></i></span>
+                    </a>
+                    <ul uib-dropdown-menu class="dropdown-menu dropdown-custom dropdown-menu-right">
+                        <li class="dropdown-header text-center">Mon compte</li>
+                        <li>
+                            <a ng-href="#/user/setting">
+                                <i class="fa fa-user fa-fw pull-right"></i>
+                                Mon Profil
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="" ng-click="logout()"><i class="fa fa-ban fa-fw pull-right"></i> Déconnexion</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>

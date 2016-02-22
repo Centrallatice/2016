@@ -1,0 +1,21 @@
+{% if headerModule.documents|length>0 %}
+    <div class="blocDownload">
+        <div id='titreDownload'>Télécharger</div>
+        {% for document in headerModule.documents %}
+            <div class="docDownload">
+                <div class="docDownloadlink">
+                    <a href="{{BASEURL}}public/upload/modules/blocDownload/pdf/{{document.pdf}}" target="_blank"><img src="{{BASEURL}}public/upload/modules/blocDownload/picture/{{document.image}}" border="0" class="img img-responsive thumbnail"></a>
+                </div>
+                <div class="description">
+                    <p class="docTitre">{{document.titre}}</p>
+                    <p class="docSSTitre">{{document.sstitre}}</p>
+                    <p class="docIntitule">{{document.intitule}}</p>
+                    <p class="docDownloadLink"><a href="{{BASEURL}}public/upload/modules/blocDownload/pdf/{{document.pdf}}" target="_blank"><span class="white">></span> Visualiser et Télécharger ce document</a></p>
+                </div>
+            </div>
+            {% if loop.index<headerModule.documents|length %}
+                <div class="pointilleRose"></div>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endif %}

@@ -1,0 +1,143 @@
+body:not(.modal-open) .pixel-when-modal{
+    top: 0;
+    left: 0;
+    height: 0px
+    width: 0px;
+    display:none;
+}
+body.modal-open .pixel-when-modal{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0.7;
+    z-index: 800;
+    background-color: #000000;
+}
+.blocHeader{
+  
+    box-shadow: 0 10px 4px -4px #272727;
+    background-color:white;
+    margin-left: -60px;
+    margin-right: -60px;
+    padding: 0 60px 25px 60px;
+    z-index: 50;
+    position:relative;
+}
+.bloc-maincontainer{
+    position:relative;
+    margin-left: -60px;
+    margin-right: -60px;
+    z-index: 0;
+    padding: 0 60px 25px 60px;
+}
+.fa-spin{
+    margin-left:5px
+}
+.nopaddingtop{
+    padding-top:0;
+}
+.rowlogoflash{
+    padding-top:5px;
+}
+.decotopsite{
+    background: url('../img/cadrecouleur-haut.jpg') top left repeat-x;
+    width:100%;
+    height:9px
+}
+.panel-flashinfo{
+    font-family: "Roboto";
+    margin-top:20px;
+}
+.panel-flashinfo .panel-heading{
+    padding:5px 5px 12px 10px;
+    font-size:11px;
+    background-image: none;
+    background-color:#73013f;
+    color:#fee800;
+    font-weight: bold;
+    width:65%;
+    border-radius: 10px 10px 0 0;
+}
+.panel-flashinfo .panel-body{
+    background-image: none;
+    background-color:#e2007a;
+    border-radius: 10px;
+    margin-top:-10px;
+    padding:10px 10px 5px 10px;
+}
+.panel-flashinfo .panel-body P.contentFlashInfo{
+    height:48px;
+    overflow: hidden;
+    color:white;
+    font-size:11px;
+    text-align: justify;
+    margin: 0;
+}
+.panel-flashinfo .readmore{
+    color:#02b1fa;
+    font-size:11px;
+}
+.blocrecherche{
+    margin-top:50px;
+}
+.blocrecherche .input-group-addon{
+    padding: 3px 6px;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 1;
+    text-align: center;
+    background-color: #d1d1d1;
+    border: none;
+    border-radius: 0 10px 10px 0;
+}
+.blocrecherche .form-control{
+    padding: 3px 4px 3px 10px;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 1;
+    text-align: left;
+    background-color: #d1d1d1;
+    border: none;
+    border-radius: 10px 0 0 10px ;
+}
+.nopaddding{
+    padding:0;
+}
+.separight{
+    height:1px;
+    margin:20px 0;
+    width:100%;
+    float:left;
+    background: grey;
+}
+.containerFB{
+    float:left;
+    width:100%;
+}
+.fb-page, 
+.fb-page span, 
+.fb-page span iframe[style] { 
+    width: 100% !important; 
+}
+.bloc404{
+    border-radius: 10px;
+    background:white;
+    text-align:center;
+}
+.bloc404 .oups{
+    width:300px;
+    height:300px;
+    line-height: 300px;
+    margin:40px auto;
+    color:white;
+    background-color:orange;
+    font-size:4em;
+    border-radius:100%;
+}
+@media only screen and (min-width : 1400px) {
+    .container-fluid{
+        width:1370px;
+    }
+}

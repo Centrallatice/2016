@@ -1,0 +1,14 @@
+<div class="blocAgendas">
+    <div id="titreAgendas">Agenda</div>
+    <div id="contentAgendas">
+        {% for evenement in agendas %}
+            <div class="slide">
+                <div id="titreAgenda">{{evenement.CatNom}}</div>
+                <div id="dateAgenda">{{evenement.dateEvenementFR}}</div>
+                <div id="contentAgenda">{{evenement.resume}}</div>
+            </div>
+        {% endfor %}
+    </div>
+    <div id="moreagenda"><a href='{{BASEURL}}agenda'>> Voir tout l'agenda</a></div>
+</div>
+<div class="footerTriangle"></div>

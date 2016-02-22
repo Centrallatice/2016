@@ -1,0 +1,66 @@
+<div class="row">
+    <div class="col-xs-12">
+        <section class="panel">
+            <header class="panel-heading">
+                <span class="title">Créer un événement</span>
+                <div class="pull-right">
+                    <a class="btn btn-success btn-sm" href="#/agenda/lists" role="button"><i class="fa fa-arrow-left"></i> Annuler</a>
+                </div>                
+            </header>
+            <div class="panel-body panel-action">
+                <div class="col-xs-12">
+                    <form class="addCat-form" novalidate role="form">
+					
+                        <div class="form-group" ng-class="{'has-error':controleChamp.titre}">
+                            <label for="titre">Titre</label>
+                            <input type="text" class="form-control" ng-model='newEvenement.titre' id="titre" aria-describedby="helpBlockTitre">
+                            <span id="helpBlockTitre" class="help-block" ng-show="controleChamp.titre">Ce champ est obligatoire.</span>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error':controleChamp.dateEvenement}">
+                            <label for="dateEvenement">Date</label>
+                            <p class="input-group">
+                                <input uib-datepicker-popup="dd/MM/yyyy" ng-focus="open($event)" ng-model="newEvenement.dateEvenement" is-open="opened" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" type="text" class="form-control" ng-model='newEvenement.dateEvenement' id="titre" aria-describedby="helpBlockDateEvenement">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                </span>
+                            </p>
+                            <span id="helpBlockDateEvenement" class="help-block" ng-show="controleChamp.dateEvenement">Ce champ est obligatoire.</span>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error':controleChamp.idCategorie}" ng-if="categoriesError==null">
+                            <label for="idCategorie">Catégorie</label>
+                            <select class="form-control" ng-model='newEvenement.idCategorie' id="idCategorie" aria-describedby="helpBlockCat" ng-options="categorie as categorie.Nom for categorie in listeCategories track by categorie.id "></select>
+                            <span id="helpBlockCat" class="help-block" ng-show="controleChamp.idCategorie">Ce champ est obligatoire.</span>
+                        </div>
+                        
+                        <div class="form-group" ng-class="{'has-error':controleChamp.resume}">
+                            <label for="resume">Résumé</label>
+                            <textarea maxlength="255" class="form-control" ng-model='newEvenement.resume' aria-describedby="helpBlockResume" rows="5"></textarea>
+                            <span id="helpBlockResume" class="help-block" ng-show="controleChamp.resume">Ce champ est obligatoire.</span>
+                        </div>
+			
+                        <div class="form-group" ng-class="{'has-error':controleChamp.contenu}">
+                            <label for="contenu">Contenu</label>
+                            <textarea cols="30" rows="40"
+                                    ng-model="newEvenement.contenu"
+                                    name="pageBody"
+                                    ckeditor="editorOptions" rows="10" aria-describedby="helpBlockContenu">
+                            </textarea>
+                            <span id="helpBlockContenu" class="help-block" ng-show="controleChamp.contenu">Ce champ est obligatoire.</span>
+                        </div>
+						
+                        <div class="alert alert-danger" ng-if="errorAjoutEvenement!==null">
+                            {{ errorAjoutEvenement }}
+                        </div>
+						
+                        <div class="text-center block-center">
+                            <button type="submit" class="btn btn-success" ng-click='addEvenement(newEvenement)'>
+                               Créer cette événement
+                            </button>
+                            <button class="btn btn-danger" type="button" ng-click='annuleCreation()'>Annuler</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+		</section>
+	</div>
+</div>

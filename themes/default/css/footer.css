@@ -1,0 +1,93 @@
+.blocFooter{
+    background:url('../img/footer/icone-basdepage.png') top center no-repeat;
+    padding-top:129px;
+    min-height:129px;
+}
+.rowbreadcrumb{
+    color:white;
+    background-color: #202e3b
+}
+.breadcrumb a{ color:white;}
+.breadcrumb {
+    font-family: 'Roboto',sans-serif;
+    padding: 3px 0px;
+    margin-bottom: 0px;
+    list-style: none;
+    background-color: #202e3b;
+    border-radius: 0px;
+}
+.rowcontent{
+    color:white;
+    background-color: #2a3b4d;
+    padding-bottom:15px;
+}
+.rowcontent h5{
+    font-family: 'Roboto',sans-serif;
+    color:white;
+    font-weight: 700;
+    font-size:18px;
+}
+.rowcontent .titreHoraire{
+    color:#0ae6fe;
+    font-family: 'Roboto',sans-serif;
+    padding:0;
+    font-weight: 700;
+    margin:0;
+}
+.rowcontent .titrePlan,.rowcontent .titreGMAP{
+    color:#0ae6fe;
+    padding:0;
+    margin:0;
+    font-family: 'Roboto',sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+}
+.rowcontent .contentPlan{
+    padding-bottom:20px;
+}
+.rowcontent .contentPlan ul{
+    list-style-type: none;
+    margin:0 0 0 10px;
+    font-family: 'Roboto',sans-serif;
+    padding:0;
+}
+.rowcontent .contentHoraire{
+    font-size: 12px;
+    line-height:22px;
+     margin-top:10px;
+}
+.rowcontent .contentHoraire.DetailHoraires{
+    margin-top:10px;
+    line-height:18px;
+}
+.rowcontent .contentHoraire.DetailHoraires a{
+    color:white;
+}
+.rowcontent .contentHoraire p{
+    margin:0;
+}
+.Sociaux a{
+    margin-top:10px;
+    margin-left:10px;
+}
+.inscriptionNL{
+    margin:auto;
+    width:80%;
+}
+.inscriptionNL .input-group-addon{
+    padding:0;
+    border:none;
+    border-radius: 30px;
+}
+.inscriptionNL,.inscriptionNL input{
+    background:#202e3b;
+    border:none;
+    border-radius: 30px;
+    
+}
+.inscriptionNL .btn{
+    background:#202e3b;
+    color:#598a5b;
+    border-radius: 30px;
+    border:2px solid #598a5b;
+}

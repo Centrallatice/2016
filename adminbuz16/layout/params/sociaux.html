@@ -1,0 +1,40 @@
+<div class="row">
+    <div class="col-xs-12">
+        <section class="panel">
+            <header class="panel-heading">
+                <span class="title">Gestion des réseaux sociaux</span>
+            </header>
+            
+            <div class="panel-body" ng-show="sociauxError===null">
+                <table class="table table-hover table-responsive">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Nom</th>
+                            <th>Lien</th>
+                            <th>Texte du lien</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="(item,value) in Sociaux">
+                            <td>{{value.id}}</td>
+                            <td>{{value.nom}}</td>
+                            <td><input type="text" class="form-control"  ng-model="value.lien"></td>
+                            <td><input type="text" class="form-control"  ng-model="value.texte"></td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4" class="text-center">
+                                <button class="btn btn-success" ng-click="updateSoc()">Erengistrer</button>
+                            </td>    
+                        </tr>
+                    </tfoot>
+                </table>
+                <div class="col-xs-12" ng-if="sociauxError!==null">
+                    {{ sociauxError }}
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

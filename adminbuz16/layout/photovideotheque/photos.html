@@ -1,0 +1,126 @@
+<div class="row">
+    <div class="col-xs-12">
+        <section class="panel">
+            <header class="panel-heading">
+                <span class="title">Gestion de votre photothèque</span>
+                <div class="pull-right">
+                    <a class="btn btn-success btn-sm" ng-click="collapseAddCat = !collapseAddCat" role="button"><i class="fa fa-plus"></i> Créer une catégorie</a>
+                </div>                
+            </header>
+            <div class="panel-body panel-action" uib-collapse="collapseAddCat">
+                <div class="col-xs-12">
+                    <form class="addCat-form" novalidate role="form">
+                        <div class="form-group" ng-class="{'has-error':errorTitre}">
+                            <label for="name">Nom de la catégorie</label>
+                            <input type="text" class="form-control" ng-model='newCategorie.nom' id="name" aria-describedby="helpBlockTitre">
+                            <span id="helpBlockTitre" class="help-block" ng-show="errorTitre">Ce champ est obligatoire.</span>
+                        </div>
+                    </form>
+                    <div class="text-center block-center">
+                        <button type="submit" class="btn btn-success" ng-click='addCategorie(newCategorie)'>
+                            <span ng-if="!newCategorie.toChange">Créer cette catégorie</span>
+                            <span ng-if="newCategorie.toChange">Modifier cette catégorie</span>
+                        </button>
+
+                        <button ng-if="newCategorie.toChange" class="btn btn-danger" type="button" ng-click='annuleModification()'>Annuler</button>
+                    </div>
+                <hr />
+                </div>
+            </div>
+            <div class="panel-body" ng-show="categoriesError===null && listeCategories.length>0">
+                <table class="table table-hover table-responsive">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Répertoire</th>
+                            <th>Nombre d'éléments</th>
+                            <th width='80px' class="text-center">Modifier</th>
+                            <th width='80px' class="text-center">Supprimer</th>
+                            <th width='80px' class="text-center">Gérer</th>
+                        </tr>
+                    </thead>
+                    <tbody >
+                        <tr ng-repeat="(item,value) in listeCategories | filter:filtreCategorie">
+                            <td>{{value.Nom}}</td>
+                            <td>{{value.Repertoire}}</td>
+                            <td>{{value.NbrTotal}}</td>
+                            <td class="text-center">
+                                <button class='btn btn-sm btn-info' title='Modifier' ng-click='updateCategorie(value)'>
+                                    <i class='fa fa-pencil-square-o'></i>
+                                </button>
+                            </td>
+                            <td class="text-center">
+                                <button class='btn btn-sm btn-danger' title='Supprimer' ng-click='deleteCategorie(value)'>
+                                    <i class='fa fa-times'></i>
+                                </button>
+                            </td>
+                            <td class="text-center">
+                                <button class='btn btn-sm btn-default' title='Gérer les images' ng-click='picturesCategorie(value)'>
+                                    <i class='fa fa-files-o'></i>
+                                </button>
+                            </td>
+                        </tr>
+                </table>
+            </div>
+			<div class="panel-body" ng-show="categoriesError!==null || listeCategories.length==0">
+                <div class="col-xs-12 alert alert-danger" ng-show="categoriesError!==null">
+                    {{ categoriesError }}
+                </div>
+                <div class="col-xs-12 alert alert-warning" ng-show="categoriesError===null && listeCategories.length==0">
+                    Vous n'avez créé aucune catégorie
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+		
+<div class="row" uib-collapse="collapseAddPhotos">
+    <div class="col-xs-12">
+        <section class="panel">
+            <header class="panel-heading">
+                <span class="title">Gestion des photos de la catégorie {{pictureCatParent.nom}}</span>
+                <div class="pull-right">
+                    <a class="btn btn-success btn-sm" ng-click="collapseAddPicture = !collapseAddPicture" role="button"><i class="fa fa-plus"></i> Ajouter des photos</a>
+                </div>                
+            </header>
+            
+                <div class="panel-body panel-action" uib-collapse="collapseAddPicture">
+                        <div class="col-xs-4">
+                            <h4>Ajouter de nouvelles images <br />(1MB maximum)</h4>
+                                <button ngf-select="uploadFiles($files, $invalidFiles)" class="btn btn-info" multiple accept="image/*" ngf-max-height="1000" ngf-max-size="1MB"><i class='fa fa-files-o'></i> Choisir les images</button>
+                        </div>
+                        <div class="col-xs-6">
+                            <div ng-show="files.length>0">
+                                <div class="progress" ng-repeat="f in files">
+                                    <div 
+                                        class="progress-bar" 
+                                        ng-class="{'progress-bar-danger':f.progress<35,'progress-bar-info':f.progress>=35 && f.progress<100,'progress-bar-success':f.progress==100}"
+                                        role="progressbar" aria-valuenow="{{f.progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{f.progress}}%">
+                                        {{f.name}} {{f.$errorParam}}
+                                        <span class="sr-only">{{f.progress}}% Complete</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="panel-body panel-list-pictures">
+                    <div class="col-xs-12">
+                        <div ng-repeat="(item,value) in pictureCatParent.pictures" class="col-xs-3 containerPicture">		
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                      {{value.filename}}
+                                      <button ng-click="deletePicture(value)" class="close"><span aria-hidden="true">&times;</span></button>
+                                </div>
+                                <div class="panel-body">
+                                    <a ng-click="openLightboxModal($index)" class="thumbnail">
+                                        <img ng-src="{{basePathRep}}/{{value.rep}}/{{value.filename}}">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+        </section>
+    </div>
+</div>

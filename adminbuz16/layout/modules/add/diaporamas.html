@@ -1,0 +1,165 @@
+<div class="row">
+    <div class="col-xs-12">
+        <section class="panel">
+            <header class="panel-heading">
+                <span class="title">Gestion des modules "Diaporama"</span>
+                <div class="pull-right">
+                    <a class="btn btn-success btn-sm" ng-click="collapseAddDiaporama = !collapseAddDiaporama" role="button"><i class="fa fa-plus"></i> Créer un nouveau diaporama</a>
+                </div>                
+            </header>
+            <br />
+            
+            <div class="panel-body panel-action" uib-collapse="collapseAddDiaporama">
+                <div class="col-xs-12">
+                    <form class="addCat-form" novalidate role="form">
+			<div class="form-group" ng-class="{'has-error':controleChamp.Nom}">
+                            <label for="Nom">Nom</label>
+                            <input type="text" class="form-control" ng-model='newDiaporama.nom' id="Nom" aria-describedby="helpBlockNom">
+                            <span id="helpBlockNom" class="help-block" ng-show="controleChamp.Nom">Ce champ est obligatoire.</span>
+                        </div>
+
+                        <div class="form-group" ng-class="{'has-error':controleChamp.Page}">
+                            <label for="page">Page associée</label>
+                            <span class="label label-danger" ng-if="pageError!=null">{{pageError}}</span>
+                            <select ng-if="pageError===null" class="form-control" ng-model='newDiaporama.idPage' id="parent" ng-options="page as page.Nom for page in listePages | orderBy:'Nom' track by page.id " aria-describedby="helpBlockPage"></select>
+                            <span id="helpBlockPage" class="help-block" ng-show="controleChamp.Page">Ce champ est obligatoire.</span>
+                        </div>
+
+                        <div class="form-group" ng-class="{'has-error':controleChamp.Position}">
+                            <label for="position">Position du diaporama</label>
+                            <select class="form-control" ng-model='newDiaporama.position' name="position" id="position" aria-describedby="helpBlockPosition">
+                                    <option value="HEADER">Entête de page</option>
+                                    <option value="BOTTOM_HEADER">Sous entête de page</option>
+                                    <option value="COL_LEFT_ONE">Colonne de Gauche position 1</option>
+                                    <option value="COL_LEFT_TWO">Colonne de Gauche position 2</option>
+                                    <option value="COL_RIGHT_ONE">Colonne de Droite position 1</option>
+                                    <option value="COL_RIGHT_TWO">Colonne de Droite position 2</option>
+                            </select>
+                            <span id="helpBlockPosition" class="help-block" ng-show="controleChamp.Type">Ce champ est obligatoire.</span>
+                        </div>
+                        
+                        <div class="alert alert-danger" ng-if="errorAddDiaporama!==null">
+                            {{ errorAddDiaporama }}
+                        </div>
+                        
+                        <div class="text-center block-center">
+                            <button type="submit" class="btn btn-success" ng-click='addDiaporama(newDiaporama)'>
+                                <span ng-if="newDiaporama.toChange">Modifier ce diaporama</span>
+                                <span ng-if="!newDiaporama.toChange">Créer ce diaporama</span>
+                            </button>
+
+                            <button ng-if="newDiaporama.toChange" class="btn btn-danger" type="button" ng-click='annuleModification()'>Annuler</button>
+                        </div>
+                    </form>
+                <hr />
+                </div>
+            </div>
+            <hr />
+            <br /><br />
+            <div class='row' ng-if="listeModulesDiapo.length>0">
+                <div class='col-xs-4 col-xs-offset-8'>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">Rechercher</span>
+                        <input type="text" class="form-control" ng-model='filtreDiaporama' aria-describedby="basic-addon1">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="panel-body" ng-show="diaporamaError===null && listeModulesDiapo.length>0">
+                <table class="table table-hover table-responsive">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Nom</th>
+                            <th>Type</th>
+                            <th>page</th>
+                            <th width='80px'>Supprimer</th>
+                            <th width='80px'>Configurer</th>
+                        </tr>
+                    </thead>
+                    <tbody >
+                        <tr ng-repeat="(item,value) in listeModulesDiapo |filter:filtreDiaporama">
+                            <td>{{value.id}}</td>
+                            <td>{{value.nom}}</td>
+                            <td>{{value.type| uppercase}}</td>
+                            <td>{{value.NomPage}}</td>
+                            <td class="text-center">
+                                <button class='btn btn-sm btn-danger block-center text-center' title='Supprimer' ng-click='deleteDiaporama(value)'>
+                                    <i class='fa fa-times'></i>
+                                </button>
+                            </td>
+                            <td class="text-center">
+                                <button class='btn btn-sm btn-default' title='Gérer les images' ng-click='picturesDiaporama(value)'>
+                                    <i class='fa fa-files-o'></i>
+                                </button>
+                            </td>
+                        </tr>
+                </table>
+            </div>
+            <div class="panel-body" ng-show="diaporamaError!==null || listePages.length==0">
+                <div class="col-xs-12" ng-show="diaporamaError!==null">
+                    {{ diaporamaError }}
+                </div>
+                <div class="col-xs-12 alert alert-warning" ng-show="diaporamaError===null && listePages.length==0">
+                    Vous n'avez créé aucune page
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+
+<div class="row" uib-collapse="collapseAddPhotos">
+    <div class="col-xs-12">
+        <section class="panel modulesDiapos">
+            <header class="panel-heading">
+                <span class="title">Gestion des photos du diaporama "{{pictureDiapo.nom}}"</span>
+                <div class="pull-right">
+                    <a class="btn btn-success btn-sm" ng-click="collapseAddPicture = !collapseAddPicture" role="button"><i class="fa fa-plus"></i> Ajouter des photos</a>
+                </div>                
+            </header>
+            <div class="panel-body panel-action" uib-collapse="collapseAddPicture">
+                <div class="col-xs-12">
+                    <h5>Ajouter une nouvelle image (1MB maximum)</h5>
+                    <input type="file" ng-model="picture.fichier" file-select="data" file-loaded="myLoaded()" file-error="myError($error)" file-progress="myProgress($total,$loaded)" id="iconecat">
+                </div>
+                <hr />
+                <div class="col-xs-12">
+                    <h4>Texte associé à l'image</h4>
+                    <textarea rows="5"
+                            ng-model="picture.contenu"
+                            name="pageBody"
+                            ckeditor="editorOptions" >
+                    </textarea>
+                </div>
+                <div class="col-xs-12 text-center block-center">
+                    <button type="submit" class="btn btn-success" ng-disabled="envoiImageEnCours" ng-click='ValideAddImage(picture)'>
+                        <span ng-if="!envoiImageEnCours">Ajouter cette image</span>
+                        <span ng-if="envoiImageEnCours">Envoi en cours ...</span>
+                    </button>
+                </div>
+            </div>
+            <div class="panel-body panel-action">
+                <div class="col-xs-12">
+                    <h4>Images actuelles</h4>
+                    <div class="col-xs-12 blocDiapoImage" ng-repeat="(i,v) in pictureDiapo.pictures">
+                        <div class="col-xs-8">
+                            <img ng-src="{{ pictureDiapo.rep }}{{ v.imageFile }}" style="max-height: 350px" class="thumbnail img img-responsive">
+                        </div>
+                        <div class="col-xs-4">
+                            <h5>Contenu de la diaporama</h5>
+                            <div ng-bind-html="getHTMLContent(v.Contenu)"></div>
+                        </div>
+                        <div class="col-xs-12 text-center block-center">
+                            
+                            <button type="submit" class="btn btn-danger" ng-click='deleteImageFromDiapo(v)'>
+                                Supprimer cette diapo
+                            </button>
+                        </div>
+                        <hr />
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

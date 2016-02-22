@@ -1,0 +1,50 @@
+<div class="row" style="margin-bottom:5px;" ng-if="homeError===false">
+	<div class="col-md-3">
+		<div class="sm-st clearfix">
+			<span class="sm-st-icon st-red"><i class="fa fa-files-o"></i></span>
+			<div class="sm-st-info">
+                            <span>{{ statsData.NbPages }}</span>
+                            Pages
+			</div>
+		</div>
+	</div>
+	<div class="col-md-3">
+		<div class="sm-st clearfix">
+			<span class="sm-st-icon st-violet"><i class="fa fa-envelope-o"></i></span>
+			<div class="sm-st-info">
+				<span>2200</span>
+				Total Messages
+			</div>
+		</div>
+	</div>
+	<div class="col-md-3">
+		<div class="sm-st clearfix">
+			<span class="sm-st-icon st-blue"><i class="fa fa-dollar"></i></span>
+			<div class="sm-st-info">
+				<span>100,320</span>
+				Total Profit
+			</div>
+		</div>
+	</div>
+	<div class="col-md-3">
+		<div class="sm-st clearfix">
+			<span class="sm-st-icon st-green"><i class="fa fa-paperclip"></i></span>
+			<div class="sm-st-info">
+				<span>4567</span>
+				Total Documents
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row" ng-if="homeError===null">
+    <div class="col-xs-12 text-center">
+        <p><strong>Chargement en cours <strong/></p>
+        <p><img src="ressources/img/loader-wings.gif" class="img"></p>
+    </div>
+</div>
+
+<div class="row" ng-if="homeError===true">
+    <div class="col-xs-12">
+        <div class="alert alert-danger">{{ homeMessage }}</div>
+    </div>
+</div>

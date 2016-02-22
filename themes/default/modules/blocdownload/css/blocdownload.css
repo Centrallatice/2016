@@ -1,0 +1,84 @@
+.blocDownload{
+    border:3px solid #e2007a;
+    padding:10px;
+    margin: 40px 0 0 0;
+}
+.blocDownload #titreDownload{
+    background:url('../img/cadre-telechargement.png') center left no-repeat;
+    height:51px;
+    line-height: 51px;
+    vertical-align: middle;
+    color:black;
+    font-weight:bold;
+    font-size: 24px;
+    color:black;
+    padding-left:55px;
+    font-family: 'Lato', sans-serif;
+    margin-bottom:10px;
+}
+.docDownload{
+    position:relative;
+}
+.docDownload p.docTitre{
+    color:#fee100;
+    text-transform: uppercase;
+    font-family: 'Lato', sans-serif;
+    margin:0;
+    font-weight:700;
+    font-size: 12px;
+    padding:0 5px;
+}
+.docDownload p.docSSTitre{
+    color:#0c225c;
+    text-transform: uppercase;
+    font-family: 'Lato', sans-serif;
+    margin:0;
+    font-weight:700;
+    padding:0 5px;
+    font-size: 12px;
+}
+.docDownload p.docIntitule{
+    color:white;
+    font-family: 'Lato', sans-serif;
+    margin:0;
+    padding:0 5px;
+    font-size: 12px;
+}
+.docDownload p.docDownloadLink{
+    color:#fee100;
+    font-family: 'Lato', sans-serif;
+    margin:0;
+    font-size: 12px;
+    background-color:#131313;
+}
+.docDownload p.docDownloadLink .white{
+    color:white;
+}
+.docDownload .thumbnail{
+    margin-bottom:10px;
+}
+.docDownload p.docDownloadLink a{
+    color:#fee100;
+    background:url('../img/petiteloupe.png') 3px center no-repeat;
+    min-height:28px;
+    padding:3px 5px 3px 25px;
+    display:block;
+    margin-bottom:5px;
+    margin-top:5px;
+}
+.pointilleRose{
+    background:url('../img/pointille-rose.png') center center no-repeat;
+    height:3px;
+    margin:8px 0;
+}
+.docDownloadlink{
+    position:relative;
+    z-index: 0;
+}
+.blocDownload .description{
+    margin:0px 5px 5px 5px;
+    background-color:#e2017b;
+    position:absolute;
+    bottom:0;
+    padding:0;
+}

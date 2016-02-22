@@ -1,0 +1,106 @@
+<div class="row">
+    <div class="col-xs-12">
+        <section class="panel">
+            <header class="panel-heading">
+                <span class="title">Gestion des Flashs d'Informations de votre site</span>
+                <div class="pull-right">
+                    <a class="btn btn-success btn-sm" ng-click="collapseAddFlashs = !collapseAddFlashs" role="button"><i class="fa fa-plus"></i> Créer une nouvelle information</a>
+                </div>                
+            </header>
+            <br />
+            <div class='row'>
+                <div class='col-xs-4 col-xs-offset-8'>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">Rechercher</span>
+                        <input type="text" class="form-control" ng-model='filtreFlashs' aria-describedby="basic-addon1">
+                    </div>
+                </div>
+            </div>
+            <br />
+            <br />
+            <div class="panel-body panel-action" uib-collapse="collapseAddFlashs">
+                <div class="col-xs-12">
+                    <form class="addCat-form" novalidate role="form">
+					
+                        <div class="form-group" ng-class="{'has-error':controleChamp.titre}">
+                            <label for="title">Titre</label>
+                            <input type="text" class="form-control" ng-model='newFlash.titre' id="title" aria-describedby="helpBlockTitre">
+                            <span id="helpBlockTitre" class="help-block" ng-show="controleChamp.titre">Ce champ est obligatoire.</span>
+                        </div>
+                        
+                        <div class="form-group" ng-class="{'has-error':controleChamp.resume}">
+                            <label for="desc">Résumé</label>
+                            <textarea class="form-control" maxlength="255" rows="3" ng-model='newFlash.resume' id="desc" aria-describedby="helpBlockResume"></textarea>
+                            <span id="helpBlockResume" class="help-block" ng-show="controleChamp.resume">Ce champ est obligatoire.</span>
+                        </div>
+                        
+                        <div class="form-group" ng-class="{'has-error':controleChamp.contenu}">
+                            <label for="contenu">Contenu du mail envoyé </label>
+                            <textarea cols="30" rows="40"
+                                ng-model="newFlash.contenu"
+                                name="pageBody"
+                                ckeditor="editorOptions" rows="10" aria-describedby="helpBlockContenu">
+                            </textarea>
+                            <span id="helpBlockContenu" class="help-block" ng-show="controleChamp.contenu">Ce champ est obligatoire.</span>
+                        </div>
+
+                        
+                        <div class="alert alert-danger" ng-if="flashsErrorAdd!==null">
+                            {{ flashsErrorAdd }}
+                        </div>
+                        <div class="text-center block-center">
+                            <button type="submit" class="btn btn-success" ng-click='addFlash(newFlash)'>
+                                <span ng-if="newFlash.toChange">Modifier cette information</span>
+                                <span ng-if="!newFlash.toChange">Créer cette information</span>
+                            </button>
+
+                            <button ng-if="newFlash.toChange" class="btn btn-danger" type="button" ng-click='annuleModification()'>Annuler</button>
+                        </div>
+                    </form>
+                <hr />
+                </div>
+            </div>
+            
+            <div class="panel-body" ng-show="flashsError===null && listeFlashs.length>0">
+                <table class="table table-hover table-responsive">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Titre</th>
+                            <th>Resumé</th>
+                            <th>Date</th>
+                            <th width='80px'>Editer</th>
+                            <th width='80px'>Supprimer</th>
+                        </tr>
+                    </thead>
+                    <tbody >
+                        <tr ng-repeat="(item,value) in listeFlashs |filter:filtreFlashs">
+                            <td>{{value.id}}</td>
+                            <td>{{value.titre}}</td>
+                            <td>{{value.resume}}</td>
+                            <td>{{value.dateAjout}}</td>
+                            <td class="text-center">
+                                <button class='btn btn-sm btn-info' title='Modifier' ng-click='updateFlash(value)'>
+                                    <i class='fa fa-pencil-square-o'></i>
+                                </button>
+                            </td>
+                            <td class="text-center">
+                                <button class='btn btn-sm btn-danger block-center text-center' title='Supprimer' ng-click='deleteFlash(value)'>
+                                    <i class='fa fa-times'></i>
+                                </button>
+                            </td>
+                            
+                        </tr>
+                </table>
+            </div>
+            <div class="panel-body" ng-show="flashsError!==null || listePages.length==0">
+                <div class="col-xs-12" ng-show="flashsError!==null">
+                    {{ flashsError }}
+                </div>
+                <div class="col-xs-12 alert alert-warning" ng-show="flashsError===null && listePages.length==0">
+                    Vous n'avez créé aucune page
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

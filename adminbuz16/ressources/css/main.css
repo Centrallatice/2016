@@ -1,0 +1,76 @@
+.notfound{
+	background:url('../img/404.jpg') no-repeat center;
+	width:800px;
+	height:500px;
+	text-align:center;
+	margin:auto;
+}
+.panel-heading span.title{
+    font-weight: bold;
+    font-family: "Roboto"
+}
+.btn-success:hover, .btn-success:focus,.btn-danger:focus,.btn-danger:hover, .btn-default:focus,.btn-default:hover {
+    background-position: 0 -30px;
+}
+.block-center{
+    margin:auto;
+    display:block;
+}
+.panel-action{
+    background:#f3f3f3;
+    border-bottom:1px solid black;
+    border-top:1px solid black;
+}
+.nopadding{
+    padding: 0
+}
+li.nosub{
+    font-weight: 500;
+    font-size: 14px;
+    font-family: "Roboto"
+}
+.sidebar .sidebar-menu li.nosub a{
+    padding: 10px 5px 5px 20px;
+}
+.sidebar .sidebar-menu li.nosub a span{
+   margin-left:4px
+}
+.skin-black .left-side{
+    border-radius: 0px 0px 20px 0px;
+}
+.panel-group {
+    margin-bottom: 0px;
+}
+.containerPicture{
+	border:1px solid #ebebeb;
+	border-radius:5px;
+	height:250px;
+	margin-top:10px;
+	margin-left:3px;
+	padding:0;
+}
+.panel-list-pictures .col-xs-12{
+	padding:0;
+}
+.panel-list-pictures .col-xs-3{
+	width:24%;
+}
+.containerPicture img{
+	max-height:100px !important;
+}
+.navbar-right {
+    margin-right:0px !important;
+}
+.skin-black .sidebar .panel-body ul{
+    list-style-type: none;
+}
+.skin-black .sidebar .panel-body  a span:not(.ng-binding){
+    margin-left:-3px
+}
+
+.modulesDiapos .blocDiapoImage,.modulesBloc .blocDocs{
+    background-color:white;
+    margin-bottom:25px;
+    padding:10px;
+    border:1px solid #ebebeb;
+}

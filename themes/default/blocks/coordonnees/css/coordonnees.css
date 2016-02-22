@@ -1,0 +1,59 @@
+.blocCoordonnesTR{
+    background:url('../img/cadre-coordonnee.png') top center no-repeat;
+    margin-top:-10px;
+    height:450px;
+    position: relative;
+    background-size: cover;
+}
+.blocCoordonnesTR .content{
+    position: absolute;
+    bottom:35px;
+    padding:0 20px 0 20px;
+    font-family: "Roboto",sans-serif;
+    width:100%;
+    clear: both;
+}
+.blocCoordonnesTR .content p{
+    margin:0;
+    color:white;
+}
+.blocCoordonnesTR .content .titre{
+    font-size: 24px;
+    letter-spacing: -1px;
+}
+.blocCoordonnesTR .content .yellow,.blocCoordonnesTR .content .yellow a{
+    color:#f9ed0d;
+}
+.blocCoordonnesTR .content .brown,.blocCoordonnesTR .content .brown a{
+    color:#be9043;
+}
+.blocCoordonnesTR .content .contact{
+    text-align: center;
+    margin-top:10px;
+    border-top:1px dashed grey;
+    border-bottom:1px dashed grey;
+}
+.blocCoordonnesTR .content .contact a{
+    color:#d3b287;
+}
+@media only screen and (min-width : 1200px){
+    
+}
+@media only screen and (min-width : 979px) and (max-width : 1199px){
+    
+}
+
+@media only screen and (min-width : 767px) and (max-width : 978px){
+    
+}
+
+@media only screen and (min-width : 480px) and (max-width : 766px) {
+    .blocCoordonnesTR .content{
+		bottom:5px;
+		line-height:21px;
+	}
+}
+
+@media only screen and (min-width : 320px) and (max-width : 479px){
+    
+}

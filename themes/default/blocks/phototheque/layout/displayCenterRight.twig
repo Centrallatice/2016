@@ -1,0 +1,15 @@
+<div class="blocPhototheque">
+    <div class="imgClap">
+        <div class="titre">Photo Vidéothèque :</div>
+        <div class="content">
+            <ul>
+                {% for photo in categoriesphotos %}
+                    <li><a href="{{BASEURL}}phototheque/{{photo.id}}">> {{photo.Nom}}</a></li>
+                {% endfor %}
+            </ul>
+            <p class="more"><a href="{{BASEURL}}videotheques">Voir la vidéothèque</a></p>    
+        </div>
+        <div class="triangle"></div>
+    </div>
+</div>
+            

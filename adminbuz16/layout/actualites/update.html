@@ -1,0 +1,71 @@
+<div class="row">
+    <div class="col-xs-12">
+        <section class="panel">
+            <header class="panel-heading">
+                <span class="title">Modification d'une actualité</span>
+                <div class="pull-right">
+                    <a class="btn btn-success btn-sm" href="#/actualites/lists" role="button"><i class="fa fa-arrow-left"></i> Annuler</a>
+                </div>                
+            </header>
+            <div class="panel-body panel-action">
+                <div class="col-xs-12">
+                    <form class="addCat-form" novalidate role="form">
+					
+                        <div class="form-group" ng-class="{'has-error':controleChamp.titre}">
+                            <label for="titre">Titre</label>
+                            <input type="text" class="form-control" ng-model='newActualite.titre' id="titre" aria-describedby="helpBlockTitre">
+                            <span id="helpBlockTitre" class="help-block" ng-show="controleChamp.titre">Ce champ est obligatoire.</span>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error':controleChamp.idCategorie}" ng-if="categoriesError==null">
+                            <label for="idCategorie">Catégorie</label>
+                            <select class="form-control" ng-model='newActualite.idCategorie' id="idCategorie" aria-describedby="helpBlockCat" ng-options="categorie as categorie.Nom for categorie in listeCategories track by categorie.id "></select>
+                            <span id="helpBlockCat" class="help-block" ng-show="controleChamp.idCategorie">Ce champ est obligatoire.</span>
+                        </div>
+                        <div class="row nopadding">
+                            <div class="col-xs-4">
+                                 <div class="form-group">
+                                    <label for="Image">Image</label>
+                                    <input type="file" ng-focus="changeImageSilence()" ng-model="newActualite.newImage" file-select="data" file-loaded="myLoaded()" file-error="myError($error)" file-progress="myProgress($total,$loaded)" id="image">
+                                    <span id="holder"></span>
+                                </div>
+                            </div>
+                            <div class="col-xs-8" ng-show="newActualite.image!==null && newActualite.image!==''">
+                                <label>Image actuelle</label>
+                                <img ng-if="newActualite.image!==null" class="thumbnail img" style='max-width:250px;max-height:250px' ng-src="{{baseImage}}{{newActualite.image}}">
+                                <button class='btn btn-sm btn-danger' title='Supprimer cette image' ng-click='changeImage()'><i class='fa fa-times'></i></button>
+                            </div>
+                        </div>
+                        
+                       
+                        <div class="form-group" ng-class="{'has-error':controleChamp.resume}">
+                            <label for="resume">Résumé</label>
+                            <textarea class="form-control" ng-model='newActualite.resume' aria-describedby="helpBlockResume" rows="5"></textarea>
+                            <span id="helpBlockResume" class="help-block" ng-show="controleChamp.resume">Ce champ est obligatoire.</span>
+                        </div>
+			
+                        <div class="form-group" ng-class="{'has-error':controleChamp.contenu}">
+                            <label for="contenu">Contenu</label>
+                            <textarea cols="30" rows="40"
+                                    ng-model="newActualite.contenu"
+                                    name="contenu"
+                                    id="contenu"
+                                    ckeditor="editorOptions" rows="10" aria-describedby="helpBlockContenu">
+                            </textarea>
+                            <span id="helpBlockContenu" class="help-block" ng-show="controleChamp.contenu">Ce champ est obligatoire.</span>
+                        </div>
+						
+                        <div class="alert alert-danger" ng-if="errorAjoutActu!==null">
+                            {{ errorAjoutActu }}
+                        </div>
+						
+                        <div class="text-center block-center">
+                            <button type="submit" class="btn btn-success" ng-click='updateActualite(newActualite)'>
+                               Modifier cette actualité
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+		</section>
+	</div>
+</div>
