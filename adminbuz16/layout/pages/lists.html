@@ -25,7 +25,11 @@
                             <input type="text" class="form-control" ng-model='newPage.titre' id="title" aria-describedby="helpBlockTitre">
                             <span id="helpBlockTitre" class="help-block" ng-show="controleChamp.titre">Ce champ est obligatoire.</span>
                         </div>
-                        
+                        <div class="form-group" ng-class="{'has-error':controleChamp.lienmenu}">
+                            <label for="lienmenu">Texte du lien de menu</label>
+                            <input type="text" required  class="form-control" ng-model='newPage.lienmenu' id="lienmenu" name="lienmenu">
+                            <span ng-show="controleChamp.lienmenu" class="help-block">Ce champ est obligatoire.</span>
+                        </div>
 			<div class="form-group" ng-class="{'has-error':controleChamp.Nom}">
                             <label for="Nom">Nom</label>
                             <input type="text" ng-change="setURL(newPage.Nom)" class="form-control" ng-model='newPage.Nom' id="Nom" aria-describedby="helpBlockNom">
@@ -106,7 +110,7 @@
                                 </button>
                             </td>
                             <td class="text-center">
-                                <button class='btn btn-sm btn-danger block-center text-center' title='Supprimer' ng-click='deletePage(value)'>
+                                <button class='btn btn-sm btn-danger block-center text-center' title='Supprimer' ng-click='delPage(value)'>
                                     <i class='fa fa-times'></i>
                                 </button>
                             </td>

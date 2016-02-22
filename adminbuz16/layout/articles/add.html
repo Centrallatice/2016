@@ -1,0 +1,98 @@
+<div class="row">
+    <div class="col-xs-12">
+        <section class="panel">
+            <header class="panel-heading">
+                <span class="title">Créer un article</span>
+                <div class="pull-right">
+                    <a class="btn btn-success btn-sm" href="#/article/lists" role="button"><i class="fa fa-arrow-left"></i> Annuler</a>
+                </div>                
+            </header>
+            <div class="panel-body panel-action" ng-show="ready">
+                <div class="col-xs-12">
+                    <form class="addCat-form" name="ajoutArticle" novalidate role="form" >
+					
+                        <div class="form-group" ng-class="{'has-error':ajoutArticle.titre.$error.required}">
+                            <label for="titre">Titre</label>
+                            <input type="text" required  class="form-control" ng-model='newArticle.titre' id="titre" name="titre">
+                            <span ng-show="ajoutArticle.titre.$error.required" class="help-block">Ce champ est obligatoire.</span>
+                        </div>
+                        <div class="row nopadding">
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label for="image">Image associée</label>
+                                    <input type="file" ng-model="newArticle.image" file-select="data"  id="image">
+                                    <span id="holder"></span>
+                               </div>
+                            </div>
+                            <div class="col-xs-6" ng-show="newCategorie.toChange===true && newCategorie.icone!==null">
+                                <img ng-if="newCategorie.icone!==null" ng-src="{{baseIcone}}{{newCategorie.icone}}">
+                                <button class='btn btn-sm btn-defaut' title='Supprimer cette image' ng-click='changeIcone()'><i class='fa fa-times'></i></button>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group" ng-class="{'has-error':ajoutArticle.idCategorie.$error.required}">
+                            <label for="idCategorie">Catégorie</label>
+                            <select class="form-control" required ng-model='newArticle.idCategorie' id="idCategorie" name="idCategorie" ng-options="categorie as categorie.Nom for categorie in listeCategories track by categorie.id "></select>
+                            <span id="helpBlockCat" class="help-block" ng-show="ajoutArticle.idCategorie.$error.required">Ce champ est obligatoire.</span>
+                        </div>
+                        
+                        <div class="form-group" ng-class="{'has-error':ajoutArticle.idPage.$error.required}">
+                            <label for="idPage">Page</label>
+                            <select class="form-control" required ng-model='newArticle.page' id="idPage" name="idPage" aria-describedby="helpBlockPage" ng-options="page as page.Nom for page in listePages track by page.id "></select>
+                            <span id="helpBlockPage" class="help-block" ng-show="ajoutArticle.idPage.$error.required">Ce champ est obligatoire.</span>
+                        </div>
+                        
+                        <div class="form-group" ng-class="{'has-error':ajoutArticle.resume.$error.required}">
+                            <label for="resume">Résumé</label>
+                            <textarea maxlength="255" required class="form-control" name="resume" ng-model='newArticle.resume' aria-describedby="helpBlockResume" rows="5"></textarea>
+                            <span id="helpBlockResume" class="help-block" ng-show="ajoutArticle.resume.$error.required">Ce champ est obligatoire.</span>
+                        </div>
+			
+                        <div class="form-group" ng-class="{'has-error':ajoutArticle.contenu.$error.required}">
+                            <label for="contenu">Contenu</label>
+                            <textarea cols="30" rows="50" required
+                                    ng-model="newArticle.contenu"
+                                    name="contenu"
+                                    ckeditor="editorOptions" 
+                                    aria-describedby="helpBlockContenu">
+                            </textarea>
+                            <span id="helpBlockContenu" class="help-block" ng-show="ajoutArticle.contenu.$error.required">Ce champ est obligatoire.</span>
+                        </div>
+                        <hr /> 
+                        <h4>Référencement</h4>
+                        <div class="form-group" ng-class="{'has-error':ajoutArticle.description.$error.required}">
+                            <label for="description">Description</label>
+                            <textarea maxlength="255" required class="form-control" name="description" ng-model='newArticle.description' aria-describedby="helpBlockDescription" rows="5"></textarea>
+                            <span id="helpBlockDescription" class="help-block" ng-show="ajoutArticle.description.$error.required">Ce champ est obligatoire.</span>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error':ajoutArticle.motsclefs.$error.required}">
+                            <label for="motsclefs">Mots Clés (séparés par virgules)</label>
+                            <input type="text"  required class="form-control" ng-model='newArticle.motsclefs' name="motsclefs" id="titre" aria-describedby="helpBlockKW">
+                            <span id="helpBlockKW" class="help-block" ng-show="ajoutArticle.motsclefs.$error.required">Ce champ est obligatoire.</span>
+                        </div>
+                        <div class="alert alert-danger" ng-if="errorAjoutArticle!==null">
+                            {{ errorAjoutArticle }}
+                        </div>
+                       
+                        <div class="text-center block-center">
+                            <button type="submit" class="btn btn-success" ng-disabled="ajoutArticle.$error.required" ng-click='addArticle()'>
+                               Créer cette article
+                            </button>
+                            <button class="btn btn-danger" type="button" ng-click='annuleCreation()'>Annuler</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="panel-body panel-info" ng-show="!ready">
+                <div class="col-xs-12 text-center">Récupération des éléments en cours ....</div>
+            </div>
+            <div class="panel-body panel-info" ng-show="ready && pagesError!==null">
+                <div class="col-xs-12 text-center alert alert-danger">{{pagesError}}</div>
+            </div>
+            <div class="panel-body panel-info" ng-show="ready && pagesSuccess">
+                <div class="col-xs-12 text-center alert alert-success">L'article a bien été créé !</div>
+            </div>
+	</section>
+    </div>
+</div>
+

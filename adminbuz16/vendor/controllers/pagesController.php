@@ -27,19 +27,20 @@ class pagesController extends \Slim\Middleware{
             $p->setType($body->page->type);
             $p->setIdTheme($body->page->idTheme->id);
             $p->setMotsClefs($body->page->motsclefs);
+            $p->setLienMenu($body->page->lienmenu);
             
             if(isset($body->page->toChange) && $body->page->toChange===true):
-				$url=$p->urlExists($body->page->url,$body->page->id);
-				if($url['success']){
-					if($url['donnees']!=0) $p->setUrl($body->page->url.'-'.$url['donnees']);
-				}
+                $url=$p->urlExists($body->page->url,$body->page->id);
+                if($url['success']){
+                        if($url['donnees']!=0) $p->setUrl($body->page->url.'-'.$url['donnees']);
+                }
                 $p->setId($body->page->id);
                 $result = $p->updatePage();
             else:
-				$url=$p->urlExists($body->page->url,$body->page->id);
-				if($url['success']){
-					if($url['donnees']!=0) $p->setUrl($body->page->url.'-'.$url['donnees']);
-				}
+                $url=$p->urlExists($body->page->url,null);
+                if($url['success']){
+                        if($url['donnees']!=0) $p->setUrl($body->page->url.'-'.$url['donnees']);
+                }
                 $result = $p->addPage();
             endif;
             
@@ -49,6 +50,15 @@ class pagesController extends \Slim\Middleware{
         {
             $this->next->call();
         }
+        
+    function delPage(){ 
+        $request = $this->_request->request();
+        $body = json_decode($request->getBody());
+        $p = new Pages($this->_db);
+        $p->setId($body->page->id);
+        $result=$p->delPage();
+        echo json_encode($result);
+    }   
 }
 
 ?>

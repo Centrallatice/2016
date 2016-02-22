@@ -2,6 +2,7 @@
 use Models\Admin\Phototheque;
 use Models\Admin\Medias;
 use Tools\ImgTools;
+use Tools\StrTools;
 
 class photothequeController extends \Slim\Middleware{
 
@@ -39,7 +40,7 @@ class photothequeController extends \Slim\Middleware{
             $body = json_decode($request->getBody());
             
             $C = new Phototheque($this->_db);
-            $RName = photothequeController::string2url($body->categorie->nom);
+            $RName = StrTools::toAscii($body->categorie->nom);
             $C->setNom($body->categorie->nom);
             $C->setRep($RName);
             
@@ -73,10 +74,25 @@ class photothequeController extends \Slim\Middleware{
             
             $C = new Phototheque($this->_db);
             $C->setId($body->categorie->id);
-            
-            $result = $C->deleteCategorie();
-            echo json_encode($result);   
+            $this->deletePictureDirectory(BASE_PATH_UPLOAD_DIR.'/phototheque/'.$body->categorie->Repertoire.'/minis/');
+//            $this->deletePictureDirectory(BASE_PATH_UPLOAD_DIR.'/phototheque/'.$body->categorie->Repertoire.'/');
+//            $result = $C->deleteCategorie();
+//            echo json_encode($result);   
 	}
+        public  function deletePictureDirectory($Directory){
+        $MyDirectory = opendir($Directory) or die('Erreur');
+            while($Entry = @readdir($MyDirectory)) {
+             if(is_dir($Directory.'/'.$Entry) && $Entry != '.' && $Entry != '..') {
+                echo '<ul>'.$Directory;
+                    deletePictureDirectory($Directory.'/'.$Entry);
+                echo '</ul>';
+             }
+             else if($Entry != '.' && $Entry != '..') {
+              echo '<li>'.$Entry.'</li>';
+             }
+            }
+             closedir($MyDirectory);
+        }
         function deletePicture(){
             $request = $this->_request->request();
             $body = json_decode($request->getBody());
@@ -109,27 +125,31 @@ class photothequeController extends \Slim\Middleware{
 		$C->setNom($body->categorie->nom);
 		
 		
-		$RName = photothequeController::string2url($body->categorie->nom);
+		$RName = StrTools::toAscii($body->categorie->nom);
 		$C->setRep($RName);
 		$TestExiste = $C->repExists($RName,$body->categorie->id);
 		
 		
 		if(!$TestExiste):
-			echo json_encode(array("success"=>false));
+                    echo json_encode(array("success"=>false));
 		else:
-			if($TestExiste['donnees']==0):
-				$result = $C->updateCategorie();
-				if($result['success']):
-					if(!mkdir(BASE_PATH_UPLOAD_DIR.'/phototheque/'.$RName) || !mkdir(BASE_PATH_UPLOAD_DIR.'/phototheque/'.$RName.'/minis/')):
-						echo json_encode(array("success"=>false,"message"=>"Une erreur est survenue lors de la création des dossiers :".$RName));
-					else:
-						echo json_encode($result);
-					endif;
-				endif;
-			   
-			else:
-				echo json_encode(array("success"=>false,"message"=>"Un répertoire porte déja ce nom, merci de modifier le nom de la catégorie"));
-			endif;
+                    if($TestExiste['donnees']==0):
+                            $result = $C->updateCategorie();
+                            if($result['success']):
+                                if(!is_dir(BASE_PATH_UPLOAD_DIR.'/phototheque/'.$RName)):
+                                    if(!mkdir(BASE_PATH_UPLOAD_DIR.'/phototheque/'.$RName) || !mkdir(BASE_PATH_UPLOAD_DIR.'/phototheque/'.$RName.'/minis/')):
+                                            echo json_encode(array("success"=>false,"message"=>"Une erreur est survenue lors de la création des dossiers :".$RName));
+                                    else:
+                                            echo json_encode($result);
+                                    endif;
+                                else:
+                                    echo json_encode($result);
+                                endif;
+                            endif;
+
+                    else:
+                            echo json_encode(array("success"=>false,"message"=>"Un répertoire porte déja ce nom, merci de modifier le nom de la catégorie"));
+                    endif;
 		endif;
             
             
@@ -143,6 +163,9 @@ class photothequeController extends \Slim\Middleware{
             $destination = BASE_PATH_UPLOAD_DIR.'/phototheque/'.$datas['p']['Repertoire'].'/'.$finalName.$extension;
 
             $error=false;
+            
+            
+            
             if(move_uploaded_file( $_FILES['file']['tmp_name'] , $destination )):
                 $Medias=new Medias($this->_db);
                 $Medias->setFilename($finalName.$extension);
@@ -150,6 +173,10 @@ class photothequeController extends \Slim\Middleware{
                 $Medias->setidLiaison($datas['p']['id']);
                 $Medias->setType("photos");
                 $resAdded = $Medias->addMedia();
+                
+                ImgTools::smart_resize_image(BASE_PATH_UPLOAD_DIR.'/phototheque/'.$datas['p']['Repertoire'].'/'.$finalName.$extension,null,300,300,true,BASE_PATH_UPLOAD_DIR.'/phototheque/'.$datas['p']['Repertoire'].'/minis/'.$finalName.$extension,false,false,100);
+                
+                
                 if(!$resAdded['success']):
                     unlink(BASE_PATH_UPLOAD_DIR.'/phototheque/'.$datas['p']['Repertoire'].'/'.$finalName.$extension);
                 endif;
@@ -158,12 +185,7 @@ class photothequeController extends \Slim\Middleware{
                 $error=true;
             endif;
 	}
-	
-	static function  string2url($chaine) {
-            $search = array ('@[éèêëÊË]@i','@[àâäÂÄ]@i','@[îïÎÏ]@i','@[ûùüÛÜ]@i','@[ôöÔÖ]@i','@[ç]@i','@[ ]@i','@[^a-zA-Z0-9_]@');
-            $replace = array ('e','a','i','u','o','c','_','');
-            return preg_replace($search, $replace, $chaine);
-	}
+
 	public function call()
         {
             $this->next->call();

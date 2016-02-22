@@ -29,7 +29,7 @@
                             <div class="col-xs-6">
                                 <div class="form-group">
                                     <label for="icone">Icone de la catégorie</label>
-                                    <input type="file" ng-model="newCategorie.icone" file-select="data" file-loaded="myLoaded()" file-error="myError($error)" file-progress="myProgress($total,$loaded)" id="iconecat">
+                                    <input type="file" ng-model="newCategorie.icone" file-select="data"  id="iconecat">
                                     <span id="holder"></span>
                                </div>
                             </div>
@@ -91,7 +91,7 @@
                             <td>{{value.NomParent}}</td>
                             <td>{{value.DateAjout}}</td>
                             <td ng-style="{'background-color':value.color}" style="width:25px"></td>
-                            <td><img ng-src="{{baseIcone}}{{value.icone}}"></td>
+                            <td><img ng-if="value.icone!=null && value.icone!=''" ng-src="{{baseIcone}}{{value.icone}}"></td>
                             <td ng-if='value.Statut==0' class="text-center"><button class='btn btn-sm btn-default' title='Activer' ng-click='toggleEtat(value)'><i class='fa fa-eye-slash'></i></button></td>
                             <td ng-if='value.Statut==1' class="text-center"><button class='btn btn-sm btn-default' title='Désactiver' ng-click='toggleEtat(value)'><i class='fa fa-eye'></i></button></td>
                             <td class="text-center"><button class='btn btn-sm btn-info' title='Modifier' ng-click='updateCategorie(value)'>

@@ -25,6 +25,7 @@ app.controller('categoriesController', ['$scope','categoriesService', function($
             $scope.categoriesError="Une erreur est survenue lors de la récupération des catégories";
         });
     };
+    
     $scope.annuleModification=function(){
         $scope.newCategorie={
             titre:null,

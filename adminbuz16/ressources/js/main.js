@@ -1,5 +1,5 @@
 angular.module('buzancais', ['ngRoute','ui.bootstrap','colorpicker.module',
-    'angularFileUpload','ngCkeditor','angularMoment',
+    'angularFileUpload','ngCkeditor','angularMoment','angular-loading-bar',
     'ngFileUpload','bootstrapLightbox']).controller('HomeController', function() {
    
 }).directive('fileSelect', ['$window', function ($window) {

@@ -5,7 +5,7 @@ else define('LOCAL',0);
 $theme='default';
 
 if(LOCAL==1):
-    define('BASE_URL','http://127.0.0.1/2016/');
+    define('BASE_URL','http://127.0.0.1:82/2016/');
     define('BASE_PATH','C:/wamp/www/2016/');
 else:
     define('BASE_URL','http://www.buzancais.fr/2016/');

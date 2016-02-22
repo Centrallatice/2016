@@ -9,6 +9,7 @@ class Pages extends \Slim\Middleware{
     private $_strDesc=null;
     private $_intIdTheme=null;
     private $_intID=null;
+    private $_strLienMenu=null;
     private $_strMC=null;
     private $_strURL=null;
     
@@ -24,6 +25,7 @@ class Pages extends \Slim\Middleware{
                     P.titre, 
                     P.type, 
                     P.url, 
+                    P.lienmenu, 
                     P.idTheme, 
                     P.idAuteur, 
                     DATE_FORMAT(P.date,'%d/%m/%Y %H:%i') as date, 
@@ -110,9 +112,9 @@ class Pages extends \Slim\Middleware{
         try {
             $sql="
                 INSERT INTO pages
-                    (Nom,titre,type,idTheme,idAuteur,date,description,motsclefs,url) 
+                    (Nom,titre,type,idTheme,idAuteur,date,description,motsclefs,url,lienmenu) 
                 VALUES 
-                (:Name,:Titre,:type,:idTheme,:Auteur,NOW(),:Desc,:MC,:url)";
+                (:Name,:Titre,:type,:idTheme,:Auteur,NOW(),:Desc,:MC,:url,:lienmenu)";
             
             $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
            
@@ -124,12 +126,46 @@ class Pages extends \Slim\Middleware{
             $sth->bindParam(':Desc', $this->_strDesc, \PDO::PARAM_STR);
             $sth->bindParam(':MC', $this->_strMC, \PDO::PARAM_STR,255);
             $sth->bindParam(':url', $this->_strURL, \PDO::PARAM_STR,255);
+            $sth->bindParam(':lienmenu', $this->_strLienMenu, \PDO::PARAM_STR,255);
           
             if($sth->execute()){
                 $lastId = $this->_db->lastInsertId();
                 return array (
                     'success' => true
                     ,'donnees' => $lastId
+                    ,'message' => null
+                );
+            }else{
+                return array (
+                    'success' => false
+                    ,'donnees' => null
+                    ,'message' => null
+                );
+            }
+            
+        } catch ( Exception $exception ) {
+            return array (
+                'success' => false
+                ,'donnees' => null
+                ,'message' => 'Une erreur est survenue lors de la récupération des données'
+            );
+        }
+    }
+    public function delPage () {
+        try {
+            $sql="
+                DELETE FROM pages
+                    WHERE id=:i";
+            
+            $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
+           
+            
+          
+            if($sth->execute(array('i'=>$this->_intID))){
+               
+                return array (
+                    'success' => true
+                    ,'donnees' => null
                     ,'message' => null
                 );
             }else{
@@ -159,6 +195,7 @@ class Pages extends \Slim\Middleware{
                     titre=:Titre,
                     type=:type,
                     idTheme=:idTheme,
+                    lienmenu=:lienmenu,
                     url=:url,
                     description=:Desc,
                     motsclefs=:MC
@@ -170,6 +207,7 @@ class Pages extends \Slim\Middleware{
             
             $sth->bindParam(':Name', $this->_strNom, \PDO::PARAM_STR,255);
             $sth->bindParam(':Titre', $this->_strTitre, \PDO::PARAM_STR,255);
+            $sth->bindParam(':lienmenu', $this->_strLienMenu, \PDO::PARAM_STR,255);
             $sth->bindParam(':idTheme', $this->_intIdTheme, \PDO::PARAM_INT);
             $sth->bindParam(':type', $this->_intType, \PDO::PARAM_INT);
             $sth->bindParam(':url', $this->_strURL, \PDO::PARAM_STR);
@@ -214,6 +252,9 @@ class Pages extends \Slim\Middleware{
     }
     public function setMotsClefs ( $MC) {
             $this->_strMC = trim ( $MC);
+    }
+    public function setLienMenu ( $MC) {
+            $this->_strLienMenu = trim ( $MC);
     }
     public function setUrl ( $url) {
             $this->_strURL = trim ( $url);

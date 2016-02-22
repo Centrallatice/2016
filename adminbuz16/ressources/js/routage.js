@@ -9,6 +9,18 @@ app.config(function($routeProvider) {
       controller:'loginController',
       templateUrl:'./layout/login.html'
     })
+    .when('/articles/lists', {
+      controller:'articlesListsController',
+      templateUrl:'./layout/articles/lists.html'
+    })
+    .when('/articles/add', {
+      controller:'articlesAddController',
+      templateUrl:'./layout/articles/add.html'
+    })
+    .when('/articles/edit/:idArticle', {
+      controller:'articlesEditController',
+      templateUrl:'./layout/articles/update.html'
+    })
     .when('/pages/lists', {
       controller:'pagesController',
       templateUrl:'./layout/pages/lists.html'
