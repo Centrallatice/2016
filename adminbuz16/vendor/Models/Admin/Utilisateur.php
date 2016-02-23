@@ -38,7 +38,7 @@ class Utilisateur extends \Slim\Middleware{
             $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
             $sth->execute(array(':u' => $this->_strLogin, ':p' => sha1($this->_strMdp)));
             $resultats = $sth->fetch(\PDO::FETCH_ASSOC);
-            
+           
             if(count($resultats)==0 || !$resultats){
                 return array (
                     'success' => false

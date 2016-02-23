@@ -9,9 +9,7 @@ class Pages extends \Slim\Middleware{
     private $_strDesc=null;
     private $_intIdTheme=null;
     private $_intID=null;
-    private $_strLienMenu=null;
     private $_strMC=null;
-    private $_strURL=null;
     
     public function  __construct ($db) {
         $this->_db=$db;
@@ -24,8 +22,6 @@ class Pages extends \Slim\Middleware{
                     P.Nom, 
                     P.titre, 
                     P.type, 
-                    P.url, 
-                    P.lienmenu, 
                     P.idTheme, 
                     P.idAuteur, 
                     DATE_FORMAT(P.date,'%d/%m/%Y %H:%i') as date, 
@@ -67,7 +63,7 @@ class Pages extends \Slim\Middleware{
         }
     }
     public function urlExists($url,$id=null){
-		try {
+	try {
             $sql="SELECT 
                     COUNT(*) as TOTAL
                 FROM 
@@ -112,9 +108,9 @@ class Pages extends \Slim\Middleware{
         try {
             $sql="
                 INSERT INTO pages
-                    (Nom,titre,type,idTheme,idAuteur,date,description,motsclefs,url,lienmenu) 
+                    (Nom,titre,type,idTheme,idAuteur,date,description,motsclefs) 
                 VALUES 
-                (:Name,:Titre,:type,:idTheme,:Auteur,NOW(),:Desc,:MC,:url,:lienmenu)";
+                (:Name,:Titre,:type,:idTheme,:Auteur,NOW(),:Desc,:MC)";
             
             $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
            
@@ -125,8 +121,6 @@ class Pages extends \Slim\Middleware{
             $sth->bindParam(':Auteur', $_SESSION['DataUser']['id'], \PDO::PARAM_INT);
             $sth->bindParam(':Desc', $this->_strDesc, \PDO::PARAM_STR);
             $sth->bindParam(':MC', $this->_strMC, \PDO::PARAM_STR,255);
-            $sth->bindParam(':url', $this->_strURL, \PDO::PARAM_STR,255);
-            $sth->bindParam(':lienmenu', $this->_strLienMenu, \PDO::PARAM_STR,255);
           
             if($sth->execute()){
                 $lastId = $this->_db->lastInsertId();
@@ -195,8 +189,6 @@ class Pages extends \Slim\Middleware{
                     titre=:Titre,
                     type=:type,
                     idTheme=:idTheme,
-                    lienmenu=:lienmenu,
-                    url=:url,
                     description=:Desc,
                     motsclefs=:MC
                 WHERE
@@ -207,10 +199,8 @@ class Pages extends \Slim\Middleware{
             
             $sth->bindParam(':Name', $this->_strNom, \PDO::PARAM_STR,255);
             $sth->bindParam(':Titre', $this->_strTitre, \PDO::PARAM_STR,255);
-            $sth->bindParam(':lienmenu', $this->_strLienMenu, \PDO::PARAM_STR,255);
             $sth->bindParam(':idTheme', $this->_intIdTheme, \PDO::PARAM_INT);
             $sth->bindParam(':type', $this->_intType, \PDO::PARAM_INT);
-            $sth->bindParam(':url', $this->_strURL, \PDO::PARAM_STR);
             $sth->bindParam(':Desc', $this->_strDesc, \PDO::PARAM_STR);
             $sth->bindParam(':MC', $this->_strMC, \PDO::PARAM_STR,255);
             $sth->bindParam(':i', $this->_intID, \PDO::PARAM_INT);
@@ -252,12 +242,6 @@ class Pages extends \Slim\Middleware{
     }
     public function setMotsClefs ( $MC) {
             $this->_strMC = trim ( $MC);
-    }
-    public function setLienMenu ( $MC) {
-            $this->_strLienMenu = trim ( $MC);
-    }
-    public function setUrl ( $url) {
-            $this->_strURL = trim ( $url);
     }
     public function setType( $t) {
             $this->_intType = $t;

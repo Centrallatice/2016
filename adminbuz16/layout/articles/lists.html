@@ -42,7 +42,7 @@
                                 </a>
                             </td>
                             <td class="text-center">
-                                <button class='btn btn-sm btn-danger block-center text-center' title='Supprimer' ng-click='delEvenement(value)'>
+                                <button class='btn btn-sm btn-danger block-center text-center' title='Supprimer' ng-click='delArticle(value)'>
                                     <i class='fa fa-times'></i>
                                 </button>
                             </td>
@@ -55,7 +55,7 @@
                     {{ articleError }}
                 </div>
                 <div class="col-xs-12 alert alert-warning" ng-show="articleError===null && listeArticles.length==0">
-                    Vous n'avez créé aucun événement
+                    Vous n'avez créé aucun article
                 </div>
             </div>
 	</section>

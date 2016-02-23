@@ -22,6 +22,7 @@
                         <tr>
                             <th>id</th>
                             <th>Nom</th>
+                            <th>Url</th>
                             <th>Catégorie</th>
                             <th>Date</th>
                             <th width='80px'>Editer</th>
@@ -32,6 +33,7 @@
                         <tr ng-repeat="(item,value) in mesActualites | filter:filtreActu">
                             <td>{{value.id}}</td>
                             <td>{{value.titre}}</td>
+                            <td>{{value.url}}</td>
                             <td>{{value.CatNom}}</td>
                             <td>{{value.dateAjout}}</td>
                             <td class="text-center">

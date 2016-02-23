@@ -1,0 +1,83 @@
+<div class="row">
+    <div class="col-xs-12">
+        <section class="panel">
+            <header class="panel-heading">
+                <span class="title">Mes menus</span>
+                
+            </header>
+            <br />
+            <div class='row'>
+                <div class='col-xs-4 col-xs-offset-8'>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">Rechercher</span>
+                        <input type="text" class="form-control" ng-model='filtreMenu' aria-describedby="basic-addon1">
+                    </div>
+                </div>
+            </div>
+            <br />
+            <br />
+            <div class="panel-body panel-action">
+                <div class="col-xs-12" ng-if="menuError!==null && ready">
+                    <table class="table table-hover table-responsive table-striped" ng-if="listeMenus.length>0">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Affiché sur la page</th>
+                                <th>Position</th>
+                                <th width='80px'>Editer</th>
+                                <th width='80px'>Supprimer</th>
+                                <th width='80px'>Gérer</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="(k,v) in listeMenus|filter:filtreMenu">
+                                <td>{{v.nom}}</td>
+                                <td>{{v.nomPage}}</td>
+                                <td ng-switch on="v.position">
+                                    <span ng-switch-when="HEADER">Entête de page</span>
+                                    <span ng-switch-when="COL_LEFT_ONE">Colonne de Gauche position 1</span>
+                                    <span ng-switch-when="COL_LEFT_TWO">Colonne de Gauche position 2</span>
+                                    <span ng-switch-when="COL_RIGHT_ONE">Colonne de Droite position 1</span>
+                                    <span ng-switch-when="COL_RIGHT_TWO">Colonne de Droite position 2</span>
+                                    <span ng-switch-when="COL_FOOTER_2">Pied de Page Colonne 2</span>
+                                </td>
+                                <td class="text-center">
+                                    <a class='btn btn-sm btn-info' title='Modifier' role="button" ng-href="#/menus/update/{{v.id}}">
+                                        <i class='fa fa-pencil-square-o'></i>
+                                    </a>
+                                </td>
+                                <td class="text-center">
+                                    <button class='btn btn-sm btn-danger block-center text-center' title='Supprimer' ng-click='deleteMenu(v.id)'>
+                                        <i class='fa fa-times'></i>
+                                    </button>
+                                </td>
+                                <td class="text-center">
+                                    <a class='btn btn-sm btn-success' title='Gérer les liens de ce menu' role="button" ng-href="#/menus/linkLists/{{v.id}}">
+                                        <i class='fa fa-plus-circle'></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div ng-if="listeMenus.length==0" class='text-center'>
+                        <br />
+                        <br />
+                        <br />
+                        Vous n'avez pas encore créé de menu <a role='button' href='#/menus/add' class='btn btn-info'>Créer un menu</a>
+                        <br />
+                        <br />
+                        <br />
+                    </div>
+                </div>
+				
+		<div class="col-xs-12" ng-if="!ready">
+                    <br /><center><strong>Chargement en cours <i class="fa fa-spin fa-spinner fa-2x"></i><br /></center>
+                </div>
+                <div class="alert" ng-if="ready" ng-class="{'alert-success':successLienMenu!==null && errorLienMenu==null,'alert-danger':errorLienMenu!==null && successLienMenu==null}">
+                    <span ng-if="successLienMenu!=null">{{successLienMenu}}</span>
+                    <span ng-if="errorLienMenu!=null">{{errorLienMenu}}</span>
+                </div>
+            </div>
+	</section>
+    </div>
+</div>

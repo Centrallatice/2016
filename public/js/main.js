@@ -1,5 +1,4 @@
 $(document).ready(function() {
-    
     window.fbAsyncInit = function() {
       FB.init({
         appId      : '1265323180149649',
@@ -7,7 +6,6 @@ $(document).ready(function() {
         version    : 'v2.5'
       });
     };
-    console.log($('.containerFB').width());
     $(document).on('click', '.mega-dropdown', function(e) {
         e.stopPropagation();
     });
@@ -31,7 +29,6 @@ $(document).ready(function() {
         });
     });
     $('#valideInscriptionNL').on('click',function(){
-        
         if(!validateEmail($('#mailvaluenewsletter').val())){
             $('#helpBlockMailNL').addClass('alert-danger');
             $('#helpBlockMailNL').show();
@@ -45,13 +42,12 @@ $(document).ready(function() {
             $('#helpBlockMailNL').removeClass('alert-danger');
             $('#helpBlockMailNL').html("");
             var donnees=JSON.stringify({mail:$('#mailvaluenewsletter').val()});
-            
             $.ajax({
                 method: "POST",
                 url: basePATH+"ajax/inscriptionNL",
                 data: donnees,
                 dataType: "JSON"
-              }).done(function( msg ) {
+              }).done(function(msg) {
                 if(!msg.success){
                     $('#helpBlockMailNL').show();
                     $('#helpBlockMailNL').addClass('alert-danger');
@@ -68,8 +64,30 @@ $(document).ready(function() {
             });
         }
     });
+	$('#bottomNL').on('click',function(){
+        if(!validateEmail($('#bottomNLinput').val())){
+            alert("Merci de saisir une adresse mail valide");
+            return false;
+        }
+        else{
+            var donnees=JSON.stringify({mail:$('#bottomNLinput').val()});
+            $.ajax({
+                method: "POST",
+                url: basePATH+"ajax/inscriptionNL",
+                data: donnees,
+                dataType: "JSON"
+              }).done(function(msg) {
+                if(!msg.success){
+                    alert(msg.message);
+                }
+                else{
+					alert("Merci votre adressse a bien été enregistrée");
+                    $('#bottomNLinput').val("");
+                }
+            });
+        }
+    });
 });
-
 function validateEmail(email) {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);

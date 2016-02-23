@@ -52,32 +52,40 @@ app.config(function($routeProvider) {
     .when('/agenda/update/:idEvenement', {
       controller:'agendaUpdateController',
       templateUrl:'./layout/agenda/update.html'
-    })
-    .when('/param/coordonnees', {
-      controller:'coordonneesController',
-      templateUrl:'./layout/params/coordonnees.html'
-    })  
-    .when('/param/sociaux', {
+    }).when('/menus/update/:idMenu', {
+      controller:'menuUpdateController',
+      templateUrl:'./layout/menus/update.html'
+    }).when('/menus/add/', {
+      controller:'menuAddController',
+      templateUrl:'./layout/menus/add.html'
+    }).when('/menus/lists', {
+      controller:'menuListsController',
+      templateUrl:'./layout/menus/lists.html'
+    }).when('/menus/linkLists/:idMenu', {
+      controller:'menuLinksListsController',
+      templateUrl:'./layout/menus/linkLists.html'
+    }).when('/menus/updatelink/:idMenu/:idLinkMenu', {
+      controller:'menuLinkUpdateController',
+      templateUrl:'./layout/menus/updateLink.html'
+    }).when('/menus/addLink/:idMenu', {
+      controller:'menuLinkAddController',
+      templateUrl:'./layout/menus/addLink.html'
+    }).when('/param/sociaux', {
       controller:'sociauxController',
       templateUrl:'./layout/params/sociaux.html'
-    })  
-    .when('/photovideotheque/photo', {
+    }).when('/photovideotheque/photo', {
       controller:'photothequeController',
       templateUrl:'./layout/photovideotheque/photos.html'
-    })  
-    .when('/flashinfos', {
+    }).when('/flashinfos', {
       controller:'flashController',
       templateUrl:'./layout/flashinfos/flashinfos.html'
-    })  // Gestion des modules
-    .when('/modules/add/diaporama', {
+    }).when('/modules/add/diaporama', {
       controller:'diaporamaController',
       templateUrl:'./layout/modules/add/diaporamas.html'
-    })  
-    .when('/modules/add/blocdownload', {
+    }).when('/modules/add/blocdownload', {
       controller:'blocDownloadController',
       templateUrl:'./layout/modules/add/blocdownload.html'
-    })  
-    .otherwise({
+    }).otherwise({
       redirectTo:'/404',
       templateUrl:'./layout/404.html'
     });

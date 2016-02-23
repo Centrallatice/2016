@@ -1,0 +1,44 @@
+<div class="row">
+    <div class="col-xs-12">
+        <section class="panel">
+            <header class="panel-heading">
+                <span class="title">Modifier un lien de menu</span>
+                <div class="pull-right">
+                    <a class="btn btn-success btn-sm" ng-href="#/menus/linkLists/{{idMenu}}" role="button"><i class="fa fa-arrow-left"></i> Annuler</a>
+                </div>                
+            </header>
+            <div class="panel-body panel-action">
+                <div class="col-xs-12">
+                    <form class="addCat-form" name="updateLinkMenu" novalidate role="form" ng-if='ready'>
+					
+                        <div class="form-group" ng-class="{'has-error':updateLinkMenu.nom.$error.required}">
+                            <label for="nom">Nom</label>
+                            <input type="text" required  class="form-control" ng-model='newMenu.nom' id="nom" name="nom">
+                            <span ng-show="updateLinkMenu.nom.$error.required" class="help-block">Ce champ est obligatoire.</span>
+                        </div>
+			<div class="form-group">
+                            <label for="idPage">Page associée</label>
+                            <select class="form-control"  ng-model='newMenu.page' id="idPage" name="idPage" ng-options="page as page.Nom for page in listePages track by page.id "></select>
+                        </div>
+						
+						
+                        <div class="alert" ng-class="{'alert-success':successAjoutLienMenu!==null && errorAjoutLienMenu==null,'alert-danger':errorAjoutLienMenu!==null && successAjoutLienMenu==null}">
+                            <span ng-if="successAjoutLienMenu!=null">{{successAjoutLienMenu}}</span>
+                            <span ng-if="errorAjoutLienMenu!=null">{{errorAjoutLienMenu}}</span>
+                        </div>
+						
+						
+                        <div class="text-center block-center">
+                            <button type="submit" class="btn btn-success" ng-disabled="ajoutLienMenu.$error.required" ng-click='updateMenu(newMenu)'>
+                               Modifier ce lien
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-xs-12" ng-if="!ready">
+                    <br /><center><strong>Chargement en cours <i class="fa fa-spin fa-spinner fa-2x"></i><br /></center>
+                </div>
+            </div>
+		</section>
+	</div>
+</div>

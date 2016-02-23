@@ -71,17 +71,19 @@
     margin-left:10px;
 }
 .inscriptionNL{
-    margin:auto;
+    margin:10px auto 0;
     width:80%;
 }
 .inscriptionNL .input-group-addon{
     padding:0;
     border:none;
+	margin-left:-30px;
     border-radius: 30px;
 }
 .inscriptionNL,.inscriptionNL input{
     background:#202e3b;
     border:none;
+	color:white;
     border-radius: 30px;
     
 }

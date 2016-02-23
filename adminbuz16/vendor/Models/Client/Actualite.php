@@ -2,6 +2,7 @@
 
 namespace Models\Client;
 use Tools\DateTools;
+use Tools\StrTools;
 
 class Actualite extends \Slim\Middleware{
 
@@ -9,6 +10,7 @@ class Actualite extends \Slim\Middleware{
     private $_strContent = null;
     private $_strResume = null;
     private $_strImage = null;
+    private $_strUrl = null;
     private $_intIdCategorie = null;
     private $_intIdActu = null;
     private $_db = null;
@@ -21,7 +23,7 @@ class Actualite extends \Slim\Middleware{
         try {
             $sql="
                 SELECT 
-                    A.id, A.titre, A.contenu,A.image,A.resume,
+                    A.id,A.url, A.titre, A.contenu,A.image,A.resume,
                     DATE_FORMAT(A.dateAjout,'%d/%m/%Y %H:%i') as dateAjout,
                     DATE_FORMAT(A.dateAjout,'%W') as jourEvenement,
                     DATE_FORMAT(A.dateAjout,'%d') as chjourEvenement,
@@ -50,6 +52,7 @@ class Actualite extends \Slim\Middleware{
                     $r[$k]['moisEvenement']=DateTools::getFrenchMonth(strtolower($r[$k]['moisEvenement']));
                     $r[$k]['jourEvenement']=DateTools::getFrenchDay(strtolower($r[$k]['jourEvenement']));
                     $r[$k]['dateEvenementFR']=$r[$k]['jourEvenement'].' '.$r[$k]['chjourEvenement'].' '.$r[$k]['moisEvenement'];
+					$r[$k]['urlCatNom']=StrTools::toAscii($r[$k]['CatNom']);
                 endforeach;
                 return array (
                     'success' => true
@@ -76,7 +79,7 @@ class Actualite extends \Slim\Middleware{
         try {
             $sql="
                 SELECT 
-                    A.id, A.titre, A.contenu,A.image,A.resume,A.idCategorie,
+                    A.id, A.titre, A.contenu,A.image,A.resume,A.idCategorie,A.url,
                     DATE_FORMAT(A.dateAjout,'%d/%m/%Y %H:%i') as dateAjout,C.Nom as CatNom
                 FROM
                     actualites A
@@ -90,6 +93,48 @@ class Actualite extends \Slim\Middleware{
             
             $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
             if($sth->execute(array("i"=>  $this->_intIdActu))){
+                $r=$sth->fetch(\PDO::FETCH_ASSOC);
+				$r[0]['urlCatNom']=StrTools::toAscii($r['CatNom']);
+                return array (
+                    'success' => true
+                    ,'donnees' => $r
+                    ,'message' => null
+                );
+            }else{
+                return array (
+                    'success' => false
+                    ,'donnees' => null
+                    ,'message' => null
+                );
+            }
+            
+        } catch ( PDOException $exception ) {
+            return array (
+                'success' => false
+                ,'donnees' => null
+                ,'message' => 'Une erreur est survenue lors de la récupération des données'
+            );
+        }
+    }
+    
+	public function getActualiteBySlug(){
+        try {
+            $sql="
+                SELECT 
+                    A.id, A.titre, A.contenu,A.image,A.resume,A.idCategorie,A.url,
+                    DATE_FORMAT(A.dateAjout,'%d/%m/%Y %H:%i') as dateAjout,C.Nom as CatNom
+                FROM
+                    actualites A
+                LEFT JOIN
+                    categories C
+                ON 
+                    A.idCategorie = C.id
+                WHERE
+                    A.url=:url
+                ";
+            
+            $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
+            if($sth->execute(array("url"=>  $this->_strUrl))){
                 $r=$sth->fetch(\PDO::FETCH_ASSOC);
                 return array (
                     'success' => true
@@ -121,6 +166,9 @@ class Actualite extends \Slim\Middleware{
     }
     public function setContent($str){
         $this->_strContent = $str;
+    }
+	public function setUrl($str){
+        $this->_strUrl = $str;
     }
     public function setImage($str){
         $this->_strImage = $str;

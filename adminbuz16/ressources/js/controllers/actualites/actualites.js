@@ -105,11 +105,7 @@ app.controller('actualitesUpdateController', ['$scope','actualitesService','cate
     $scope.newActualite=null;
     $scope.errorAjoutActu=null;
     $scope.categoriesError=null;
-    $scope.editorOptions = {
-        language: 'fr',
-        allowedContent: true,
-        entities: false
-    };
+    
     $scope.controleChamp={
         titre:false,
         idCategorie:false,
@@ -147,6 +143,10 @@ app.controller('actualitesUpdateController', ['$scope','actualitesService','cate
                                     }
                                 }
                             }
+                            $scope.editorOptions = {
+                                    language: 'fr',
+                                    allowedContent: true
+                            };
                         }
                         else{
                             $scope.errorAjoutActu = response.data.message;

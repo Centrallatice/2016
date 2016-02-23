@@ -1,6 +1,6 @@
 .blocCoordonnesTR{
-    background:url('../img/cadre-coordonnee.png') top center no-repeat;
-    margin-top:-10px;
+    background:url('../img/cadre-coordonnee.png') -100px 0 no-repeat;
+    margin-top:-35px;
     height:450px;
     position: relative;
     background-size: cover;

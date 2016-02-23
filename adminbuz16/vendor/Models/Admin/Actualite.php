@@ -1,6 +1,7 @@
 <?php
 
 namespace Models\Admin;
+use Tools\StrTools;
 
 class Actualite extends \Slim\Middleware{
 
@@ -60,7 +61,7 @@ class Actualite extends \Slim\Middleware{
         try {
             $sql="
                 SELECT 
-                    A.id, A.titre, A.contenu,A.image,A.resume,
+                    A.id, A.titre, A.contenu,A.image,A.resume,A.url,
                     DATE_FORMAT(A.dateAjout,'%d/%m/%Y %H:%i') as dateAjout,C.Nom as CatNom
                 FROM
                     actualites A
@@ -74,6 +75,7 @@ class Actualite extends \Slim\Middleware{
             $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
             if($sth->execute()){
                 $r=$sth->fetchAll(\PDO::FETCH_ASSOC);
+				
                 return array (
                     'success' => true
                     ,'donnees' => $r
@@ -99,7 +101,7 @@ class Actualite extends \Slim\Middleware{
         try {
             $sql="
                 SELECT 
-                    A.id, A.titre, A.contenu,A.image,A.resume,A.idCategorie,
+                    A.id, A.titre, A.contenu,A.image,A.resume,A.idCategorie,A.url,
                     DATE_FORMAT(A.dateAjout,'%d/%m/%Y %H:%i') as dateAjout,C.Nom as CatNom
                 FROM
                     actualites A
@@ -114,7 +116,8 @@ class Actualite extends \Slim\Middleware{
             $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
             if($sth->execute(array("i"=>  $this->_intIdActu))){
                 $r=$sth->fetch(\PDO::FETCH_ASSOC);
-                return array (
+                
+				return array (
                     'success' => true
                     ,'donnees' => $r
                     ,'message' => null
@@ -205,9 +208,9 @@ class Actualite extends \Slim\Middleware{
             $sql="
                 INSERT INTO 
                     actualites
-                    (titre, contenu, dateAjout,resume, idCategorie, idAuteur,image) 
+                    (titre, contenu, dateAjout,resume, idCategorie, idAuteur,image,url) 
                 VALUES 
-                    (:t,:c,NOW(),:r,:idc,:Auteur,:image)
+                    (:t,:c,NOW(),:r,:idc,:Auteur,:image,:url)
             ";
             
             $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
@@ -218,8 +221,14 @@ class Actualite extends \Slim\Middleware{
             $sth->bindParam(':image', $this->_strImage, \PDO::PARAM_STR);
             $sth->bindParam(':idc', $this->_intIdCategorie, \PDO::PARAM_INT);
             $sth->bindParam(':Auteur', $_SESSION['DataUser']['id'], \PDO::PARAM_INT);
-          
-            if($sth->execute()){
+			$url = StrTools::toAscii($this->_strTitre);
+            $existe = $this->urlExiste($url);
+            if($existe['success']):
+                if($existe['donnees']['TOTAL']!=0) $url.='-'.$existe['donnees']['TOTAL'];
+            endif;
+			$sth->bindParam(':url', $url, \PDO::PARAM_STR);
+            
+			if($sth->execute()){
                 $lastId = $this->_db->lastInsertId();
                 return array (
                     'success' => true
@@ -286,19 +295,27 @@ class Actualite extends \Slim\Middleware{
                     contenu=:c,
                     resume=:r,
                     idCategorie=:idc,
-                    image=:image
+                    image=:image,
+					url=:url
                 WHERE
                     id=:idActu
             ";
             
             $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
-           
+			
+			$url = StrTools::toAscii($this->_strTitre);
+            $existe = $this->urlExiste($url,$this->_intIdActu);
+            if($existe['success']):
+                if($existe['donnees']['TOTAL']!=0) $url.='-'.$existe['donnees']['TOTAL'];
+            endif;
+			
             $sth->bindParam(':t', $this->_strTitre, \PDO::PARAM_STR,255);
             $sth->bindParam(':c', $this->_strContent, \PDO::PARAM_STR);
             $sth->bindParam(':r', $this->_strResume, \PDO::PARAM_STR);
             $sth->bindParam(':image', $this->_strImage, \PDO::PARAM_STR);
             $sth->bindParam(':idc', $this->_intIdCategorie, \PDO::PARAM_INT);
             $sth->bindParam(':idActu', $this->_intIdActu, \PDO::PARAM_INT);
+            $sth->bindParam(':url', $url, \PDO::PARAM_STR);
             
             if($sth->execute()){
                 return array (
@@ -323,7 +340,41 @@ class Actualite extends \Slim\Middleware{
             );
         }
     }
-    
+     public function urlExiste($u,$id=null){
+        try {
+            $sql="
+                SELECT 
+                    COUNT(*) as TOTAL
+                FROM
+                    actualites
+                WHERE
+                    url LIKE '".$u."%'";
+            if(!is_null($id)) $sql.=' AND id!='.$id;
+            
+            $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
+            if($sth->execute()){
+                $r=$sth->fetch(\PDO::FETCH_ASSOC);
+                return array (
+                    'success' => true
+                    ,'donnees' => $r
+                    ,'message' => null
+                );
+            }else{
+                return array (
+                    'success' => false
+                    ,'donnees' => null
+                    ,'message' => null
+                );
+            }
+            
+        } catch ( PDOException $exception ) {
+            return array (
+                'success' => false
+                ,'donnees' => null
+                ,'message' => 'Une erreur est survenue lors de la récupération des données'
+            );
+        }
+    }
     public function setTitre ( $str) {
         $this->_strTitre = trim ( $str);
     }

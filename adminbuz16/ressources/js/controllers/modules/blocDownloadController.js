@@ -86,6 +86,9 @@ app.controller('blocDownloadController', ['$rootScope','$scope','$location','blo
                 doc.titre=response.data.titre;
                 doc.sstitre=response.data.sstitre;
                 doc.intitule=response.data.intitule;
+                if(!$scope.documentBloc.documents){
+                    $scope.documentBloc.documents=new Array();
+                }
                 $scope.documentBloc.documents.push(doc);
                 document.getElementById('iconeimage').value="";
                 document.getElementById('iconepdf').value="";

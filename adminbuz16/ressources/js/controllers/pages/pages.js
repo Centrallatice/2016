@@ -9,7 +9,6 @@ app.controller('pagesController', ['$rootScope','$scope','$location','pagesServi
         Nom:false,
 		titre:false,
 		type:false,
-		lienmenu:false,
 		idTheme:false
     };	
     
@@ -65,10 +64,8 @@ app.controller('pagesController', ['$rootScope','$scope','$location','pagesServi
             titre:null,
             Nom:null,
             type:null,
-            url:null,
             idTheme:null,
             description:null,
-            lienmenu:null,
             motsclefs:null,
             id:null,
             toChange:false
@@ -88,8 +85,6 @@ app.controller('pagesController', ['$rootScope','$scope','$location','pagesServi
             Nom:P.Nom,
             type:P.type,
             idTheme:theme,
-            lienmenu:P.lienmenu,
-            url:P.url,
             description:P.description,
             motsclefs:P.motsclefs,
             toChange:true
@@ -107,9 +102,6 @@ app.controller('pagesController', ['$rootScope','$scope','$location','pagesServi
         if(!page.titre) $scope.controleChamp.titre=true;
         else $scope.controleChamp.titre=false;
         
-        if(!page.lienmenu) $scope.controleChamp.lienmenu=true;
-        else $scope.controleChamp.lienmenu=false;
-
         if(!page.Nom) $scope.controleChamp.Nom=true; 
         else $scope.controleChamp.Nom=false;
 
@@ -146,6 +138,9 @@ app.factory('pagesService', ['$http', function($http) {
     return {
         getPages: function() {
             return $http.get('./vendor/index.php/pagesController/getAll');
+        },
+        getPageById: function(e) {
+            return $http.post('./vendor/index.php/pagesController/getById');
         },
         addPage: function(p) {
             return $http.post('./vendor/index.php/pagesController/addPage',{page:p});

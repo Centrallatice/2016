@@ -9,10 +9,10 @@ class modulesController extends \Slim\Middleware{
         $this->_db=$db;
     }
 
-    function getModulesFront($page){
-
+    function getModulesFront($page,$isHome){
+        
         $mod = new Modules($this->_db);
-        $resListe = $mod->getAllByPage($page);
+        $resListe = $mod->getAllByPage($page,$isHome);
         if($resListe['success'] && count($resListe['donnees'])>0):
             
             foreach($resListe['donnees'] as $k=>$v):

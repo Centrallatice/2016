@@ -23,24 +23,16 @@ class pagesController extends \Slim\Middleware{
             $p->setTitre($body->page->titre);
             $p->setNom($body->page->Nom);
             $p->setDesc($body->page->description);
-            $p->setUrl($body->page->url);
             $p->setType($body->page->type);
             $p->setIdTheme($body->page->idTheme->id);
             $p->setMotsClefs($body->page->motsclefs);
-            $p->setLienMenu($body->page->lienmenu);
             
             if(isset($body->page->toChange) && $body->page->toChange===true):
-                $url=$p->urlExists($body->page->url,$body->page->id);
-                if($url['success']){
-                        if($url['donnees']!=0) $p->setUrl($body->page->url.'-'.$url['donnees']);
-                }
+               
                 $p->setId($body->page->id);
                 $result = $p->updatePage();
             else:
-                $url=$p->urlExists($body->page->url,null);
-                if($url['success']){
-                        if($url['donnees']!=0) $p->setUrl($body->page->url.'-'.$url['donnees']);
-                }
+                
                 $result = $p->addPage();
             endif;
             

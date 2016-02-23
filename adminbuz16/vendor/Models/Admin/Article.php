@@ -390,7 +390,7 @@ class Article extends \Slim\Middleware{
                 ,'donnees' => null
                 ,'message' => 'Les Mots clés sont obligatoires'
             );
-	$url = StrTools::toAscii($this->_strTitre);
+		$url = StrTools::toAscii($this->_strTitre);
             
         $existe = $this->urlExiste($url,$this->_intIdArticle);
 

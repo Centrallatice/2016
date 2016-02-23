@@ -13,7 +13,7 @@ class Modules extends \Slim\Middleware{
     public function  __construct ($db) {
         $this->_db=$db;
     }
-    public function getAllByPage ($page) {
+    public function getAllByPage ($page,$isHome) {
         try {
             $sql="
                 SELECT 
@@ -25,9 +25,11 @@ class Modules extends \Slim\Middleware{
                 FROM 
                     modules M,pages P
                 WHERE
-                    P.url=:url";
+            ";
+            $sql.=($isHome) ? 'P.type=1' : 'url=:url';
+            
             $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
-            $sth->execute(array("url"=>$page));
+            $sth->execute(($isHome) ? array() : array("url"=>$page));
             if($sth){
                 $results=array();
                 

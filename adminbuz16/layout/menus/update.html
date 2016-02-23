@@ -1,0 +1,52 @@
+<div class="row">
+    <div class="col-xs-12">
+        <section class="panel">
+            <header class="panel-heading">
+                <span class="title">Modifier un menu</span>
+                <div class="pull-right">
+                    <a class="btn btn-success btn-sm" href="#/menus/lists" role="button"><i class="fa fa-arrow-left"></i> Annuler</a>
+                </div>                
+            </header>
+            <div class="panel-body panel-action">
+                <div class="col-xs-12">
+                    <form class="addCat-form" name="updateMenu" novalidate role="form" ng-if='ready'>
+                        <div class="form-group" ng-class="{'has-error':updateMenu.nom.$error.required}">
+                            <label for="nom">Nom</label>
+                            <input type="text" required  class="form-control" ng-model='nouveauMenu.nom' id="nom" name="nom">
+                            <span ng-show="updateMenu.nom.$error.required" class="help-block">Ce champ est obligatoire.</span>
+                        </div>
+			<div class="form-group" ng-class="{'has-error':updateMenu.idPage.$error.required}">
+                            <label for="idPage">Page associée</label>
+                            <select class="form-control" required ng-model='nouveauMenu.idPage' id="idPage" name="idPage" ng-options="page.id as page.Nom for page in listePages track by page.id "></select>
+                            <span id="helpBlockPage" class="help-block" ng-show="updateMenu.idPage.$error.required">Ce champ est obligatoire.</span>
+                        </div>
+			<div class="form-group"  ng-class="{'has-error':updateMenu.position.$error.required}">
+                            <label for="position">Position du menu</label>
+                            <select required class="form-control" ng-model='nouveauMenu.position' name="position" id="position">
+                                <option value="HEADER">Entête de page</option>
+                                <option value="COL_LEFT_ONE">Colonne de Gauche position 1</option>
+                                <option value="COL_LEFT_TWO">Colonne de Gauche position 2</option>
+                                <option value="COL_RIGHT_ONE">Colonne de Droite position 1</option>
+                                <option value="COL_RIGHT_TWO">Colonne de Droite position 2</option>
+                                <option value="COL_FOOTER_2">Pied de Page Colonne 2</option>
+                            </select>
+                            <span class="help-block" ng-show="updateMenu.position.$error.required">Ce champ est obligatoire.</span>
+                        </div>
+						
+                        <div class="alert" ng-class="{'alert-success':successUpdateMenu!==null && errorUpdateMenu==null,'alert-danger':errorUpdateMenu!==null && successUpdateMenu==null}">
+                            <span ng-if="successUpdateMenu!=null">{{successUpdateMenu}}</span>
+                            <span ng-if="errorUpdateMenu!=null">{{errorUpdateMenu}}</span>
+                        </div>
+						
+						
+                        <div class="text-center block-center">
+                            <button type="button" class="btn btn-success" ng-disabled="updateMenu.$error.required" ng-click='valideUpdateMenu(nouveauMenu)'>
+                               Modifier ce menu
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+		</section>
+	</div>
+</div>

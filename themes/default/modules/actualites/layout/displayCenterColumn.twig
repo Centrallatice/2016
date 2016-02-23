@@ -38,7 +38,7 @@
                             {{actualite.resume|truncate(255, true)}}
                         </div>
                         <div class="readmoreActu">
-                            <a style="color:{% if categories[actualite.idCat] is defined %}{{categories[actualite.idCat].color}}{% else %}navy{% endif %}" href="{{BASEURL}}actualite/{{actualite.id}}">> Lire la suite</a>
+                            <a style="color:{% if categories[actualite.idCat] is defined %}{{categories[actualite.idCat].color}}{% else %}navy{% endif %}" href="{{BASEURL}}actualite/{{actualite.urlCatNom}}/{{actualite.url}}.html">> Lire la suite</a>
                         </div>
                     </div>
                 </div>
@@ -47,7 +47,6 @@
                     </div>
                 {% endif %}
             {% endfor %}
-        </div>
     </div>
     <div class="triangle-top"></div>
 </div>

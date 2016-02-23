@@ -21,7 +21,6 @@ class Pages extends \Slim\Middleware{
                     P.id as idPage,
                     P.Nom as NomPage,
                     P.titre as titrePage,
-                    P.url as urlPage, 
                     P.description as descriptionPage, 
                     P.motsclefs as motsclefsPage
                 FROM 
@@ -68,9 +67,6 @@ class Pages extends \Slim\Middleware{
     }
     public function setMotsClefs ( $MC) {
             $this->_strMC = trim ( $MC);
-    }
-    public function setUrl ( $url) {
-            $this->_strURL = trim ( $url);
     }
     public function setType( $t) {
             $this->_intType = $t;

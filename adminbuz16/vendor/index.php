@@ -13,8 +13,11 @@ $app = new Slim(array(
 
 $app->post('/photothequeController/addPicture',  function () use ($app,$db){
     
-    if(!file_exists('controllers/photothequeController.php')) die("Action non reconnu");
-    require_once('controllers/photothequeController.php');
+    if(!file_exists('controllers/photothequeController.php')):
+		echo json_encode(array("success"=>false,"message"=>"Action non reconnu"));
+		return false;
+    endif;
+	require_once('controllers/photothequeController.php');
     $photoTheque=new photothequeController($app,$db);
     $photoTheque->addPicture($_POST,$_FILES);
 	
@@ -22,7 +25,10 @@ $app->post('/photothequeController/addPicture',  function () use ($app,$db){
 
 
 $app->post('/:class/:function', function ($class,$function) use ($app,$db){
-    if(!file_exists('controllers/'.str_replace('.','/',$class).'.php')) die("Action non reconnu");
+    if(!file_exists('controllers/'.str_replace('.','/',$class).'.php')):
+		echo json_encode(array("success"=>false,"message"=>"Action non reconnu"));
+		return false;
+	endif;
     require_once('controllers/'.str_replace('.','/',$class).'.php');
     $controller=new $class($app,$db);
     if(method_exists($controller,$function)) $controller->{$function}($app);

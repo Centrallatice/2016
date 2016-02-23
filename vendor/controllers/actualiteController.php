@@ -15,7 +15,7 @@ class actualiteController extends \Slim\Middleware{
         $this->_db=$db;
     }
     
-    public function initAction($app,$id){
+    public function initAction($app,$slug){
         $request = $this->_request->request();
         $body = json_decode($request->getBody());
         
@@ -23,8 +23,8 @@ class actualiteController extends \Slim\Middleware{
         $categories = $Cat->getAll();
         
         $Actu = new Actualite($this->_db);
-        $Actu->setIdActu($id);
-        $actualite = $Actu->getActualite('dateAjout','DESC');
+		$Actu->setUrl(str_replace('.html','',$slug));
+        $actualite = $Actu->getActualiteBySlug();
         
         $Coord = new Coordonnees($this->_db);
         $coordonnees = $Coord->getAll();

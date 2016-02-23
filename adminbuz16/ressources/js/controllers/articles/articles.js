@@ -14,6 +14,26 @@ app.controller('articlesListsController', ['$scope','articlesService','$location
             $scope.articleError="Une erreur est survenue lors de la récupération des articles";
         });
     };
+    $scope.delArticle = function(e){
+        if(!confirm("Êtes-vous sûr de vouloir supprimer cet article ?")) return false;
+        var delArticle= articlesService.delArticle(e);
+        delArticle.then(function (response) {
+            if (response.data.success) {
+                var index=0;
+                for(var e in $scope.listeArticles){
+                    if($scope.listeArticles[e].id==e.id){
+                        $scope.listeArticles.splice(index,1);
+                    }
+                    index++;
+                }
+            }
+            else{
+                $scope.articleError = response.data.message;
+            }
+        }, function () {
+            $scope.articleError="Une erreur est survenue lors de la récupération des articles";
+        });
+    };
     
     $scope.init();
 }]);
