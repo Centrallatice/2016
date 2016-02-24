@@ -4,8 +4,14 @@ app.controller('menuAddController', ['$scope','menuService','$location','pagesSe
     $scope.ready=false;
     $scope.successAjoutMenu=null;
     $scope.errorAjoutMenu=null;
-    
+    $scope.errorPage=true;
     $scope.listePages=new Array();
+    $scope.isAllPage=false;
+    $scope.nouveauMenu={
+            nom:"",
+            idPage:{},
+            position:""
+    };
     $scope.listePages[0] = {
         Nom: "Toutes les pages du site",
         ThemeName: "default",
@@ -20,7 +26,14 @@ app.controller('menuAddController', ['$scope','menuService','$location','pagesSe
         type: "0",
         url: null  
     };
-    
+    $scope.checkIsAllPage=function(id){
+        if(id==0){
+            $scope.isAllPage=$scope.nouveauMenu.idPage[0];
+            if($scope.nouveauMenu.idPage[0]){
+                $scope.nouveauMenu.idPage={0:true};
+            }
+        }
+    }
     $scope.init=function(){
 	var getPages = pagesService.getPages();
         getPages.then(function (response) {
@@ -38,8 +51,16 @@ app.controller('menuAddController', ['$scope','menuService','$location','pagesSe
         });
     };
     
-    $scope.addMenu=function(e){
-	var addMenu = menuService.addmenu(e);
+    $scope.addMenu=function(){
+	
+        var errPage = true;
+        for(var e in $scope.nouveauMenu.idPage){
+            if($scope.nouveauMenu.idPage[e]) errPage=false;
+        }
+        $scope.errorPage=errPage;
+        if(errPage) return false;
+        
+	var addMenu = menuService.addmenu($scope.nouveauMenu);
         addMenu.then(function (response) {
             if (response.data.success) {
                 $scope.successAjoutMenu="Le menu a bien été créé !";
@@ -102,7 +123,22 @@ app.controller('menuUpdateController', ['$scope','menuService','$location','page
     $scope.ready=false;
     $scope.successUpdateMenu=null;
     $scope.errorUpdateMenu=null;
-    $scope.listePages = new Array();
+    $scope.errorPage=true;
+    $scope.listePages=new Array();
+    $scope.nouveauMenu={
+        nom:"",
+        idPage:{},
+        position:""
+    };
+    $scope.isAllPage=false;
+    $scope.checkIsAllPage=function(id){
+        if(id==0){
+            $scope.isAllPage=$scope.nouveauMenu.idPage[0];
+            if($scope.nouveauMenu.idPage[0]){
+                $scope.nouveauMenu.idPage={0:true};
+            }
+        }
+    }
     $scope.listePages[0] = {
         Nom: "Toutes les pages du site",
         ThemeName: "default",
@@ -135,13 +171,12 @@ app.controller('menuUpdateController', ['$scope','menuService','$location','page
                             $scope.errorUpdateMenu=null;
                             $scope.successUpdateMenu=null;
                             $scope.nouveauMenu = response.data.donnees;
-                            if(response.data.donnees.idPage || response.data.donnees.idPage==0){
-                                for(var c in $scope.listePages){
-                                    if($scope.listePages[c].id==$scope.nouveauMenu.idPage){
-                                        $scope.nouveauMenu.idPage=$scope.listePages[c];
-                                    }
-                                }
+                            if($scope.nouveauMenu.idPage===true){
+                                $scope.isAllPage=true;
+                                $scope.nouveauMenu.idPage={0:true};
                             }
+                            
+                            
                             $scope.ready=true;
                         }
                         else{
@@ -160,7 +195,14 @@ app.controller('menuUpdateController', ['$scope','menuService','$location','page
         }
     };
     $scope.valideUpdateMenu=function(e){
-        var updatemenu = menuService.updatemenu(e);
+        var errPage = true;
+        for(var e in $scope.nouveauMenu.idPage){
+            if($scope.nouveauMenu.idPage[e]) errPage=false;
+        }
+        $scope.errorPage=errPage;
+        if(errPage) return false;
+        
+        var updatemenu = menuService.updatemenu($scope.nouveauMenu);
         updatemenu.then(function (response) {
             if (response.data.success) {
                 $scope.errorUpdateMenu=null;

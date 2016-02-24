@@ -1,4 +1,5 @@
 <?php
+
 namespace Models\Admin;
 use Tools\StrTools;
 
@@ -331,7 +332,7 @@ class MenuLinks extends \Slim\Middleware{
                 endif;
             endif;
             $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
-            
+           
             $sth->bindParam(':nom', $this->_strNom, \PDO::PARAM_STR,255);
             $sth->bindParam(':url', $url, \PDO::PARAM_STR,255);
             $sth->bindParam(':idMenu', $this->_intIdMenu, \PDO::PARAM_INT);
@@ -526,10 +527,7 @@ class MenuLinks extends \Slim\Middleware{
                 SET
                     nom=:n,
                     idPage=:idp,
-                    url=:url,
-                    idParent=:idParent,
-                    ordre=:ordre,
-                    depth=:depth
+                    url=:url
                 WHERE
                     id=:id
             ";
@@ -543,45 +541,12 @@ class MenuLinks extends \Slim\Middleware{
                 endif;
             endif;
             
-            // GESTION DE L'ORDRE
-            $getParent=$this->countByIdParent($this->_intIdParent,$this->_intIdMenu);
-           
-            if($getParent['success']):
-                $ordre=$getParent['donnees'];
-            else:
-                return array (
-                    'success' => false
-                    ,'donnees' => null
-                    ,'message' => 'Une erreur est survenue lors de la création du lien'
-                );
-            endif;
-            
-            
-            //Gestion de la Profondeur
-            $depth=0;
-            if(!is_null($this->_intIdParent)):
-                $depthParent = $this->getDepthByIDParent($this->_intIdParent);
-               
-                if($depthParent['success']):
-                    $depth = $depthParent['donnees']+1;
-                else:
-                    return array (
-                        'success' => false
-                        ,'donnees' => null
-                        ,'message' => 'Une erreur est survenue lors de la création de la catégorie'
-                    );
-                endif;
-            endif;
-            
-            
-            
             $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
-            $sth->bindParam(':depth', $depth, \PDO::PARAM_INT);
-            $sth->bindParam(':ordre', $ordre, \PDO::PARAM_INT);
+		
+			
             $sth->bindParam(':n', $this->_strNom, \PDO::PARAM_STR,255);
             $sth->bindParam(':url', $url, \PDO::PARAM_STR,255);
             $sth->bindParam(':idp', $this->_intIdPage, \PDO::PARAM_INT);
-            $sth->bindParam(':idParent', $this->_intIdParent, \PDO::PARAM_INT);
             $sth->bindParam(':id', $this->_intId, \PDO::PARAM_INT);
             
             if($sth->execute()){

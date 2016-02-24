@@ -3,8 +3,13 @@
         <section class="panel">
             <header class="panel-heading">
                 <span class="title">Liens du menu {{nomMenu}}</span>
+                <div class="pull-right">
+                    <a class="btn btn-success btn-sm" href="#/menus/lists" role="button"><i class="fa fa-arrow-left"></i> Annuler</a>
+                </div>  
             </header>
             <br />
+           
+            
             <div class='row'>
                 <div class='col-xs-4 col-xs-offset-8'>
                     <div class="input-group">
@@ -17,12 +22,12 @@
             <br />
             <div class="panel-body panel-action">
                 <div class="col-xs-12" ng-if="menuError!==null && ready">
-                    <table class="table table-hover table-responsive table-striped" ng-if="listeMenus.length>0">
+                    <table class="table table-hover table-responsive table-striped" ng-if="listeMenus.length>0 && listeMenus!=null">
                         <thead>
                             <tr>
                                 <th>Nom</th>
                                 <th>Page associée</th>
-                                <th>Page parente</th>
+                                <th>Lien parent</th>
                                 <th>Position</th>
                                 <th width='80px'>Editer</th>
                                 <th width='80px'>Supprimer</th>
@@ -30,9 +35,7 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="(k,v) in listeMenus|filter:filtreLinks">
-                                <td>
-                                    <span ng-repeat="e in range(1,v.depth)"> &nbsp &nbsp </span>
-                                    <span ng-if='v.depth>0'><strong>|--</strong></span>{{v.nom}}</td>
+                                <td ng-bind-html="v.nom | to_trusted"></td>
                                 <td ng-if='v.nomPage!==null'>
                                     {{v.nomPage}}
                                 </td>
@@ -57,7 +60,8 @@
                             </tr>
                         </tfoot>
                     </table>
-                    <div ng-if="listeMenus.length==0" class='text-center'>
+                    
+                    <div ng-if="listeMenus===null" class='text-center'>
                         <br />
                         <br />
                         <br />

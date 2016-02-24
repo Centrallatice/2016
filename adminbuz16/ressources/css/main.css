@@ -74,3 +74,12 @@ li.nosub{
     padding:10px;
     border:1px solid #ebebeb;
 }
+.monlistgroup .list-group-item {
+    position: relative;
+    display: block;
+    padding: 1px 15px;
+    margin-bottom: -1px;
+    background-color: #fff;
+    height: 25px;
+    border: 1px solid #ddd;
+}

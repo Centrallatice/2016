@@ -16,10 +16,11 @@ class menuLinksController extends \Slim\Middleware{
             $body = json_decode($request->getBody());
             $M = new MenuLinks($this->_db);
             $M->setNom($body->menuLinks->nom);
-            $M->setIdPage(isset($body->menuLinks->page->id))?$body->menuLinks->page->id:null;
+            
+            $M->setIdPage( isset($body->menuLinks->page->id) ? $body->menuLinks->page->id:null);
             $M->setIdMenu($body->idMenuParent);
             
-            $M->setIdParent(isset($body->menuLinks->lienParent->id) ? $body->menuLinks->lienParent->id : null);
+            $M->setIdParent(isset($body->menuLinks->lienParent->id) ? $body->menuLinks->lienParent->id : (isset($body->menuLinks->lienParent) ? $body->menuLinks->lienParent : null));
             $result = $M->addMenu();
             echo json_encode($result);
 	}
@@ -30,7 +31,7 @@ class menuLinksController extends \Slim\Middleware{
             $M->setId($body->lien->id);
             $M->setIdPage(isset($body->lien->page->id) ? $body->lien->page->id : null);
             $M->setNom($body->lien->nom);
-            
+            $M->setIdParent(isset($body->lien->idParent) ? $body->lien->idParent : null);
             $result = $M->updateMenuLink();
             echo json_encode($result);
 	}
@@ -39,11 +40,19 @@ class menuLinksController extends \Slim\Middleware{
             $body = json_decode($request->getBody());
             $M = new MenuLinks($this->_db);
             $M->setIdMenu($body->menu);
-            $result = $M->getMenuLinks();
+            $result = $M->getMenuLinksByDepth();
             if($result['success']):
                 $reordered=array();
-                $reordered=menuLinksController::OrderMenuLinksEnfants($result['donnees'],0,0,$reordered);
+                $reordered=menuLinksController::OrderMenuLinks($result['donnees'],$reordered,0);
                 $result['donnees']=$reordered;
+            endif;
+            if(isset($body->displayAdmin) && $body->displayAdmin):
+                foreach($result['donnees'] as $k=>$v):
+                    $beforeNom="";
+                    for($i=0;$i<$result['donnees'][$k]['depth'];$i++) $beforeNom.=" &nbsp &nbsp";
+                    if($result['donnees'][$k]['depth']>0) $beforeNom.="<strong>|--</strong>";
+                    $result['donnees'][$k]['nom']=$beforeNom.$result['donnees'][$k]['nom'];
+                endforeach;
             endif;
             
             
@@ -80,61 +89,51 @@ class menuLinksController extends \Slim\Middleware{
             endif;
             echo json_encode($result);
 	}
-        public static function OrderMenuLinks($entry,$idParent,$depth,$final){
+        public static function OrderMenuLinks($initial,$final,$depth){
             
             // Si tableau vide on le retourne -> inutile de continuer
-            if(count($entry)==0):
-                return $entry;
-            endif;
-            if($entry[0]['depth']==$depth):
-                if($depth==0):
-                    array_push($final,$entry[0]);
-                    array_shift($entry);
-                else:
-                    $found=false;
-                    $d1=$d2=array();
-                    foreach($final as $cle=>$value):
-                        if($found):
-                            array_push($d2,$final[$cle]);
-                        else:
-                            array_push($d1,$final[$cle]);
-                        endif;
-                        
-                        if($final[$cle]['id']==$entry[0]['idParent']):
-                            $found=true;
-                            array_push($d1,$entry[0]);
-                        endif;
-                    endforeach;
-                    
-                    $final=  array_merge($d1, $d2);
-                    array_shift($entry);
-                endif;
-            endif;
-
-            if(count($entry)==0):
-                return $final;
+            if(count($initial)==0):
+                return $initial;
             else:
-                return menuLinksController::OrderMenuLinks($entry,(is_null($entry[0]['idParent'])) ? 0 : $entry[0]['idParent'], $entry[0]['depth'], $final);
-            endif;
-            
-            
+				if($depth==0){
+					foreach($initial[$depth] as $k=>$v):
+						array_push($final,$initial[$depth][$k]);
+					endforeach;
+				}
+				else{
+					// echo $depth;
+					foreach($initial[$depth] as $k=>$v):
+						$i=1;
+						$jOK=false;
+						foreach($final as $cleFinal=>$valueFinal):
+							if($final[$cleFinal]['id']==$k):
+								$jOK=$i;
+							endif;
+							$i++;
+						endforeach;
+						
+						if($jOK!==false):
+							$d1=array_slice($final,$jOK,count($final)-$jOK);
+							$d2=array_slice($final,0,$jOK);
+							$d3=$initial[$depth][$k];
+							// var_dump($d1);
+							// echo "<br />";echo "<br />";echo "<br />";
+							// var_dump($d2);
+							// echo "<br />";echo "<br />";echo "<br />";
+							// var_dump($d3);
+							$final=array_merge($d2,$d3,$d1);
+						endif;
+					endforeach;					
+				}
+				unset($initial[$depth]);
+			endif;
+
+			// var_dump($final);
+			// var_dump($initial);
+			if(isset($initial[$depth+1])) return menuLinksController::OrderMenuLinks($initial,$final,$depth+1);
+			else return $final;
         }
-        public static function OrderMenuLinksEnfants($entry,$depth,$final){
-            
-            foreach($entry as $cle=>$value):
-                if(is_null($entry[$cle]['idParent'])) array_push($final,$entry[$cle]);
-                else:
-                    
-                endif;
-//                if($final[$cle]['id']==$entry[0]['idParent']):
-//                    if(!isset($final[$cle]['enfants'])) $final[$cle]['enfants']=array();
-//                    array_push($final[$cle]['enfants'],$entry[0]);
-//                    array_shift($entry);
-//                endif;
-            endforeach;
-            
-            
-        }
+        
 	public function call()
         {
                 $this->next->call();

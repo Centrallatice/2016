@@ -18,23 +18,17 @@ class Menus extends \Slim\Middleware{
         try {
             $sql="
                 SELECT 
-                    M.id,M.nom,M.position,P.nom as nomPage,P.id as idPage,
+                    M.id,M.nom,M.position,
                     DATE_FORMAT(M.dateAjout,'%d/%m/%Y %H:%i') as dateAjout
                 FROM
                     menus M
-                LEFT JOIN
-                    pages P
-                ON 
-                    M.idPage = P.id 
                 ORDER BY 
                     M.".$trie." ".$ordreTrie;
             
             $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
             if($sth->execute()){
                 $r=$sth->fetchAll(\PDO::FETCH_ASSOC);
-		foreach($r as $k=>$v):
-                    if($r[$k]['idPage']==0) $r[$k]['nomPage']="Toutes les pages du site";
-                endforeach;		
+                	
                 return array (
                     'success' => true
                     ,'donnees' => $r
@@ -60,14 +54,10 @@ class Menus extends \Slim\Middleware{
         try {
             $sql="
                SELECT 
-                    M.id,M.nom,M.position,P.nom as nomPage,P.id as idPage,
+                    M.id,M.nom,M.position,
                     DATE_FORMAT(M.dateAjout,'%d/%m/%Y %H:%i') as dateAjout
                 FROM
                     menus M
-                LEFT JOIN
-                    pages P
-                ON 
-                    M.idPage = P.id 
                 WHERE
                     M.id=:i
                 ";
@@ -75,11 +65,11 @@ class Menus extends \Slim\Middleware{
             $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
             if($sth->execute(array("i"=>  $this->_intId))){
                 $r=$sth->fetch(\PDO::FETCH_ASSOC);
-                if($r['idPage']==0 || is_null($r['idPage'])):
-                    $r['idPage']=0;
-                    $r['nomPage']="Toutes les pages du site";
+                $menusAssocie = $this->getPagesByIdMenu();
+                if($menusAssocie['success']):
+                    $r['idPage']=$menusAssocie['donnees'];
                 endif;
-            return array (
+                return array (
                     'success' => true
                     ,'donnees' => $r
                     ,'message' => null
@@ -100,7 +90,57 @@ class Menus extends \Slim\Middleware{
             );
         }
     }
-    
+    public function getPagesByIdMenu(){
+         try {
+            $sql="
+                SELECT 
+                    P.id as idPage,P.nom as nomPage
+                FROM
+                    menupage M
+                LEFT JOIN
+                    pages P
+                ON
+                    M.idPage=P.id
+                WHERE
+                    M.idMenu=:i
+                ";
+            
+            $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
+            if($sth->execute(array("i"=>  $this->_intId))){
+                $r=$sth->fetchAll(\PDO::FETCH_ASSOC);
+               
+                $res=array();
+                foreach($r as $k=>$v):
+                    
+                    if(is_null($r[$k]['idPage'])):
+                        $res=true;
+                    else:
+                        $res[$r[$k]['idPage']]=true;
+                    endif;
+                endforeach;
+                
+            return array (
+                    'success' => true
+                    ,'donnees' => $res
+                    ,'message' => null
+                );
+            }else{
+                return array (
+                    'success' => false
+                    ,'donnees' => null
+                    ,'message' => null
+                );
+            }
+            
+        } catch ( PDOException $exception ) {
+            return array (
+                'success' => false
+                ,'donnees' => null
+                ,'message' => 'Une erreur est survenue lors de la récupération des données'
+            );
+        }
+        
+    }
     public function addMenu () {
 		
         if ( is_null ( $this->_strPosition ) )
@@ -125,21 +165,23 @@ class Menus extends \Slim\Middleware{
         
         try {
             $sql="
+               
                 INSERT INTO 
                     menus
-                 (nom,position,dateAjout,idPage) 
+                 (nom,position,dateAjout) 
                 VALUES 
-                    (:n,:p,NOW(),:idp)
+                    (:n,:p,NOW())
+                    
             ";
             
             $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
            
             $sth->bindParam(':n', $this->_strNom, \PDO::PARAM_STR,255);
             $sth->bindParam(':p', $this->_strPosition, \PDO::PARAM_STR,255);
-            $sth->bindParam(':idp', $this->_intIdPage, \PDO::PARAM_INT);
             
             if($sth->execute()){
                 $lastId = $this->_db->lastInsertId();
+                $this->associeMenuPages($lastId);
                 return array (
                     'success' => true
                     ,'donnees' => $lastId
@@ -162,7 +204,54 @@ class Menus extends \Slim\Middleware{
             );
         }
     }
-    
+    public function associeMenuPages($idMenu){
+        if ( is_null ( $this->_intIdPage) ||count($this->_intIdPage)==0 )
+            return array (
+                'success' => false
+                ,'donnees' => null
+                ,'message' => 'La page est obligatoire'
+            );
+        try {
+            $sql="
+                DELETE FROM menupage WHERE idMenu=".$idMenu.";
+                INSERT INTO menupage (idPage,idMenu) VALUES ";
+            
+            foreach($this->_intIdPage as $k=>$v):
+                
+                if($this->_intIdPage->{$k}) $sql.="(".$k.",".$idMenu."),";
+            endforeach;
+            $sql=substr($sql,0,strlen($sql)-1);
+           
+            $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
+           
+            
+            if($sth->execute()){
+                
+                return array (
+                    'success' => true
+                    ,'donnees' => null
+                    ,'message' => null
+                );
+            }else{
+                $sql="DELETE FROM menus WHERE id=".$idMenu;
+                $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
+                $sth->execute();
+                
+                return array (
+                    'success' => false
+                    ,'donnees' => null
+                    ,'message' => null
+                );
+            }
+            
+        } catch ( PDOException $exception ) {
+            return array (
+                'success' => false
+                ,'donnees' => null
+                ,'message' => 'Une erreur est survenue lors de la récupération des données'
+            );
+        }
+    }
     public function updateMenu () {
 	if ( is_null ( $this->_strPosition ) )
             return array (
@@ -177,12 +266,7 @@ class Menus extends \Slim\Middleware{
                 ,'donnees' => null
                 ,'message' => 'Le nom est obligatoire'
             );
-        if ( is_null ( $this->_intIdPage ) )
-            return array (
-                'success' => false
-                ,'donnees' => null
-                ,'message' => 'La page est obligatoire'
-            );
+        
 		
         try {
             $sql="
@@ -190,8 +274,7 @@ class Menus extends \Slim\Middleware{
                     menus
                 SET
                     nom=:n,
-                    position=:p,
-                    idPage=:idp 
+                    position=:p
                 WHERE
                     id=:idMenu
             ";
@@ -201,10 +284,10 @@ class Menus extends \Slim\Middleware{
 			
             $sth->bindParam(':n', $this->_strNom, \PDO::PARAM_STR,255);
             $sth->bindParam(':p', $this->_strPosition, \PDO::PARAM_STR,255);
-            $sth->bindParam(':idp', $this->_intIdPage, \PDO::PARAM_INT);
             $sth->bindParam(':idMenu', $this->_intId, \PDO::PARAM_INT);
             
             if($sth->execute()){
+                $this->associeMenuPages($this->_intId);
                 return array (
                     'success' => true
                     ,'donnees' => null
@@ -238,16 +321,18 @@ class Menus extends \Slim\Middleware{
 		
         try {
             $sql="
-                DELETE FROM
-                    menus
-                WHERE
-                    id=:idMenu
+                DELETE FROM menus WHERE id=:idMenu
             ";
             
             $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
             $sth->bindParam(':idMenu', $this->_intId, \PDO::PARAM_INT);
             
             if($sth->execute()){
+                
+                $sql="DELETE FROM menupage WHERE idMenu=".$this->_intId;
+                $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
+                $sth->execute();
+               
                 return array (
                     'success' => true
                     ,'donnees' => null

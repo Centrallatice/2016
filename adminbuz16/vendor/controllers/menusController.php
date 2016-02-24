@@ -18,6 +18,7 @@ class menusController extends \Slim\Middleware{
             $M->setNom($body->menu->nom);
             $M->setIdPage($body->menu->idPage);
             $M->setPosition($body->menu->position);
+           
             $result = $M->addMenu();
             echo json_encode($result);
 	}

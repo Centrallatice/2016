@@ -35,7 +35,7 @@ class Pages extends \Slim\Middleware{
                 ON
                     P.idTheme=T.id
                 order by 
-                    P.titre ASC";
+                    P.Nom ASC";
             $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
             $sth->execute(array());
             if($sth){

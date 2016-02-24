@@ -64,7 +64,7 @@ app.controller('menuLinksListsController', ['$scope','menuLinksService','$locati
         for (var i = min; i <= max; i += step) input.push(i);
         return input;
       };
-  
+    
     $scope.init=function(){
         if(!$route.current.params.idMenu || $route.current.params.idMenu===null || $route.current.params.idMenu===""){
             alert("Le menu n'a pas été trouvé");
@@ -90,6 +90,7 @@ app.controller('menuLinksListsController', ['$scope','menuLinksService','$locati
                 if (response.data.success) {
                     $scope.listeMenus = response.data.donnees;
                     $scope.ready=true;
+                    
                 }
                 else{
                     $scope.successLienMenu=null;
@@ -145,11 +146,13 @@ app.controller('menuLinkUpdateController', ['$scope','menuLinksService','$locati
             $scope.idLinkMenu = $route.current.params.idLinkMenu;
             $q.all([
                 menuLinksService.getmenuLink($route.current.params.idLinkMenu),
+                menuLinksService.getmenuLinks($route.current.params.idMenu),
                 pagesService.getPages()])
             .then(function (res) {
                 if(res[0].data.success && res[1].data.success){
-                    $scope.newMenu = res[0].data.donnees;
-                    $scope.listePages=res[1].data.donnees;
+                    $scope.newMenu=res[0].data.donnees;
+                    $scope.listeMenuLinks = res[1].data.donnees;
+                    $scope.listePages=res[2].data.donnees;
                     for(var e in $scope.listePages){
                         if($scope.listePages[e].id==$scope.newMenu.idPage){
                             $scope.newMenu.page=$scope.listePages[e];
@@ -190,7 +193,7 @@ app.controller('menuLinkUpdateController', ['$scope','menuLinksService','$locati
 app.factory('menuLinksService', ['$http', function($http) {
     return {
         getmenuLinks: function(e) {
-            return $http.post('./vendor/index.php/menuLinksController/getMenuLinks',{menu:e});
+            return $http.post('./vendor/index.php/menuLinksController/getMenuLinks',{menu:e,displayAdmin:true});
         },
         getmenuLink: function(e) {
             return $http.post('./vendor/index.php/menuLinksController/getMenuLink',{lien:e});

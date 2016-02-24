@@ -71,4 +71,8 @@ angular.module('buzancais', ['ngRoute','ui.bootstrap','colorpicker.module',
 }]).constant('angularMomentConfig', {
   preprocess: 'utc',
   timezone: 'Europe/Berlin'
-});
+}).filter('to_trusted', ['$sce', function($sce){
+        return function(text) {
+            return $sce.trustAsHtml(text);
+        };
+    }]);

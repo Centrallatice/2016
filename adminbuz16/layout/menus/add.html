@@ -10,15 +10,24 @@
             <div class="panel-body panel-action">
                 <div class="col-xs-12">
                     <form class="addCat-form" name="ajoutMenu" novalidate role="form" ng-if='ready'>
+					
                         <div class="form-group" ng-class="{'has-error':ajoutMenu.nom.$error.required}">
                             <label for="nom">Nom</label>
                             <input type="text" required  class="form-control" ng-model='nouveauMenu.nom' id="nom" name="nom">
                             <span ng-show="ajoutMenu.nom.$error.required" class="help-block">Ce champ est obligatoire.</span>
                         </div>
-			<div class="form-group" ng-class="{'has-error':ajoutMenu.idPage.$error.required}">
-                            <label for="idPage">Affiché sur la page</label>
-                            <select class="form-control" required ng-model='nouveauMenu.idPage' id="idPage" name="idPage" ng-options="page.id as page.Nom for page in listePages track by page.id "></select>
-                            <span id="helpBlockPage" class="help-block" ng-show="ajoutMenu.idPage.$error.required">Ce champ est obligatoire.</span>
+			<div class="form-group" ng-class="{'has-error':errorPage}">
+                            <label for="idPage">Affiché sur les pages suivantes</label>
+                            <div style="max-height:300px;overflow:auto">
+                                <ul class="list-group monlistgroup">
+                                    <li class="list-group-item" ng-repeat="(key,val) in listePages">
+                                        <div class="col-xs-10">{{listePages[key].Nom}}</div>
+                                        <div class="col-xs-2 pull-right">
+                                        <input type="checkbox" ng-change="checkIsAllPage(listePages[key].id)" ng-disabled="isAllPage && listePages[key].id!=0" ng-value="listePages[key].id" ng-model="nouveauMenu.idPage[listePages[key].id]"></div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <span id="helpBlockPage" class="help-block" ng-show="errorPage">Ce champ est obligatoire.</span>
                         </div>
 			<div class="form-group"  ng-class="{'has-error':ajoutMenu.position.$error.required}">
                             <label for="position">Position du menu</label>
@@ -40,7 +49,7 @@
 						
 						
                         <div class="text-center block-center">
-                            <button type="button" class="btn btn-success" ng-disabled="ajoutMenu.$error.required" ng-click='addMenu(nouveauMenu)'>
+                            <button type="button" class="btn btn-success" ng-disabled="ajoutMenu.$error.required" ng-click='addMenu()'>
                                Créer ce menu
                             </button>
                         </div>

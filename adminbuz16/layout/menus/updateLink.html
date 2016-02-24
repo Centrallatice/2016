@@ -20,7 +20,15 @@
                             <label for="idPage">Page associée</label>
                             <select class="form-control"  ng-model='newMenu.page' id="idPage" name="idPage" ng-options="page as page.Nom for page in listePages track by page.id "></select>
                         </div>
-						
+			<div class="form-group">
+                            <label for="lienParent">Lien de menu parent</label>
+                            <select class="form-control" ng-model='newMenu.idParent' id="lienParent" name="lienParent">
+                                <option value="null" ng-selected="newMenu.idParent===null">Aucun</option>
+                                <option ng-value="listeMenuLinks[cle].id" ng-repeat="(cle,val) in listeMenuLinks" ng-bind-html="listeMenuLinks[cle].nom|to_trusted"></option>
+                            </select>
+                            
+                            <!--<select class="form-control" ng-model='newLink.lienParent' id="lienParent" name="lienParent" ng-options="menulink as menulink.nom for menulink in listeMenuLinks track by menulink.id "></select>-->
+                        </div>			
 						
                         <div class="alert" ng-class="{'alert-success':successAjoutLienMenu!==null && errorAjoutLienMenu==null,'alert-danger':errorAjoutLienMenu!==null && successAjoutLienMenu==null}">
                             <span ng-if="successAjoutLienMenu!=null">{{successAjoutLienMenu}}</span>
