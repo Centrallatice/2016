@@ -24,6 +24,7 @@ app.controller('menuLinkAddController', ['$scope','menuLinksService','$location'
                     $scope.nomMenu=res[0].data.donnees.nom;
                     $scope.listePages=res[1].data.donnees;
                     $scope.listeMenuLinks=res[2].data.donnees;
+                    $scope.listeMenuLinks.unshift({id:'-1',nom:'Aucun'});
                     $scope.ready=true;
                 }
                 else{
@@ -153,6 +154,7 @@ app.controller('menuLinkUpdateController', ['$scope','menuLinksService','$locati
                     $scope.newMenu=res[0].data.donnees;
                     $scope.listeMenuLinks = res[1].data.donnees;
                     $scope.listePages=res[2].data.donnees;
+                    $scope.listeMenuLinks.unshift({id:'-1',nom:'Aucun'});
                     for(var e in $scope.listePages){
                         if($scope.listePages[e].id==$scope.newMenu.idPage){
                             $scope.newMenu.page=$scope.listePages[e];

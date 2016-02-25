@@ -322,10 +322,9 @@ class MenuLinks extends \Slim\Middleware{
             
             $url = StrTools::toAscii($this->_strNom);
             
-            $countUrl = $this->countByUrl($url,null);
+            $countUrl = $this->countByUrl($url,$this->_intIdPage,null);
             if($countUrl['success']):
                 if($countUrl['donnees']!=0):
-                
                     $url=$url.'-'.$countUrl['donnees'];
                     
                 endif;
@@ -439,10 +438,10 @@ class MenuLinks extends \Slim\Middleware{
             );
         }
     }
-    public function countByUrl($url,$id=null) {
+    public function countByUrl($url,$idPage,$id=null) {
         try {
             
-            $sql="SELECT COUNT(*) as TOTAL FROM menulinks WHERE url LIKE '".$url."%'";
+            $sql="SELECT COUNT(*) as TOTAL FROM menulinks WHERE url LIKE '".$url."__' AND idPage!=".$idPage;
             if(!is_null($id)) $sql.=' and id!='.$id;
             
             $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
@@ -535,7 +534,7 @@ class MenuLinks extends \Slim\Middleware{
             ";
             $url = StrTools::toAscii($this->_strNom);
             
-            $countUrl = $this->countByUrl($url,$this->_intId);
+            $countUrl = $this->countByUrl($url,$this->_intIdPage,$this->_intId);
             if($countUrl['success']):
                 if($countUrl['donnees']!=0):
                    
@@ -618,7 +617,7 @@ class MenuLinks extends \Slim\Middleware{
 		
         try {
             $sql="
-                delete
+                delete FROM
                     menulinks
                 WHERE
                     idParent=:idMenu
@@ -633,7 +632,7 @@ class MenuLinks extends \Slim\Middleware{
                     ,'message' => null
                 );
             }else{
-                print_r($sth->errorInfo());
+//                print_r($sth->errorInfo());
                 return array (
                     'success' => false
                     ,'donnees' => null

@@ -52,7 +52,7 @@
          {% for headerModule in modules['HEADER'] %}
             {% if headerModule.type=='diaporama' %}
                 <!-- Module HEADER -->
-                <div class="row">
+                <div class="row hidden-xs">
                     <div id="header-slider" class="carousel slide carousel-header" data-ride="carousel">
                         <div class="carousel-inner" role="listbox">
                             {% for images in headerModule.pictures %}

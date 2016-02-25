@@ -1,9 +1,10 @@
 <div class="blocFooter">
+    <div class="row rowfrise"></div>
     <div class="row rowbreadcrumb">
         <div class="col-xs-24 col-md-21 col-md-offset-3">
             <p class="breadcrumb">
                 <a href="{{BASEURL}}">Accueil</a>
-                {% if NomPage != 'Accueil' %}
+                {% if urlPage != '' %}
                     <a href="{{urlPage}}">{{NomPage}}</a>
                 {% endif %}
                 > Vous êtes ici</p>
@@ -61,22 +62,23 @@
                 </div>
             </div>
             <div class="col-xs-10 col-sm-10 col-md-5">
-                <div class="titrePlan">PLAN DU SITE</div>
-                <div class="contentPlan">
-                    <ul>
-                        <li>Accueil</li>
-                        <li>Découvrir Buzançais</li>
-                        <li>Vie Municipale</li>
-                        <li>Sports</li>
-                        <li>Loisirs</li>
-                        <li>Culture</li>
-                        <li>Famille</li>
-                        <li>Actions Sociales</li>
-                        <li>Nous contacter</li>
-                        <li>Mentions légales</li>
-                    </ul>
-                </div>
-                <div class="titrePlan">LIENS UTILES</div>
+                {% for m in menus %}
+                    {% if m.position=='COL_FOOTER_2'%}
+                        <div class="titrePlan">{{m.liens[0].NomMenu}}</div>
+                        <div class="contentPlan">
+                            <ul>
+                                {% for menuLinks in m.liens %}
+                                    {% if menuLinks.type==1%}
+                                        <li><a href="index.html">{{menuLinks.nom}}</a></li>
+                                    {% else %}
+                                        <li><a href="{{menuLinks.url}}">{{menuLinks.nom}}</a></li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                
             </div>
             <div class="hidden-xs hidden-sm col-md-11">
                 <div class="titreGMAP">LOCALISER LA MAIRIE SUR GOOGLE MAP</div>

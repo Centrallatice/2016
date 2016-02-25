@@ -61,90 +61,44 @@ $app->hook('slim.before.dispatch', function() use ($app,$db) {
         $baseParams=array_merge($baseParams,$gCMeta['donnees']);
    endif;
    
+   /*** Récupération des menus de la page en cours ******/
+   $gMenu = $globalController->getMenus( ($page=='index') ? 'accueil' : $page);
+   if($gMenu['success'] && !is_null($gMenu['donnees'])):
+        $baseParams=array_merge($baseParams,array("menus"=>$gMenu['donnees']));
+   endif;
+   
+   /*** Récupération des categories globales ******/
+   $gCategories = $globalController->getCategories();
+   if($gCategories['success'] && !is_null($gCategories['donnees'])):
+        $baseParams=array_merge($baseParams,array("categories"=>$gCategories['donnees']));
+   endif;
+   
+   /*** Récupération des réseax sociaux ******/
+   $gRS = $globalController->getSociaux();
+   if($gRS['success'] && !is_null($gRS['donnees'])):
+        $baseParams=array_merge($baseParams,array("sociaux"=>$gRS['donnees']));
+   endif;
+   
+   /*** Récupération des coordonnées******/
+   $gCoord = $globalController->getCoordonnees();
+   if($gCoord['success'] && !is_null($gCoord['donnees'])):
+        $baseParams=array_merge($baseParams,array("coordonnees"=>$gCoord['donnees']));
+   endif;
+   
    /****** Recupération des diffèrents modules *******/
-    require_once(BASE_PATH.'vendor/controllers/modulesController.php');
-    $modulesController = new modulesController($db);
+   require_once(BASE_PATH.'vendor/controllers/modulesController.php');
+   $modulesController = new modulesController($db);
     
-    $getModules = ($page=='index') ? $modulesController->getModulesFront($page,true) : $modulesController->getModulesFront($page,false);
+   $getModules = ($page=='index') ? $modulesController->getModulesFront($page,true) : $modulesController->getModulesFront($page,false);
+   if(isset($getModules['donnees']) && count($getModules)>0):
+       $baseParams=array_merge($baseParams,array("modules"=>$getModules['donnees']));
+   endif;
     
     
-    if(isset($getModules['donnees']) && count($getModules)>0):
-        $baseParams=array_merge($baseParams,array("modules"=>$getModules['donnees']));
-    endif;
 });
 
+require_once('./vendor/route.php');
 
-$app->get('/ajax/:action',  function ($action) use ($app,$db){
-    require_once(BASE_PATH.'/vendor/controllers/ajaxController.php');
-    $controller=new ajaxController($app,$db);
-    if(method_exists('ajaxController',$action)):
-        $controller->{$action}($app);
-    else:
-        echo json_encode(array("success"=>false,"message"=>"Une erreur interne est survenue veuillez nous en excuser"));
-    endif;
-})->via('GET','POST');
-
-$app->get('/actualite/(:categorie)(/:slug)',  function ($cat=null,$slug=null) use ($app,$db,$twig){
-    global $baseParams;
-    $page='actualite';
-	
-    /**** Recupération des contenus communs aux diffèrentes pages ****/
-    require_once(BASE_PATH.'vendor/controllers/globalController.php');
-    $globalController = new globalController($db);
-    $gCFlashs = $globalController->getFlashsInfo(true);
-    if($gCFlashs['success'] && !is_null($gCFlashs['donnees'])):
-        $baseParams=array_merge($baseParams,array("flashs"=>$gCFlashs['donnees']));
-    endif;
-   
-    if(file_exists(BASE_PATH.'/vendor/controllers/actualiteController.php')):
-        require_once(BASE_PATH.'/vendor/controllers/actualiteController.php');
-        $actualite=new actualiteController($app,$db);
-        if(method_exists($actualite,'initAction')):
-            $pageData=$actualite->initAction($app,$slug);
-			
-            if($pageData['success'] && isset($pageData['donnees'])):
-                $baseParams=array_merge($baseParams,$pageData['donnees']);
-            endif;
-            echo $twig->render($page.'.twig', $baseParams);
-        else:
-            echo $twig->render('404.twig', $baseParams);
-        endif;
-    else:
-        echo $twig->render('404.twig', $baseParams);
-    endif;
-})->via('GET','POST');   
-
-$app->get('/(:page)(/:id)',  function ($page='index',$id=null) use ($app,$db,$twig){
-    global $baseParams;
-    $page=str_replace('.html', '', $page);
-    
-    /**** Recupération des contenus communs aux diffèrentes pages ****/
-    require_once(BASE_PATH.'vendor/controllers/globalController.php');
-    $globalController = new globalController($db);
-    $gCFlashs = $globalController->getFlashsInfo(true);
-    if($gCFlashs['success'] && !is_null($gCFlashs['donnees'])):
-        $baseParams=array_merge($baseParams,array("flashs"=>$gCFlashs['donnees']));
-    endif;
-   
-    
-    if(file_exists(BASE_PATH.'/vendor/controllers/'.str_replace('.','/',$page).'Controller.php')):
-        require_once(BASE_PATH.'/vendor/controllers/'.str_replace('.','/',$page).'Controller.php');
-        $class=$page.'Controller';
-        $controller=new $class($app,$db);
-        if(method_exists($controller,'initAction')):
-            $pageData=(!is_null($id)) ? $controller->initAction($app,$id) : $controller->initAction($app);
-            if($pageData['success'] && isset($pageData['donnees'])):
-                $baseParams=array_merge($baseParams,$pageData['donnees']);
-            endif;
-            echo $twig->render($page.'.twig', $baseParams);
-        else:
-            echo $twig->render('404.twig', $baseParams);
-        endif;
-    else:
-        echo $twig->render('404.twig', $baseParams);
-    endif;
-    
-})->via('GET','POST');   
 
 $app->hook('slim.after.dispatch', function() use ($app,$db) { 
     global $baseParams;
@@ -155,9 +109,7 @@ $app->hook('slim.after.dispatch', function() use ($app,$db) {
     require_once(BASE_PATH.'/vendor/controllers/globalController.php');
     $globalController = new globalController($db);
     $globalController->addStats(($page=='index') ? 'accueil' : $page,isset($baseParams['idPage']) ? $baseParams['idPage'] : 0);
-    echo "<pre>";
-    var_dump($baseParams);
-    echo "</pre>";
+    
 });
+
 $app->run();
-?>

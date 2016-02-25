@@ -15,7 +15,46 @@ class Pages extends \Slim\Middleware{
         $this->_db=$db;
     }
     
-    public function getDataPage ($url) {
+    public function getPageByUrl($url){
+        try {
+            $sql="SELECT 
+                    P.id as idPage,
+                    P.Nom as NomPage,
+                    P.titre as titrePage,
+                    P.description as descriptionPage, 
+                    P.motsclefs as motsclefsPage,
+                    P.type
+                FROM 
+                    pages P
+                WHERE
+                    id=(SELECT idPage FROM menulinks WHERE url=:url LIMIt 0,1)";
+            $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
+            $sth->execute(array("url"=>$url));
+            if($sth){
+                $r=$sth->fetch(\PDO::FETCH_ASSOC);
+                return array (
+                    'success' => true
+                    ,'donnees' => $r
+                    ,'message' => null
+                );
+
+            }else{
+                return array (
+                    'success' => false
+                    ,'donnees' => null
+                    ,'message' => null
+                );
+            }
+            
+        } catch ( Exception $exception ) {
+            return array (
+                'success' => false
+                ,'donnees' => null
+                ,'message' => 'Une erreur est survenue lors de la récupération des données'
+            );
+        }
+    }
+    public function getDataPage ($id) {
         try {
             $sql="SELECT 
                     P.id as idPage,
@@ -26,9 +65,47 @@ class Pages extends \Slim\Middleware{
                 FROM 
                     pages P
                 WHERE
-                    url=:u";
+                    id=:i";
             $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
-            $sth->execute(array("u"=>$url));
+            $sth->execute(array("i"=>$id));
+            if($sth){
+                $r=$sth->fetch(\PDO::FETCH_ASSOC);
+                return array (
+                    'success' => true
+                    ,'donnees' => $r
+                    ,'message' => null
+                );
+
+            }else{
+                return array (
+                    'success' => false
+                    ,'donnees' => null
+                    ,'message' => null
+                );
+            }
+            
+        } catch ( Exception $exception ) {
+            return array (
+                'success' => false
+                ,'donnees' => null
+                ,'message' => 'Une erreur est survenue lors de la récupération des données'
+            );
+        }
+    }
+    public function getDataPageHOME () {
+        try {
+            $sql="SELECT 
+                    P.id as idPage,
+                    P.Nom as NomPage,
+                    P.titre as titrePage,
+                    P.description as descriptionPage, 
+                    P.motsclefs as motsclefsPage
+                FROM 
+                    pages P
+                WHERE
+                    type=1";
+            $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
+            $sth->execute();
             if($sth){
                 $r=$sth->fetch(\PDO::FETCH_ASSOC);
                 return array (

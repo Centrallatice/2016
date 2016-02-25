@@ -7,9 +7,9 @@ app.controller('pagesController', ['$rootScope','$scope','$location','pagesServi
     $scope.collapseAddPage = true;
     $scope.controleChamp={
         Nom:false,
-		titre:false,
-		type:false,
-		idTheme:false
+        titre:false,
+        type:false,
+        idTheme:false
     };	
     
     $scope.delPage=function(p){
@@ -63,7 +63,7 @@ app.controller('pagesController', ['$rootScope','$scope','$location','pagesServi
         $scope.newPage={
             titre:null,
             Nom:null,
-            type:null,
+            type:2,
             idTheme:null,
             description:null,
             motsclefs:null,
@@ -129,9 +129,7 @@ app.controller('pagesController', ['$rootScope','$scope','$location','pagesServi
             $scope.pagesErrorAddPage="Une erreur est survenue lors de la création de la page";
         });
     }
-	$scope.setURL=function(entry){
-		$scope.newPage.url=entry.replace(/[^a-z0-9]/gi,'-').toLowerCase();
-	}
+	
     $scope.init();
 }]);
 app.factory('pagesService', ['$http', function($http) {

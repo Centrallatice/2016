@@ -16,11 +16,17 @@ class menuLinksController extends \Slim\Middleware{
             $body = json_decode($request->getBody());
             $M = new MenuLinks($this->_db);
             $M->setNom($body->menuLinks->nom);
-            
+
             $M->setIdPage( isset($body->menuLinks->page->id) ? $body->menuLinks->page->id:null);
             $M->setIdMenu($body->idMenuParent);
-            
-            $M->setIdParent(isset($body->menuLinks->lienParent->id) ? $body->menuLinks->lienParent->id : (isset($body->menuLinks->lienParent) ? $body->menuLinks->lienParent : null));
+//            var_dump($body->menuLinks);
+            $lienParent=null;
+            if(isset($body->menuLinks->lienParent->id)):
+                $lienParent=$body->menuLinks->lienParent->id;
+            elseif(isset($body->menuLinks->lienParent)):
+                $lienParent=($body->menuLinks->lienParent==-1) ? null : $body->menuLinks->lienParent;
+            endif;
+            $M->setIdParent($lienParent);
             $result = $M->addMenu();
             echo json_encode($result);
 	}
@@ -31,7 +37,7 @@ class menuLinksController extends \Slim\Middleware{
             $M->setId($body->lien->id);
             $M->setIdPage(isset($body->lien->page->id) ? $body->lien->page->id : null);
             $M->setNom($body->lien->nom);
-            $M->setIdParent(isset($body->lien->idParent) ? $body->lien->idParent : null);
+            $M->setIdParent(isset($body->lien->idParent) ? (($body->lien->idParent!=-1) ? $body->lien->idParent : null) : null);
             $result = $M->updateMenuLink();
             echo json_encode($result);
 	}
@@ -46,7 +52,8 @@ class menuLinksController extends \Slim\Middleware{
                 $reordered=menuLinksController::OrderMenuLinks($result['donnees'],$reordered,0);
                 $result['donnees']=$reordered;
             endif;
-            if(isset($body->displayAdmin) && $body->displayAdmin):
+            if(isset($body->displayAdmin) && $body->displayAdmin && !is_null($result['donnees'])):
+				
                 foreach($result['donnees'] as $k=>$v):
                     $beforeNom="";
                     for($i=0;$i<$result['donnees'][$k]['depth'];$i++) $beforeNom.=" &nbsp &nbsp";
@@ -84,7 +91,7 @@ class menuLinksController extends \Slim\Middleware{
             $result = $M->delMenu();
             if($result['success']):
                 $ML = new MenuLinks($this->_db);
-                $ML->setIdParent($body->menu);
+                $ML->setIdParent($body->idMenu);
                 $result2 = $ML->delByIdParent();
             endif;
             echo json_encode($result);
@@ -92,13 +99,14 @@ class menuLinksController extends \Slim\Middleware{
         public static function OrderMenuLinks($initial,$final,$depth){
             
             // Si tableau vide on le retourne -> inutile de continuer
+           
             if(count($initial)==0):
                 return $initial;
             else:
 				if($depth==0){
-					foreach($initial[$depth] as $k=>$v):
-						array_push($final,$initial[$depth][$k]);
-					endforeach;
+                                    foreach($initial[$depth] as $k=>$v):
+                                            array_push($final,$initial[$depth][$k]);
+                                    endforeach;
 				}
 				else{
 					// echo $depth;
@@ -116,11 +124,6 @@ class menuLinksController extends \Slim\Middleware{
 							$d1=array_slice($final,$jOK,count($final)-$jOK);
 							$d2=array_slice($final,0,$jOK);
 							$d3=$initial[$depth][$k];
-							// var_dump($d1);
-							// echo "<br />";echo "<br />";echo "<br />";
-							// var_dump($d2);
-							// echo "<br />";echo "<br />";echo "<br />";
-							// var_dump($d3);
 							$final=array_merge($d2,$d3,$d1);
 						endif;
 					endforeach;					

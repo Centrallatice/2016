@@ -24,7 +24,7 @@
 			<div class="form-group">
                             <label for="lienParent">Lien de menu parent</label>
                             <select class="form-control" ng-model='newLink.lienParent' id="lienParent" name="lienParent">
-                                <option value="null">Aucun</option>
+                                <!--<option value="-1">Aucun</option>-->
                                 <option ng-value="listeMenuLinks[cle].id" ng-repeat="(cle,val) in listeMenuLinks" ng-bind-html="listeMenuLinks[cle].nom|to_trusted"></option>
                             </select>
                             

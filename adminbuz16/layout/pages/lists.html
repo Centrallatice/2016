@@ -35,10 +35,9 @@
 			<div class="form-group" ng-class="{'has-error':controleChamp.type}">
                             <label for="name">Type de la page</label>
                             <select class="form-control" ng-model='newPage.type' name="type" id="type" aria-describedby="helpBlockType">
-                                    <!--<option value="1">Page d'accueil du site</option>-->
-                                    <option value="2">Page d'affichage d'un ou plusieurs articles</option>
-                                    <option value="3">Page d'affichage des actualités</option>
-                                    <option value="4">Page de formulaire de contact</option>
+                                <option value="2">Page d'affichage d'un ou plusieurs articles</option>
+                                <option value="3">Page d'affichage des actualités</option>
+                                <option value="4">Page de formulaire de contact</option>
                             </select>
                             <span id="helpBlockType" class="help-block" ng-show="controleChamp.type">Ce champ est obligatoire.</span>
                         </div>

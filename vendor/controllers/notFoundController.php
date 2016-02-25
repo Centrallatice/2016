@@ -2,11 +2,14 @@
 use Models\Client\Pages;
 use Models\Client\Actualite;
 use Models\Client\Agenda;
+use Models\Client\Categorie;
+use Models\Client\Coordonnees;
 use Models\Client\Phototheque;
+use Models\Client\Sociaux;
 use Models\Client\MenuLinks;
 use Models\Client\Menus;
 
-class indexController extends \Slim\Middleware{
+class notFoundController extends \Slim\Middleware{
     private $_request;
     private $_db;
 	
@@ -16,12 +19,13 @@ class indexController extends \Slim\Middleware{
     }
     
     public function initAction(){
-        
+       
         $request = $this->_request->request();
         $body = json_decode($request->getBody());
         
         $P = new Pages($this->_db);
         $index = $P->getDataPageHOME();
+        
         
         $MenusPage=null;
         if($index['success']):
@@ -43,6 +47,8 @@ class indexController extends \Slim\Middleware{
                 endforeach;
             endif;
         endif;
+        $Cat = new Categorie($this->_db);
+        $categories = $Cat->getAll();
         
         $Actu = new Actualite($this->_db);
         $actualites = $Actu->getActualites('dateAjout','DESC');
@@ -50,17 +56,24 @@ class indexController extends \Slim\Middleware{
         $A = new Agenda($this->_db);
         $agendas = $A->getAgendas('dateEvenement','DESC');
         
-        
+        $Coord = new Coordonnees($this->_db);
+        $coordonnees = $Coord->getAll();
+       
         $Phototheques = new Phototheque($this->_db);
         $categoriesPhotos = $Phototheques->getCategories();
         
+        $Soc= new Sociaux($this->_db);
+        $sociaux = $Soc->getAll();
         
         return array(
             "success"=>true,"donnees"=>array(
                 "actualites"=>$actualites['success'] ? $actualites['donnees'] : array(),
                 "agendas"=>$agendas['success'] ? $agendas['donnees']  : array(),
+                "categories"=>$categories['success'] ? $categories['donnees']  : array(),
+                "coordonnees"=>$coordonnees['success'] ? $coordonnees['donnees']  : array(),
                 "categoriesphotos"=>$categoriesPhotos['success'] ? $categoriesPhotos['donnees']  : array(),
-                "menusindex"=>$MenusPage['success'] ? $MenusPage['donnees']  : array()
+                "sociaux"=>$sociaux['success'] ? $sociaux['donnees']  : array(),
+                "menus"=>$MenusPage['success'] ? $MenusPage['donnees']  : array()
             )
         );
     }
