@@ -1,0 +1,4 @@
+/nbprojet/*
+composer.json
+composer.phar
+composer.lock
