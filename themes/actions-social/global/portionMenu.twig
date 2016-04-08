@@ -1,0 +1,28 @@
+{% for menuLinks in menu %}
+    {% if menuLinks.depth==0 %}
+        {% if menuLinks.liens|length>0 %}
+            <li class="dropdown mega-dropdown dropdown-{{compteur}}">
+                <a href="#" id="{{menuLinks.nom}}" class="dropdown-toggle" data-toggle="dropdown">{{menuLinks.nom}}</a>
+                <ul class="dropdown-menu mega-dropdown-menu row">
+                    {% if menuLinks.liens|length>0 %}
+                        {% for menuLinks1 in menuLinks.liens %}
+                            <li class="innerLiDepth1">
+                                <ul>
+                                    <li class="dropdown-header">
+                                        <a id="{{menuLinks1.url}}" href="{{menuLinks1.url}}.html">{{menuLinks1.nom}}</a>
+                                    </li>
+                                    {% include 'global/menuDepthLast.twig' with {'menu': menuLinks1} %}
+                                </ul>
+                            </li>
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+            </li>
+        {% else %}
+        <li class="no-dropdown">
+            <a id="{{menuLinks.url}}" href="{{menuLinks.url}}.html">{{menuLinks.nom}}</a>
+        </li>
+        {% endif %}
+    {% endif %}
+    {% set compteur=compteur+1 %} 
+{% endfor %}

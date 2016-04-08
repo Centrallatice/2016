@@ -1,0 +1,344 @@
+body.Histoire .menuLeftInnerPage#menu-18,
+body.Patrimoine .menuLeftInnerPage#menu-18,
+body.Plan .menuLeftInnerPage#menu-18,
+body.Hébergement .menuLeftInnerPage#menu-18
+{
+    background:url('../img/blocksMenu/menuhaut-histoire.png') top center no-repeat;
+    margin-top:-10px;
+    background-size:inherit;
+    min-height:180px;
+}
+body.Histoire .contentPage .triangle-menu,
+body.Patrimoine .contentPage .triangle-menu,
+body.Plan .contentPage .triangle-menu,
+body.Hébergement .contentPage .triangle-menu
+{
+    border-color: #351d01 transparent transparent transparent;
+}
+
+body.Commerce--Artisanat .menuLeftInnerPage#menu-18,
+body.Zone-Industrielle .menuLeftInnerPage#menu-18
+{
+    background:url('../img/blocksMenu/menu-cadrehaut.png') top center no-repeat;
+    margin-top:-10px;
+    background-size:inherit;
+    min-height:180px;
+}
+body .menuLeftInnerPage#menu-21{
+    background:url('../img/blocksMenu/menugauche-piscine.png') top center no-repeat;
+    margin-top:-10px;
+    background-size:inherit;
+    min-height:180px;
+}
+
+body.Commerce--Artisanat .contentPage .triangle-menu,
+body.Zone-Industrielle .contentPage .triangle-menu
+{
+    border-color: #540501 transparent transparent transparent;
+}
+
+body.Déchets .menuLeftInnerPage#menu-18,
+body.Environnement .menuLeftInnerPage#menu-18
+{
+    background:url('../img/blocksMenu/menuhaut-charteZero.png') top center no-repeat;
+    margin-top:-10px;
+    background-size:inherit;
+    min-height:180px;
+}
+body.Déchets .contentPage .triangle-menu,
+body.Environnement .contentPage .triangle-menu
+{
+    border-color: #1e380a transparent transparent transparent;
+}
+body.Piscine .contentPage .triangle-menu,
+body.Equipements-sportifs .contentPage .triangle-menu,
+body.Associations .contentPage .triangle-menu,
+body.Associations-sportives .contentPage .triangle-menu,
+body.Associations-culturelles .contentPage .triangle-menu,
+body.Associations-patriotiques .contentPage .triangle-menu,
+body.Associations-de-quartiers .contentPage .triangle-menu
+{
+    border-color: #b93101 transparent transparent transparent;
+}
+
+.menuLeftInnerPage#menu-20
+{
+    background:url('../img/blocksMenu/menugauche-viemunicipal.png') top center no-repeat;
+    margin-top:-10px;
+    background-size:inherit;
+    min-height:180px;
+}
+body.Le-maire-et-les-Adjoints .contentPage .triangle-menu,
+body.Conseil-Municipal .contentPage .triangle-menu,
+body.Mes-démarches-administratives .contentPage .triangle-menu,
+body.Marchés-publics .contentPage .triangle-menu,
+body.Conseillers-municipaux .contentPage .triangle-menu,
+body.Services-Municipaux .contentPage .triangle-menu,
+body.Services-administratifs .contentPage .triangle-menu,
+body.Services-techniques .contentPage .triangle-menu,
+body.Police-Municipale .contentPage .triangle-menu,
+body.Salles-municipales .contentPage .triangle-menu,
+body.Plan-local-d-urbanisme .contentPage .triangle-menu,
+body.Projets-et-réalisations .contentPage .triangle-menu
+{
+    border-color: #011d51 transparent transparent transparent;
+}
+
+
+.menuLeftInnerPage#menu-18 .content,.menuLeftInnerPage#menu-20 .content,.menuLeftInnerPage#menu-21 .content{
+    margin-top:110px;
+    padding:0px 0px 0 0px;
+    font-family: "lato",sans-serif;
+    width:100%;
+    float:left;
+}
+
+body.Commerce--Artisanat .menuLeftInnerPage#menu-18 .content .backBrown,
+body.Zone-Industrielle .menuLeftInnerPage#menu-18 .content .backBrown
+{
+    padding:0 0 33px 0;
+    background-color:#540501;
+    -moz-box-shadow: 0px 5px 3px -3px #330001;
+-webkit-box-shadow: 0px 5px 3px -3px #330001;
+-o-box-shadow: 0px 5px 3px -3px #330001;
+box-shadow: 0px 5px 3px -3px #330001;
+filter:progid:DXImageTransform.Microsoft.Shadow(color=#330001, Direction=180, Strength=3);
+}
+body.Histoire .menuLeftInnerPage#menu-18 .content .backBrown,
+body.Patrimoine .menuLeftInnerPage#menu-18 .content .backBrown,
+body.Plan .menuLeftInnerPage#menu-18 .content .backBrown,
+body.Hébergement .menuLeftInnerPage#menu-18 .content .backBrown{
+    padding:0 0 33px 0;
+    background-color:#4a2902;
+    -moz-box-shadow: 0px 5px 3px -3px #643403;
+-webkit-box-shadow: 0px 5px 3px -3px #643403;
+-o-box-shadow: 0px 5px 3px -3px #643403;
+box-shadow: 0px 5px 3px -3px #643403;
+filter:progid:DXImageTransform.Microsoft.Shadow(color=#643403, Direction=180, Strength=3);
+}
+body.Déchets .menuLeftInnerPage#menu-18 .content .backBrown,
+body.Environnement .menuLeftInnerPage#menu-18 .content .backBrown
+{
+    padding:0 0 33px 0;
+    background-color:#478200;
+    -moz-box-shadow: 0px 5px 3px -3px #343300;
+    -webkit-box-shadow: 0px 5px 3px -3px #343300;
+    -o-box-shadow: 0px 5px 3px -3px #343300;
+    box-shadow: 0px 5px 3px -3px #343300;
+    filter:progid:DXImageTransform.Microsoft.Shadow(color=#343300, Direction=180, Strength=3);
+}
+
+.menuLeftInnerPage#menu-20 .content .backBrown
+{
+    padding:0 0 33px 0;
+    background-color:#022974;
+    -moz-box-shadow: 0px 5px 3px -3px #343300;
+    -webkit-box-shadow: 0px 5px 3px -3px #343300;
+    -o-box-shadow: 0px 5px 3px -3px #343300;
+    box-shadow: 0px 5px 3px -3px #343300;
+    filter:progid:DXImageTransform.Microsoft.Shadow(color=#343300, Direction=180, Strength=3);
+}
+.menuLeftInnerPage#menu-21 .content .backBrown
+{
+    padding:0 0 33px 0;
+    background-color:#e54702;
+    -moz-box-shadow: 0px 5px 3px -3px #343300;
+    -webkit-box-shadow: 0px 5px 3px -3px #343300;
+    -o-box-shadow: 0px 5px 3px -3px #343300;
+    box-shadow: 0px 5px 3px -3px #343300;
+    filter:progid:DXImageTransform.Microsoft.Shadow(color=#343300, Direction=180, Strength=3);
+}
+.menuLeftInnerPage#menu-18 .content .titre{
+    font-size: 1.5vw;
+    padding: 9px 13px 0px 13px;
+    letter-spacing: -1px;
+    margin: 0;
+    color: #f9ed0d;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-weight: 700;
+}
+.menuLeftInnerPage#menu-20 .content .titre{
+    font-size: 1.5vw;
+    padding: 9px 13px 0px 13px;
+    letter-spacing: -1px;
+    margin: 0;
+    color: #f9ed0d;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-weight: 700;
+}
+.menuLeftInnerPage#menu-21 .content .titre{
+    font-size: 1.2vw;
+    padding: 9px 13px 0px 13px;
+    letter-spacing: -1px;
+    margin: 0;
+    color: #f9ed0d;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+.menuLeftInnerPage .content ul{
+    list-style-type: none;
+    margin:0;
+    padding:0;
+}
+.menuLeftInnerPage#menu-18 .content ul li{
+    border-top:1px solid #af8553;
+}
+.menuLeftInnerPage#menu-20 .content ul li{
+    border-top:1px solid #af8553;
+}
+.menuLeftInnerPage#menu-21 .content ul li{
+    border-top:1px solid #af8553;
+}
+
+.menuLeftInnerPage#menu-18 .content ul > li.depth-0:last-child{
+    border-bottom:1px solid #af8553;
+}
+.menuLeftInnerPage#menu-20 .content ul > li.depth-0:last-child{
+    border-bottom:1px solid #af8553;
+}
+.menuLeftInnerPage#menu-21 .content ul > li.depth-0:last-child{
+    border-bottom:1px solid #af8553;
+}
+body.Commerce--Artisanat .menuLeftInnerPage#menu-18 .content ul li a,
+body.Zone-Industrielle .menuLeftInnerPage#menu-18 .content ul li a,
+body.Histoire .menuLeftInnerPage#menu-18 .content ul li a,
+body.Patrimoine .menuLeftInnerPage#menu-18 .content ul li a,
+body.Plan .menuLeftInnerPage#menu-18 .content ul li a,
+body.Hébergement .menuLeftInnerPage#menu-18 .content ul li a
+{
+    color:#b86e17;
+    font-family: "lato",sans-serif;
+    text-decoration: none;
+    font-size: 14px;
+}
+body.Environnement .menuLeftInnerPage#menu-18 .content ul li a,
+body.Déchets .menuLeftInnerPage#menu-18 .content ul li a
+{
+    color:black;
+    font-family: "lato",sans-serif;
+    text-decoration: none;
+    font-size: 14px;
+}
+body.Environnement .menuLeftInnerPage#menu-18 li.active ul,
+body.Déchets .menuLeftInnerPage#menu-18 li.active  ul{
+    background-color:#2b4a0f;
+}
+body.Environnement .menuLeftInnerPage#menu-18 li.active ul li a,
+body.Déchets .menuLeftInnerPage#menu-18 li.active  ul li a{
+    color:white;
+}
+
+.menuLeftInnerPage .content ul li.depth-0 > a{
+    font-size: 14px;
+    letter-spacing: -1px;
+    text-transform: uppercase;
+    display:block;
+    padding: 3px 10px 3px 10px;
+}
+.menuLeftInnerPage#menu-20 .content ul li.depth-0 > a{
+    letter-spacing: 0px;
+}
+.menuLeftInnerPage#menu-21 .content ul li.depth-0 > a{
+    color:black;
+}
+.menuLeftInnerPage#menu-20 .content ul li.depth-0 > a {
+    color:#cd7b1b;
+    font-size: 13px;
+}
+.menuLeftInnerPage#menu-20 .content ul li.depth-0.active > a {
+    color:white;
+    text-decoration: none;
+}
+.menuLeftInnerPage .content ul li.depth-0.active > a{
+    background-color:#e2017b;
+}
+.menuLeftInnerPage .content ul li.depth-0.active > a{
+    color:white !important;
+    text-decoration: none;
+    display:block;
+}
+.menuLeftInnerPage .content ul li.depth-1.active a{
+    color:#e2017b !important;
+    text-decoration: none;
+    display:block;
+}
+body.Déchets .menuLeftInnerPage .content ul li.depth-1.active a,
+body.Environnement .menuLeftInnerPage .content ul li.depth-1.active a{
+    color:yellow !important;
+    text-decoration: none;
+    display:block;
+}
+.menuLeftInnerPage .content ul li.depth-1 a{
+    padding: 3px 10px 3px 20px;
+    display:block;
+    color: white;
+}
+body.Commerce--Artisanat .menuLeftInnerPage#menu-18 .content ul li.depth-1.active a,
+body.Zone-Industrielle .menuLeftInnerPage#menu-18 .content ul li.depth-1.active a,
+body.Histoire .menuLeftInnerPage#menu-18 .content ul li.depth-1.active a,
+body.Patrimoine .menuLeftInnerPage#menu-18 .content ul li.depth-1.active a,
+body.Hébergement .menuLeftInnerPage#menu-18 .content ul li.depth-1.active a,
+body.Le-maire-et-les-Adjoints .menuLeftInnerPage#menu-18 .content ul li.depth-1.active a
+{
+    background:#5a493f;
+    padding: 3px 10px 3px 20px;
+}
+.menuLeftInnerPage .content ul li.depth-0:last-child a{
+    color:#c6c5c4;
+}
+.menuLeftInnerPage#menu-20 .content ul li.depth-0:last-child a{
+    color:#c6c5c4;
+}
+.menuLeftInnerPage .content ul li.depth-0:not(.active) a:hover,
+.menuLeftInnerPage .content ul li.depth-1:not(.active) a:hover
+{
+    color:yellow;
+    text-decoration: none;
+}
+.menuLeftInnerPage#menu-20 .content ul li.depth-0:not(.active) a:hover,
+.menuLeftInnerPage#menu-20 .content ul li.depth-1:not(.active) a:hover
+{
+    color:#e2017b;
+    text-decoration: none;
+}
+.menuLeftInnerPage#menu-18 .content ul li.depth-0:not(.active) a:hover,
+.menuLeftInnerPage#menu-18 .content ul li.depth-1:not(.active) a:hover
+{
+    color:#e2017b;
+    text-decoration: none;
+}
+body.Déchets .menuLeftInnerPage#menu-18 .content ul li.depth-0:not(.active) a:hover,
+body.Déchets .menuLeftInnerPage#menu-18 .content ul li.depth-1:not(.active) a:hover,
+body.Environnement .menuLeftInnerPage#menu-18 .content ul li.depth-0:not(.active) a:hover,
+body.Environnement .menuLeftInnerPage#menu-18 .content ul li.depth-1:not(.active) a:hover
+{
+    color:yellow;
+    text-decoration: none;
+}
+
+@media only screen and (min-width : 1401px){
+    .menuLeftInnerPage#menu-18 .content .titre,
+    .menuLeftInnerPage#menu-20 .content .titre{
+        font-size: 20px;
+    }
+    .menuLeftInnerPage#menu-21 .content .titre{
+        font-size: 18px;
+    }
+}
+
+@media only screen and (min-width : 1200px) and (max-width : 1400px){
+    .menuLeftInnerPage#menu-18 .content .titre,
+    .menuLeftInnerPage#menu-20 .content .titre{
+        font-size: 20px;
+    }
+    .menuLeftInnerPage#menu-21 .content .titre{
+        font-size: 16px;
+    }
+}
+
+@media only screen and (min-width : 1024px) and (max-width : 1199px){
+    .menuLeftInnerPage#menu-21 .content .titre{
+        font-size: 16px;
+    }
+}

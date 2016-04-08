@@ -1,0 +1,83 @@
+{% extends "base.twig" %}
+{% block title %}{{titrePage}}{% endblock %}
+{% block description %}{{descriptionPage}}{% endblock %}
+{% block keywords %}{{motsclefsPage}}{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{BASETHEME}}/css/home.css" rel="stylesheet" type="text/css"/>
+    <link href="{{BASETHEME}}/modules/blocdownload/css/blocdownload.css" rel="stylesheet" type="text/css"/>
+    <link href="{{BASETHEME}}/blocks/coordonnees/css/coordonnees.css" rel="stylesheet" type="text/css"/>
+    <link href="{{BASETHEME}}/blocks/services/css/services.css" rel="stylesheet" type="text/css"/>
+    <link href="{{BASETHEME}}/blocks/phototheque/css/phototheque.css" rel="stylesheet" type="text/css"/>
+    {% if agendas|length>0 %}
+        <link href="{{BASEURL}}/libs/bxslider/jquery.bxslider.css" rel="stylesheet" type="text/css"/>
+        <link href="{{BASETHEME}}/modules/evenements/css/resume-evenements.css" rel="stylesheet" type="text/css"/>
+        <link href="{{BASETHEME}}/modules/actualites/css/actualites.css" rel="stylesheet" type="text/css"/>
+    {% endif %}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {% if agendas|length>0 %}
+        <script type="text/javascript" src="{{BASEURL}}/libs/bxslider/plugins/jquery.easing.1.3.js"></script>
+        <script type="text/javascript" src="{{BASEURL}}/libs/bxslider/jquery.bxslider.min.js"></script>
+        <script type="text/javascript" src="{{BASETHEME}}/modules/evenements/js/resume-evenements.js"></script>
+        <script type="text/javascript" src="{{BASETHEME}}/modules/actualites/js/actualites.js"></script>
+    {% endif %}
+{% endblock %}
+    
+{% block body %}
+    {% include 'global/header.twig' %}
+    <div class="bloc-maincontainer">
+        <div class="row">
+            <!-- COL_LEFT-->
+            <div class="hidden-xs col-sm-8 col-md-5 nopadding">
+                <!-- COL_LEFT_ONE -->
+                {% if agendas|length>0 %}
+                    {% include '/modules/evenements/layout/displayLeftColumn.twig' %}
+                {% endif %}
+                
+                <!-- COL_LEFT_TWO -->
+                {% if modules['HEADER'] %}
+                    {% for headerModule in modules['COL_LEFT_TWO'] %}
+                        {% if headerModule.type=='blocdownload' %}
+                            {% include '/modules/blocdownload/layout/displayLeftColumn.twig' %}
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+                
+                <div class="hidden-xs col-sm-24 hidden-md hidden-lg nopadding">
+                    <!-- COL_RIGHT_ONE -->
+                    {% include '/blocks/coordonnees/layout/displayTopRight.twig' %}
+                    <div class="separight"></div>
+                    <!-- COL_RIGHT_CENTER -->
+                    {% include '/blocks/services/layout/displayCenterRight.twig' %}
+                    <div class="separight"></div>
+                    {% include '/blocks/phototheque/layout/displayCenterRight.twig' %}
+                    <div class="separight"></div>
+                    {% include '/modules/facebook/layout/displayBottomRight.twig' %}
+                </div>
+            </div>
+            <!-- COL_MIDDLE-->
+            <div class="col-xs-24 col-sm-16 col-md-13">
+                {% if actualites|length>0 %}
+                    {% include '/modules/actualites/layout/displayCenterColumn.twig' %}
+                {% endif %}
+            </div>
+            <!-- COL_RIGHT-->
+            <div class="col-xs-24 hidden-sm col-md-6 nopadding">
+                <!-- COL_RIGHT_ONE -->
+                {% include '/blocks/coordonnees/layout/displayTopRight.twig' %}
+                <div class="separight"></div>
+                <!-- COL_RIGHT_CENTER -->
+                {% include '/blocks/services/layout/displayCenterRight.twig' %}
+                <div class="separight"></div>
+                {% include '/blocks/phototheque/layout/displayCenterRight.twig' %}
+                <div class="separight"></div>
+                {% include '/modules/facebook/layout/displayBottomRight.twig' %}
+            </div>
+        </div>
+        {% include 'global/footer.twig' %}    
+    </div>
+    
+{% endblock %}
+

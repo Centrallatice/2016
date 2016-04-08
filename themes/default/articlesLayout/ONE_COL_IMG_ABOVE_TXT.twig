@@ -1,0 +1,40 @@
+<section class="container-article col-xs-24 col-sm-12 col-md-8 sameheight">
+   {% if arti.image %}
+        <div class="col-sm-24 hidden-xs">
+            <a class="fancyboxme" href="{{BASE_PATH_UPLOAD_URL}}/article/{{arti.image}}">
+                <img class="img img-fullwidth"
+                     src="{{BASE_PATH_UPLOAD_URL}}/article/300x300/{{arti.image}}">
+                <div class="triangle-picture"></div>
+            </a>
+            <p class='legende'>{{arti.legende}}</p>
+        </div>
+   {% elseif (arti.idCaroussel and arti.contentCarou|length >0) %}
+   <div class="col-sm-24 hidden-xs">
+       <div class="{% if arti.contentCarou|length>1 %} owl-one {% endif %}">
+           {% for i in arti.contentCarou %}
+               <div class="item">
+                  <a rel="{{i.idModule}}"
+                       class="fancyboxme"
+                       href="{{arti.urlCarou}}/{{i.imageFile}}">
+                       <img style="border:2px solid {{dataPage.ColorCategorie}}" 
+                            class="img img-fullwidth"
+                            src="{{arti.urlCarou}}/{{i.imageFile}}">
+                       <div class="triangle-picture" style="border-color: {{dataPage.ColorCategorie}} transparent transparent transparent;"></div>
+                       
+                       <span style="font-style:italic;margin-top:2px;text-align:center;font-size:11px;display:block;
+                       line-height:11px;color:{{dataPage.ColorCategorie}}"><strong>Cliquez sur la photo pour voir les photos</strong></span>
+                    </a> 
+               </div>
+           {% endfor %}
+       </div>    
+   </div>    
+   {% endif %} 
+   <div class="col-xs-24">
+      <br />{{arti.contenu|raw}}
+   </div>  
+</section>
+{% if (CompteurCol is divisible by(3) and artiTotal>CompteurCol) %}
+    <div class="row">
+        <div class="pointilleRose"></div>
+    </div>
+{% endif %}

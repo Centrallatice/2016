@@ -36,6 +36,7 @@ class blocdownloadController extends \Slim\Middleware{
                         return false;
                 endif;
                 $put = file_put_contents(BASE_PATH_UPLOAD_DIR.'/modules/blocDownload/picture/'.$fName.$fExt, $data);
+                chmod(BASE_PATH_UPLOAD_DIR.'/modules/blocDownload/picture/'.$fName.$fExt,0755);
                 $body->doc->fichier=($put) ? $fName.$fExt : null;
             endif;
             $D->setImage(isset($body->doc->fichier) ? $body->doc->fichier : null);
@@ -63,7 +64,7 @@ class blocdownloadController extends \Slim\Middleware{
                 $done = fwrite ($pdf,$pdf_decoded);
                 //close output file
                 fclose ($pdf);
-                
+                chmod(BASE_PATH_UPLOAD_DIR.'/modules/blocDownload/pdf/'.$fName.$fExt,0755);
                 $body->doc->pdf=($done) ? $fName.$fExt : null;
             endif;
             

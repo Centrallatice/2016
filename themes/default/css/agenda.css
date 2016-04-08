@@ -1,0 +1,75 @@
+.blocAgenda h2 {
+    text-transform: uppercase;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-weight: 700;
+    vertical-align: bottom;
+    margin-bottom: 0;
+    line-height: 42px;
+    color: #037afe;
+}
+.blocAgenda .blocMiniServices{
+    position: absolute;
+    top: -76px;
+    right: -11px;
+}
+.blocAgenda h3 {
+    text-transform: uppercase;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-weight: 700;
+    vertical-align: bottom;
+    margin-bottom: 0;
+    line-height: 42px;
+    color: #e2007a;
+}
+.pointilleRose {
+    background: url('../img/articles/cerclerond-pointille.png') bottom center repeat-x;
+    height: 3px;
+    margin: 0;
+    width: 100%;
+    float: left;
+}
+.linebottomcat {
+    width: 100%;
+    margin-top: -5px;
+    height: 10px;
+    border-radius: 10px 0 0 10px;
+    background-color: #037afe;
+}
+.blocAgenda{
+    background-color: #fcfafb;
+    margin-top:50px;
+    padding:25px;
+    border: 1px solid #ebebeb;
+    -moz-box-shadow: 1px 2px 10px 5px #cfcfcf;
+    -webkit-box-shadow: 1px 2px 10px 5px #cfcfcf;
+    -o-box-shadow: 1px 2px 10px 5px #cfcfcf;
+    box-shadow: 1px 2px 10px 5px #cfcfcf;
+    filter: progid:DXImageTransform.Microsoft.Shadow(color=#cfcfcf, Direction=153, Strength=10);
+}
+.blocAgenda h1,.blocAgenda .choixAgenda{
+    text-align: left;
+}
+fieldset.choixAgenda {
+    border: solid 1px #CCC;
+    border-width: 1px;
+    padding: 15px 10px 15px 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+fieldset.choixAgenda legend {
+    font-family: 'Lora';
+    color: #555;
+    font-size: 1.4em;
+    padding: 0 5px;
+    font-weight: bold;
+}
+.moisAgenda .detailMoisAgenda p.titreEvenement{
+    font-weight: bold;
+}
+.moisAgenda h2{
+    border-bottom:2px solid #ebebeb;
+}
+.moisAgenda .detailMoisAgenda{
+    padding-top:10px;
+    border-bottom:1px dotted #ebebeb;
+}

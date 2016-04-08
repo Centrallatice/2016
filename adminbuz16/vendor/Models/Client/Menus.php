@@ -58,7 +58,7 @@ class Menus extends \Slim\Middleware{
                 menus m
                 ON mp.idMenu=m.id
                 WHERE idPage=".$idPage;
-            
+        
             $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
             if($sth->execute()){
                 $r=$sth->fetchAll(\PDO::FETCH_ASSOC);

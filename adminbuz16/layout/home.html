@@ -1,40 +1,88 @@
 <div class="row" style="margin-bottom:5px;" ng-if="homeError===false">
-	<div class="col-md-3">
+	<div class="col-md-4">
+		<a ng-href="#/pages/lists">
 		<div class="sm-st clearfix">
-			<span class="sm-st-icon st-red"><i class="fa fa-files-o"></i></span>
+			<span class="sm-st-icon st-orange"><i class="fa fa-files-o"></i></span>
 			<div class="sm-st-info">
-                            <span>{{ statsData.NbPages }}</span>
-                            Pages
+                <span>{{ statsData.NbPages }}</span>
+                Pages
+			</div>
+		</div>
+		</a>
+	</div>
+	<div class="col-md-4">
+		<a ng-href="#/articles/lists">
+		<div class="sm-st clearfix">
+			<span class="sm-st-icon st-violet"><i class="fa fa-paperclip"></i></span>
+			<div class="sm-st-info">
+                <span>{{ statsData.NbArticles }}</span>
+                Articles
+			</div>
+		</div>
+		</a>
+	</div>
+	<div class="col-md-4">
+		<a ng-href="#/agenda/lists"><div class="sm-st clearfix">
+			<span class="sm-st-icon st-red"><i class="fa fa-calendar-check-o"></i></span>
+			<div class="sm-st-info">
+                <span>{{ statsData.NbEvent }}</span>
+                Evénements à venir
+			</div>
+		</div>
+		</a>
+	</div>
+	<div class="col-md-4">
+		<div class="sm-st clearfix">
+			<span class="sm-st-icon st-yellow"><i class="fa fa-newspaper-o"></i></span>
+			<div class="sm-st-info">
+				<span>{{ statsData.NbInscrits}}</span>
+				Utilisateurs inscrits à la newsletter
 			</div>
 		</div>
 	</div>
-	<div class="col-md-3">
+	<div class="col-md-4">
 		<div class="sm-st clearfix">
-			<span class="sm-st-icon st-violet"><i class="fa fa-envelope-o"></i></span>
+			<span class="sm-st-icon st-blue"><i class="fa fa-users"></i></span>
 			<div class="sm-st-info">
-				<span>2200</span>
-				Total Messages
+				<span>{{ statsData.TotalVisiteurUnique}}</span>
+				Visiteurs uniques Total
 			</div>
 		</div>
 	</div>
-	<div class="col-md-3">
+	<div class="col-md-4">
 		<div class="sm-st clearfix">
-			<span class="sm-st-icon st-blue"><i class="fa fa-dollar"></i></span>
+			<span class="sm-st-icon st-green"><i class="fa fa-bar-chart"></i></span>
 			<div class="sm-st-info">
-				<span>100,320</span>
-				Total Profit
+				<span>{{ statsData.UserUniqueMois}}</span>
+				Visiteurs uniques pour le mois en cours
 			</div>
 		</div>
 	</div>
-	<div class="col-md-3">
-		<div class="sm-st clearfix">
-			<span class="sm-st-icon st-green"><i class="fa fa-paperclip"></i></span>
-			<div class="sm-st-info">
-				<span>4567</span>
-				Total Documents
-			</div>
-		</div>
-	</div>
+</div>
+<div class="row"  ng-if="homeError===false">
+    <div class="col-xs-12">
+        <section class="panel">
+            <header class="panel-heading">
+                <span class="title">Statistiques</span>
+            </header>
+            <div class="panel-body">
+                <div class="col-xs-12 block-center text-center">
+                    <button role="button" ng-click="getStats('-')"class="btn btn-sm">
+                        <i class="fa fa-arrow-circle-left"></i>
+                    </button>
+                    {{MoisEnCoursFR}} {{AnneeEnCours}}
+                    <button role="button" ng-click="getStats('+')" class="btn btn-sm">
+                        <i class="fa fa-arrow-circle-right"></i>
+                    </button>
+                </div>
+                <div class="col-xs-12">
+                    <canvas id="line" class="chart chart-line" chart-data="data" chart-labels="labels" chart-legend="true" chart-series="series"
+                      chart-click="onClick" >
+                    </canvas> 
+                </div>
+            </div>
+        </section>
+    </div>
 </div>
 <div class="row" ng-if="homeError===null">
     <div class="col-xs-12 text-center">

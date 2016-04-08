@@ -31,12 +31,6 @@
                             <!--<select class="form-control" ng-model='newLink.lienParent' id="lienParent" name="lienParent" ng-options="menulink as menulink.nom for menulink in listeMenuLinks track by menulink.id "></select>-->
                         </div>
 						
-                        <div class="alert" ng-class="{'alert-success':successAjoutLienMenu!==null && errorAjoutLienMenu==null,'alert-danger':errorAjoutLienMenu!==null && successAjoutLienMenu==null}">
-                            <span ng-if="successAjoutLienMenu!=null">{{successAjoutLienMenu}}</span>
-                            <span ng-if="errorAjoutLienMenu!=null">{{errorAjoutLienMenu}}</span>
-                        </div>
-						
-						
                         <div class="text-center block-center">
                             <button type="submit" class="btn btn-success" ng-disabled="ajoutLienMenu.$error.required" ng-click='addMenuLink(newLink)'>
                                Ajouter ce lien
@@ -45,9 +39,6 @@
                     </form>
                     <div class="col-xs-12" ng-if="!ready && errorLienMenu===null">
                         <br /><center><strong>Chargement en cours <i class="fa fa-spin fa-spinner fa-2x"></i></strong><br /></center>
-                    </div>
-                    <div class="col-xs-12 alert alert-danger" ng-if="errorLienMenu!==null">
-                        {{errorLienMenu}}
                     </div>
                 </div>
             </div>

@@ -3,13 +3,26 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp/www/2016/adminbuz16/layout/menus/update.html</file>
-            <file>file:/C:/wamp/www/2016/adminbuz16/vendor/Models/Admin/MenuLinks.php</file>
-            <file>file:/C:/wamp/www/2016/adminbuz16/vendor/controllers/menuLinksController.php</file>
-            <file>file:/C:/wamp/www/2016/adminbuz16/layout/menus/linkLists.html</file>
-            <file>file:/C:/wamp/www/2016/adminbuz16/ressources/js/controllers/menus/menus.js</file>
-            <file>file:/C:/wamp/www/2016/adminbuz16/ressources/js/controllers/menus/menuLinks.js</file>
-            <file>file:/C:/wamp/www/2016/adminbuz16/layout/menus/updateLink.html</file>
+            <file>file:/C:/Users/sylvain.dupont/Desktop/Projets%20Web/2016/adminbuz16/layout/agenda/add.html</file>
+            <file>file:/C:/Users/sylvain.dupont/Desktop/Projets%20Web/2016/adminbuz16/layout/agenda/update.html</file>
+            <file>file:/C:/Users/sylvain.dupont/Desktop/Projets%20Web/2016/adminbuz16/ressources/js/controllers/agenda/agenda.js</file>
+            <file>file:/C:/Users/sylvain.dupont/Desktop/Projets%20Web/2016/adminbuz16/layout/agenda/lists.html</file>
+            <file>file:/C:/Users/sylvain.dupont/Desktop/Projets%20Web/2016/adminbuz16/vendor/controllers/agendaController.php</file>
+            <file>file:/C:/Users/sylvain.dupont/Desktop/Projets%20Web/2016/adminbuz16/vendor/Models/Admin/Agenda.php</file>
+            <file>file:/C:/Users/sylvain.dupont/Desktop/Projets%20Web/2016/adminbuz16/vendor/Models/Client/Agenda.php</file>
+            <file>file:/C:/Users/sylvain.dupont/Desktop/Projets%20Web/2016/themes/default/modules/evenements/layout/displayLeftColumn.twig</file>
+            <file>file:/C:/Users/sylvain.dupont/Desktop/Projets%20Web/2016/themes/default/modules/evenements/css/resume-evenements.css</file>
+            <file>file:/C:/Users/sylvain.dupont/Desktop/Projets%20Web/2016/adminbuz16/layout/medias/documents.html</file>
+            <file>file:/C:/Users/sylvain.dupont/Desktop/Projets%20Web/2016/adminbuz16/layout/photovideotheque/photos.html</file>
+            <file>file:/C:/Users/sylvain.dupont/Desktop/Projets%20Web/2016/themes/default/phototheque.twig</file>
+            <file>file:/C:/Users/sylvain.dupont/Desktop/Projets%20Web/2016/themes/default/css/menu.css</file>
+            <file>file:/C:/Users/sylvain.dupont/Desktop/Projets%20Web/2016/themes/default/agenda.twig</file>
+            <file>file:/C:/Users/sylvain.dupont/Desktop/Projets%20Web/2016/adminbuz16/layout/menus/lists.html</file>
+            <file>file:/C:/Users/sylvain.dupont/Desktop/Projets%20Web/2016/adminbuz16/layout/menus/linkLists.html</file>
+            <file>file:/C:/Users/sylvain.dupont/Desktop/Projets%20Web/2016/adminbuz16/layout/include/header.html</file>
+            <file>file:/C:/Users/sylvain.dupont/Desktop/Projets%20Web/2016/adminbuz16/layout/include/menu.html</file>
+            <file>file:/C:/Users/sylvain.dupont/Desktop/Projets%20Web/2016/adminbuz16/layout/modules/add/HTMLcontent.html</file>
+            <file>file:/C:/Users/sylvain.dupont/Desktop/Projets%20Web/2016/adminbuz16/layout/modules/add/caroussel.html</file>
         </group>
     </open-files>
 </project-private>

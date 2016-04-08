@@ -48,19 +48,20 @@ class indexController extends \Slim\Middleware{
         $actualites = $Actu->getActualites('dateAjout','DESC');
         
         $A = new Agenda($this->_db);
-        $agendas = $A->getAgendas('dateEvenement','DESC');
-        
+        $agendas = $A->getAgendas('dateEvenement','ASC');
         
         $Phototheques = new Phototheque($this->_db);
         $categoriesPhotos = $Phototheques->getCategories();
         
+        $pdfAgenda=(file_exists(BASE_PATH_UPLOAD_DIR.'/agendadumois/agenda-du-mois.pdf') ? BASE_PATH_UPLOAD_URL.'/agendadumois/agenda-du-mois.pdf' : false);
         
         return array(
             "success"=>true,"donnees"=>array(
                 "actualites"=>$actualites['success'] ? $actualites['donnees'] : array(),
                 "agendas"=>$agendas['success'] ? $agendas['donnees']  : array(),
                 "categoriesphotos"=>$categoriesPhotos['success'] ? $categoriesPhotos['donnees']  : array(),
-                "menusindex"=>$MenusPage['success'] ? $MenusPage['donnees']  : array()
+                "menusindex"=>$MenusPage['success'] ? $MenusPage['donnees']  : array(),
+		"pdfAgendaEncours"=>$pdfAgenda
             )
         );
     }

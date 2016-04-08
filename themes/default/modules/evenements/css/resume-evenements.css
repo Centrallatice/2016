@@ -8,6 +8,17 @@
     box-shadow: -5px 5px 5px 0px #656565;
     filter:progid:DXImageTransform.Microsoft.Shadow(color=#656565, Direction=224, Strength=5);
 }
+#downloadPDFAgenda{
+    font-size:12px;
+    text-align:right;
+}
+#downloadPDFAgenda a{
+    color:yellow;
+    text-decoration: none;
+    font-size:12px;
+    
+    text-align:right;
+}
 .footerTriangle{
     background:url('../img/triangle-agenda.png') no-repeat top center;
     width:100%;
@@ -20,10 +31,10 @@
     width:100%;
     height:40px;
     font-weight: bold;
-    font-size: 30px;
+    font-size: 24px;
     text-transform: uppercase;
     color:white;
-    font-family: 'Lato', sans-serif;
+    
 }
 .blocAgendas #contentAgendas{
     background-color:#e2017b;
@@ -34,18 +45,19 @@
     color:#fce001;
     text-transform: uppercase;
     font-weight: bold;
-    font-size: 16px;
-    font-family: 'Lato', sans-serif;
-    margin:10px 0 0 0;
+    font-size: 14px;
+    line-height: 14px;
+    
+    margin:10px 0 5px 0;
     padding:0 10px;
 }
 .blocAgendas #contentAgendas #dateAgenda{
     color:#01255a;
     text-transform: uppercase;
     font-weight: bold;
-    font-size: 16px;
-    margin:-5px 0 0 0;
-    font-family: 'Lato', sans-serif;
+    font-size: 14px;
+    margin:-1px 0 0 0;
+    line-height: 18px;
     padding:0 10px;
 }
 .blocAgendas #contentAgendas #contentAgenda{
@@ -53,19 +65,18 @@
     padding:5px 10px 10px 10px;
     color:white;
     font-size: 12px;
-    font-family: 'Lato', sans-serif;
+    
     text-align: justify;
 }
 .blocAgendas #moreagenda{
     text-align: right;
     font-size: 12px;
     text-decoration:none;
-    text-transform: uppercase;
     color:#C4C2C2;
-    font-family: 'Lato', sans-serif;
+    
 }
 .blocAgendas #moreagenda a{
-    color:#C4C2C2;
+    color:#c9c8c8;
 }
 .bx-wrapper .bx-viewport{
     top:5px;

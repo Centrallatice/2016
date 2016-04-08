@@ -53,6 +53,7 @@
                 var onLoad = function () {
                     var options = {
                         toolbar: 'full',
+                        extraPlugins:'insertdocument,insertadjoints,imageuploader',
                         toolbar_full: [ //jshint ignore:line
                             {name: 'styles',items: ['Format', 'FontSize', 'TextColor', 'PasteText', 'PasteFromWord', 'RemoveFormat']},
                             {name: 'basicstyles',items: ['Bold', 'Italic', 'Strike', 'Underline']},
@@ -64,7 +65,7 @@
                             {name: 'insert', items: ['Image', 'Table', 'SpecialChar']},
                             {name: 'forms', items: ['Outdent', 'Indent']},
                             {name: 'clipboard', items: ['Undo', 'Redo']},
-                            {name: 'document', items: ['PageBreak', 'Source']}
+                            {name: 'document', items: ['PageBreak', 'Source','/','insertdocument','insertadjoints','imageuploader']}
                         ],
                         disableNativeSpellChecker: false,
                         uiColor: '#FAFAFA',

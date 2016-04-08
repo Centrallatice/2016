@@ -11,18 +11,28 @@
                     <div class="blocCarousel">
                 {% endif %}
                 
-                <div class="blocActualite {% if loop.index is divisible by(2) %}borderLeft{% endif %} {{actualite.CatNom|replace({' ': '-'})|lower}} col-xs-24 col-sm-24 col-md-12"> 
-                    <img 
-                        class="img img-responsive" 
-                        style="border:2px solid {% if categories[actualite.idCat] is defined %}{{categories[actualite.idCat].color}}{% else %}navy{% endif %}"
+                <div class="blocActualite sameheight {% if loop.index is divisible by(2) %}borderLeft{% endif %} {{actualite.CatNom|replace({' ': '-'})|lower}} col-xs-24 col-sm-24 col-md-12"> 
+                    {% if (actualite.image!='' and actualite.image is not null) %} 
+                        <img 
+                        class="img img-responsive fancyboxme" 
+                        href="{{BASEURL}}public/upload/actuPicture/{{actualite.image}}"
+                        style="margin:auto;border:2px solid {% if categories[actualite.idCat] is defined %}{{categories[actualite.idCat].color}}{% else %}navy{% endif %}"
                         src="{{BASEURL}}public/upload/actuPicture/300x300/{{actualite.image}}">
-                    <div class="triangle" style="border-color: {% if categories[actualite.idCat] is defined %}{{categories[actualite.idCat].color}}{% else %}navy{% endif %} transparent transparent transparent"></div>
+                        <div class="triangle" style="border-color: {% if categories[actualite.idCat] is defined %}{{categories[actualite.idCat].color}}{% else %}navy{% endif %} transparent transparent transparent"></div>
+                    {% elseif (actualite.contentCarou|length>0 and actualite.idCarroussel is not null) %} 
+                        
+                        <img 
+                        class="img img-responsive fancyboxme" 
+                        href="{{actualite.urlCarou}}{{actualite.contentCarou[0].imageFile}}" 
+                        style="margin:auto;border:2px solid {% if categories[actualite.idCat] is defined %}{{categories[actualite.idCat].color}}{% else %}navy{% endif %}"
+                        src="{{actualite.urlCarou}}300x300/{{actualite.contentCarou[0].imageFile}}">
+                        <div class="triangle" style="border-color: {% if categories[actualite.idCat] is defined %}{{categories[actualite.idCat].color}}{% else %}navy{% endif %} transparent transparent transparent"></div>
+                    {% endif %}
                     <div class="detailActualite">
                         <div class="media">
                             <div class="media-left">
-                                <a href="#">
                                     <img class="media-object" src="{% if categories[actualite.idCat] is defined %}{{BASEURL}}public/upload/actuIcone/40x40/{{categories[actualite.idCat].icone}}{% endif %} " alt="">
-                                </a>
+                                
                             </div>
                             <div class="media-body">
                                 <h4 class="media-heading">
@@ -35,15 +45,15 @@
                             </div>
                         </div>
                         <div class="resumeActivite">
-                            {{actualite.resume|truncate(255, true)}}
+                            <a style="text-decoration:none" href="{{BASEURL}}actualite/{{actualite.urlCatNom}}/{{actualite.url}}.html">{{actualite.resume|truncate(255, true)}}</a>
                         </div>
                         <div class="readmoreActu">
                             <a style="color:{% if categories[actualite.idCat] is defined %}{{categories[actualite.idCat].color}}{% else %}navy{% endif %}" href="{{BASEURL}}actualite/{{actualite.urlCatNom}}/{{actualite.url}}.html">> Lire la suite</a>
                         </div>
                     </div>
                 </div>
-
-                {% if loop.index is divisible by(6) %}
+                
+                {% if (loop.index is divisible by(6) or loop.index==actualites|length)%}
                     </div>
                 {% endif %}
             {% endfor %}

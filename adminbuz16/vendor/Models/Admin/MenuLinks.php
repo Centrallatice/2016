@@ -1,6 +1,7 @@
 <?php
 namespace Models\Admin;
 use Tools\StrTools;
+use Models\Admin\Pages;
 
 class MenuLinks extends \Slim\Middleware{
 
@@ -319,16 +320,23 @@ class MenuLinks extends \Slim\Middleware{
                     :idParent
                 )
             ";
-            
-            $url = StrTools::toAscii($this->_strNom);
-            
+            $P = new Pages($this->_db);
+			$urlP = $P->getPageById($this->_intIdPage);
+			if($urlP['success'] && count($urlP['donnees'])>0):
+				$url = StrTools::toAscii($urlP['donnees']["Nom"]);
+				// die($url);
+			else:
+				$url = StrTools::toAscii($this->_strNom);
+            endif;
+			
             $countUrl = $this->countByUrl($url,$this->_intIdPage,null);
             if($countUrl['success']):
                 if($countUrl['donnees']!=0):
                     $url=$url.'-'.$countUrl['donnees'];
-                    
                 endif;
             endif;
+            
+            if($this->_intIdPage==1) $url="index";
             $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
             
             $sth->bindParam(':nom', $this->_strNom, \PDO::PARAM_STR,255);
@@ -339,7 +347,6 @@ class MenuLinks extends \Slim\Middleware{
             
             // GESTION DE L'ORDRE
             $getParent=$this->countByIdParent($this->_intIdParent,$this->_intIdMenu);
-           
             if($getParent['success']):
                 $ordre=$getParent['donnees'];
             else:
@@ -395,10 +402,18 @@ class MenuLinks extends \Slim\Middleware{
         }
     }
     
-    public function countByIdParent($idParent,$idMenu) {
+    public function countByIdParent($idParent,$idMenu,$idEnCours=null) {
         try {
             
-            $sql=(!is_null($idParent)) ? "SELECT (SELECT ordre FROM menulinks WHERE id=:i AND idMenu=:idm) as Ordre,(SELECT COUNT(*) FROM menulinks WHERE idParent=:i AND idMenu=:idm) as TOTAL" : "SELECT COUNT(*) as TOTAL FROM menulinks WHERE idParent IS NULL  AND idMenu=:idm";
+            $sql=(!is_null($idParent)) ? 
+                "SELECT (
+                        SELECT ordre FROM menulinks 
+                        WHERE id=:i AND idMenu=:idm ".(!is_null($idEnCours) ? ' AND id!='.$idEnCours : '').") as Ordre,
+                        (SELECT COUNT(*) FROM menulinks WHERE idParent=:i AND idMenu=:idm ".(!is_null($idEnCours) ? ' AND id!='.$idEnCours : '').") as TOTAL
+                " 
+                : 
+                        "SELECT COUNT(*) as TOTAL FROM menulinks WHERE idParent IS NULL  AND idMenu=:idm".(!is_null($idEnCours) ? ' AND id!='.$idEnCours : '');
+            
             $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
             
             if(!is_null($idParent)):
@@ -406,6 +421,7 @@ class MenuLinks extends \Slim\Middleware{
                 
             endif;
             $sth->bindParam(':idm',$idMenu, \PDO::PARAM_INT);
+            
             if( $sth->execute()){
                 $r=$sth->fetch(\PDO::FETCH_ASSOC);
                 
@@ -423,6 +439,7 @@ class MenuLinks extends \Slim\Middleware{
                     );
                 endif;
             }else{
+		print_r($sth->errorInfo());
                 return array (
                     'success' => false
                     ,'donnees' => null
@@ -501,7 +518,35 @@ class MenuLinks extends \Slim\Middleware{
         }
     }
     
-    
+    public function getUrlByIDPage($idPage){
+        try {
+            $sql="SELECT Nom FROM pages WHERE id=:i";
+            $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
+            $sth->bindParam(':i',$idPage, \PDO::PARAM_INT);
+            
+            if( $sth->execute()){
+                $r=$sth->fetch(\PDO::FETCH_ASSOC);
+                return array (
+                    'success' => true
+                    ,'donnees' => $r['Nom']
+                    ,'message' => null
+                );
+            }else{
+                return array (
+                    'success' => false
+                    ,'donnees' => null
+                    ,'message' => null
+                );
+            }
+            
+        } catch ( Exception $exception ) {
+            return array (
+                'success' => false
+                ,'donnees' => null
+                ,'message' => 'Une erreur est survenue lors de la récupération des données'
+            );
+        }
+    }
     
     public function updateMenuLink () {
 	
@@ -532,8 +577,13 @@ class MenuLinks extends \Slim\Middleware{
                 WHERE
                     id=:id
             ";
-            $url = StrTools::toAscii($this->_strNom);
             
+            $generateLink = $this->getUrlByIDPage($this->_intIdPage);
+            if($generateLink['success']):
+                $url = StrTools::toAscii($generateLink['donnees']);
+            else:
+                $url = StrTools::toAscii($this->_strNom);
+            endif;
             $countUrl = $this->countByUrl($url,$this->_intIdPage,$this->_intId);
             if($countUrl['success']):
                 if($countUrl['donnees']!=0):
@@ -541,9 +591,9 @@ class MenuLinks extends \Slim\Middleware{
                     $url=$url.'-'.$countUrl['donnees'];
                 endif;
             endif;
-            
+            if($this->_intIdPage==1) $url="index";
             // GESTION DE L'ORDRE
-            $getParent=$this->countByIdParent($this->_intIdParent,$this->_intIdMenu);
+            $getParent=$this->countByIdParent($this->_intIdParent,$this->_intIdMenu,$this->_intId);
            
             if($getParent['success']):
                 $ordre=$getParent['donnees'];
@@ -554,7 +604,6 @@ class MenuLinks extends \Slim\Middleware{
                     ,'message' => 'Une erreur est survenue lors de la création du lien'
                 );
             endif;
-            
             
             //Gestion de la Profondeur
             $depth=0;

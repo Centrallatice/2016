@@ -16,14 +16,28 @@
                             <input type="text" class="form-control" ng-model='newBlocDownload.nom' id="Nom" aria-describedby="helpBlockNom">
                             <span id="helpBlockNom" class="help-block" ng-show="controleChamp.Nom">Ce champ est obligatoire.</span>
                         </div>
-
-                        <div class="form-group" ng-class="{'has-error':controleChamp.Page}">
-                            <label for="page">Page associée</label>
-                            <span class="label label-danger" ng-if="pageError!=null">{{pageError}}</span>
-                            <select ng-if="pageError===null" class="form-control" ng-model='newBlocDownload.idPage' id="parent" ng-options="page as page.Nom for page in listePages | orderBy:'Nom' track by page.id " aria-describedby="helpBlockPage"></select>
-                            <span id="helpBlockPage" class="help-block" ng-show="controleChamp.Page">Ce champ est obligatoire.</span>
-                        </div>
-
+                        <fieldset style="padding:25px; border:1px solid #ebebeb">
+                            <div class="row nopadding">
+                                <div class="form-group" ng-class="{'has-error':controleChamp.Page}">
+                                    <label for="page">Page associée</label>
+                                    <span class="label label-danger" ng-if="pageError!=null">{{pageError}}</span>
+                                    <select ng-if="pageError===null" class="form-control" ng-model='newBlocDownload.idPage' id="parent" ng-options="page as page.Nom for page in listePages | orderBy:'Nom' track by page.id " aria-describedby="helpBlockPage"></select>
+                                    <span id="helpBlockPage" class="help-block" ng-show="controleChamp.Page">Merci de choisir une page ou carroussel.</span>
+                                </div>
+                            </div>
+                            <div class="row nopadding">
+                                <div class="col-xs-12"><center><strong>OU</strong></center></div>
+                            </div>    
+                            <div class="row nopadding">
+                                <div class="form-group" ng-class="{'has-error':controleChamp.Page}">
+                                    <label for="idCarroussel">Caroussel associé</label>
+                                    <span class="label label-danger" ng-if="pageError!=null">{{pageError}}</span>
+                                    <select class="form-control" ng-model='newBlocDownload.idCarroussel' id="listeModulesDiapo" name="listeModulesDiapo" ng-options="carou as carou.nom for carou in listeModulesDiapo track by carou.id "></select>
+                                    <span id="helpBlockPage" class="help-block" ng-show="controleChamp.Page">Merci de choisir une page ou carroussel.</span>
+                                </div>
+                            </div>
+                        </fieldset>
+                        
                         <div class="form-group" ng-class="{'has-error':controleChamp.Position}">
                             <label for="position">Position du bloc</label>
                             <select class="form-control" ng-model='newBlocDownload.position' name="position" id="position" aria-describedby="helpBlockPosition">
@@ -33,6 +47,7 @@
                                     <option value="COL_LEFT_TWO">Colonne de Gauche position 2</option>
                                     <option value="COL_RIGHT_ONE">Colonne de Droite position 1</option>
                                     <option value="COL_RIGHT_TWO">Colonne de Droite position 2</option>
+                                    <option value="BOTTOM_PAGE">Fin des articles</option>
                             </select>
                             <span id="helpBlockPosition" class="help-block" ng-show="controleChamp.Type">Ce champ est obligatoire.</span>
                         </div>
@@ -71,7 +86,7 @@
                             <th>id</th>
                             <th>Nom</th>
                             <th>Type</th>
-                            <th>page</th>
+                            <th>Page / Caroussel</th>
                             <th width='80px'>Supprimer</th>
                             <th width='80px'>Configurer</th>
                         </tr>
@@ -81,7 +96,8 @@
                             <td>{{value.id}}</td>
                             <td>{{value.nom}}</td>
                             <td>{{value.type| uppercase}}</td>
-                            <td>{{value.NomPage}}</td>
+                            <td ng-if="value.NomPage!=null">{{value.NomPage}}</td>
+                            <td ng-if="value.NomCaroussel!=null && value.NomPage==null">{{value.NomCaroussel}}</td>
                             <td class="text-center">
                                 <button class='btn btn-sm btn-danger block-center text-center' title='Supprimer' ng-click='deleteBlocDownload(value)'>
                                     <i class='fa fa-times'></i>
@@ -112,7 +128,7 @@
     <div class="col-xs-12">
         <section class="panel modulesBloc">
             <header class="panel-heading">
-                <span class="title">Gestion des photos du diaporama "{{documentBloc.nom}}"</span>
+                <span class="title">Gestion du module "{{documentBloc.nom}}"</span>
                 <div class="pull-right">
                     <a class="btn btn-success btn-sm" ng-click="collapseAddDoc = !collapseAddDoc" role="button"><i class="fa fa-plus"></i> Ajouter des documents</a>
                 </div>                
@@ -157,8 +173,12 @@
                             Titre : {{v.titre}}<br />
                             Sous-titre : {{v.sstitre}}<br />
                             Intitulé : {{v.intitule}}<br />
-                            Document : <a ng-href="{{ documentBloc.rep }}pdf/{{ v.pdf }}" target="_blank">Afficher le PDF </a><br />
-                            Image : <img ng-src="{{ documentBloc.rep }}picture/{{ v.image }}" style="max-height: 250px" class="thumbnail img img-responsive">
+                            <div ng-if="v.pdf && v.pdf!=null" >
+                                Document : <a ng-href="{{ documentBloc.rep }}pdf/{{ v.pdf }}" target="_blank">Afficher le PDF </a><br />
+                            </div>
+                            <div ng-if="v.image && v.image!=null" >
+                                Image : <img ng-src="{{ documentBloc.rep }}picture/{{ v.image }}" style="max-height: 250px" class="thumbnail img img-responsive">
+                            </div>
                         </div>
                         
                         <div class="col-xs-12 text-center block-center">

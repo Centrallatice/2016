@@ -1,0 +1,78 @@
+{% extends "base.twig" %}
+{% block title %}Agenda de la Ville de Buzancais{% endblock %}
+{% block description %}{{descriptionPage}}{% endblock %}
+{% block keywords %}{{motsclefsPage}}{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{BASETHEME}}/css/home.css" rel="stylesheet" type="text/css"/>
+    <link href="{{BASETHEME}}/css/agenda.css" rel="stylesheet" type="text/css"/>
+   
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+    
+{% block body %}
+    {% include 'global/header.twig' %}
+    <div class="bloc-container-inner blocAgenda">
+        <div class="row">
+            <div class="col-xs-24">
+                <h1>Agenda</h1>
+                <fieldset class="choixAgenda">
+                    <form name="AGENDA" method="post" id="AGENDA" class="form-inline">
+                        <div class="form-group">
+                            <div class="input-group">
+                              <div class="input-group-addon">Filtrez par agenda</div>
+                              <select class="form-control" id="choixType" name="choixTypeAgenda">
+                                <option value="-1">Tous les agendas</option>
+                                {% for c in agendasCat %}
+                                    <option value="{{c.id}}" {% if typeAgendaEnCours==c.id %} selected="selected" {% endif %}>{{c.Nom|capitalize}}</option>
+                                {% endfor %}
+                            </select>  
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                              <div class="input-group-addon">Filtrez par Mois</div>
+                              <select class="form-control" id="choixMois" name="choixMois">
+                                <option value="-1">Toutes les périodes</option>
+                                {% for a in agendasMois %}
+                                    <option value="{{a.moisEvenement~'|'~a.anneeEvenement}}" {% if moisAgendaEnCours==(a.moisEvenement~'|'~a.anneeEvenement) %} selected="selected" {% endif %}>{{a.moisFREvenement|capitalize~' '~a.anneeEvenement}}</option>
+                                {% endfor %}
+                              </select>  
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Valider</button>
+                    </form>
+                </fieldset>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-24 contentAgenda">
+                {% set moisencours,compteur='',0 %}
+                
+                {% for agenda in agendas %}
+                    {% if moisencours!=agenda.moisEvenement %}
+                        {% if compteur!=0 %}</section>{% endif %}
+                    
+                        <section class="moisAgenda">
+                            <h2>{{agenda.moisEvenement|capitalize}} {{agenda.anneeEvenement}}</h2>
+                            {% set moisencours=agenda.moisEvenement %}
+                            {% set compteur=compteur+1 %}
+                    {% endif %}   
+                    <div class="detailMoisAgenda">
+                        <p class="titreEvenement">{{agenda.titre|capitalize}}</p>
+                        <p class="dateEvenementFR">{{agenda.dateEvenementFR|capitalize}}</p>
+                        <p class="contenu">{{agenda.contenu| raw}}</p>
+                    </div>
+                            
+                    
+                {% endfor %}
+                
+            </div>
+        </div>
+        {% include 'global/footer.twig' %}    
+    </div>
+    
+{% endblock %}
+

@@ -1,0 +1,69 @@
+<div class="row">
+    <div class="col-xs-12">
+        <section class="panel">
+            <header class="panel-heading">
+                <span class="title">Créer un nouveau module de contenu</span>
+                <div class="pull-right">
+                    <a class="btn btn-success btn-sm" href="#/modules/lists/HTMLcontent" role="button"><i class="fa fa-arrow-left"></i> Annuler</a>
+                </div>                
+            </header>
+            <div class="panel-body panel-action">
+                <div class="col-xs-12">
+                    <form class="addCat-form" name="ajoutModule" novalidate role="form" ng-if='ready'>
+					
+                        <div class="form-group" ng-class="{'has-error':ajoutModule.nom.$error.required}">
+                            <label for="nom">Nom</label>
+                            <input type="text" required  class="form-control" ng-model='nouveauModule.nom' id="nom" name="nom">
+                            <span ng-show="ajoutModule.nom.$error.required" class="help-block">Ce champ est obligatoire.</span>
+                        </div>
+			<div class="form-group" ng-class="{'has-error':errorPage}">
+                            <label for="idPage">Affiché sur les pages suivantes</label>
+                            <div style="max-height:300px;overflow:auto">
+                                <ul class="list-group monlistgroup">
+                                    <li class="list-group-item" ng-repeat="(key,val) in listePages">
+                                        <div class="col-xs-10">{{listePages[key].Nom}}</div>
+                                        <div class="col-xs-2 pull-right">
+                                        <input type="checkbox" ng-change="checkIsAllPage(listePages[key].id)" ng-disabled="isAllPage && listePages[key].id!=0" ng-value="listePages[key].id" ng-model="nouveauModule.idPage[listePages[key].id]"></div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <span id="helpBlockPage" class="help-block" ng-show="errorPage">Ce champ est obligatoire.</span>
+                        </div>
+			<div class="form-group"  ng-class="{'has-error':ajoutModule.position.$error.required}">
+                            <label for="position">Position du module</label>
+                            <select required class="form-control" ng-model='nouveauModule.position' name="position" id="position">
+                                    <option value="HEADER">Entête de page</option>
+                                    <option value="COL_LEFT_ONE">Colonne de Gauche position 1</option>
+                                    <option value="COL_LEFT_TWO">Colonne de Gauche position 2</option>
+                                    <option value="COL_RIGHT_ONE">Colonne de Droite position 1</option>
+                                    <option value="COL_RIGHT_TWO">Colonne de Droite position 2</option>
+                                    <option value="COL_FOOTER_2">Pied de Page Colonne 2</option>
+                            </select>
+                            <span class="help-block" ng-show="ajoutModule.position.$error.required">Ce champ est obligatoire.</span>
+                        </div>
+			<div class="form-group" ng-class="{'has-error':ajoutModule.contenu.$error.required}">
+                            <label for="contenu">Contenu</label>
+                            <textarea cols="30" rows="50" required
+                                    ng-model="nouveauModule.contenu"
+                                    name="contenu"
+                                    ckeditor="editorOptions" 
+                                    aria-describedby="helpBlockContenu">
+                            </textarea>
+                            <span id="helpBlockContenu" class="help-block" ng-show="ajoutArticle.contenu.$error.required">Ce champ est obligatoire.</span>
+                        </div>
+                        <hr /> 			
+                       	
+                        <div class="text-center block-center">
+                            <button type="button" class="btn btn-success" ng-disabled="ajoutModule.$error.required" ng-click='addModule()'>
+                               Créer ce module
+                            </button>
+                        </div>
+                    </form>
+                    <div class="col-xs-12" ng-if="!ready">
+                        <br /><center><strong>Chargement en cours <i class="fa fa-spin fa-spinner fa-2x"></i></strong><br /></center>
+                    </div>
+                </div>
+            </div>
+	</section>
+    </div>
+</div>

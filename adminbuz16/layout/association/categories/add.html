@@ -1,0 +1,34 @@
+<div class="row">
+    <div class="col-xs-12">
+        <section class="panel">
+            <header class="panel-heading">
+                <span class="title">Créer une nouvelle catégorie d'associations</span>
+                <div class="pull-right">
+                    <a class="btn btn-danger btn-sm" href="#/association/categories/lists" role="button"><i class="fa fa-arrow-left"></i> Annuler</a>
+                </div>                
+            </header>
+            <br />
+            <div class="panel-body panel-action" >
+            <div class="col-xs-12">
+                    <form class="addCat-form" name="ajoutCat" novalidate role="form">
+                        <div class="form-group"  ng-class="{'has-error':ajoutCat.nom.$error.required}">
+                            <label for="nom">Nom de la catégorie</label>
+                            <input type="text" required class="form-control" ng-model='newCatAsso.nom' id="nom" name="nom">
+                            <span class="help-block" ng-show="ajoutCat.nom.$error.required">Ce champ est obligatoire.</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="image">Image de la catégorie</label>
+                            <input type="file" ng-model="newCatAsso.image" file-select="data"  id="image">
+                       </div>
+                        <div class="text-center block-center">
+                            <button type="submit" ng-disabled="ajoutCat.nom.$error.required" class="btn btn-success" ng-click='addCategorie(newCatAsso)'>
+                                Créer cette catégorie
+                            </button>
+                        </div>
+                    </form>
+                <hr />
+                </div>
+                </div>
+        </section>
+    </div>
+</div>

@@ -1,8 +1,6 @@
 var app = angular.module('buzancais');
-app.controller('categoriesController', ['$scope','categoriesService', function($scope,categoriesService) {
+app.controller('categoriesController', ['$scope','categoriesService','notifications', function($scope,categoriesService,notifications) {
     $scope.categories = null;
-    $scope.categoriesError = null;
-    $scope.categoriesErrorAddCat = null;
     $scope.collapseAddCat = true;
     $scope.duplicateCat=false;
     $scope.prepareIcone=false;
@@ -14,15 +12,14 @@ app.controller('categoriesController', ['$scope','categoriesService', function($
         var getCategories = categoriesService.getCategories();
         getCategories.then(function (response) {
             if (response.data.categories.success) {
-                $scope.categoriesError=null;
                 $scope.listeCategories = response.data.categories.donnees;
                 $scope.baseIcone=response.data.baseIconePath;
             }
             else{
-                $scope.categoriesError = response.data.categories.message;
+                notifications.showError({message:response.data.categories.message});
             }
         }, function () {
-            $scope.categoriesError="Une erreur est survenue lors de la récupération des catégories";
+            notifications.showError({message:"Une erreur est survenue lors de la récupération des catégories"});
         });
     };
     
@@ -40,11 +37,16 @@ app.controller('categoriesController', ['$scope','categoriesService', function($
         $scope.duplicateCat=false;
         
     }
-    $scope.changeIcone=function(){
-        if(!(confirm("Êtes-vous sûr de vouloir supprimer cette icone ?"))) return false;
-        $scope.newCategorie.updateIcone=true;
-        $scope.newCategorie.icone=null;
-        document.getElementById('iconecat').value="";
+    $scope.changeIcone=function(fromFile){
+        if(fromFile && $scope.newCategorie && $scope.newCategorie.icone!=null && $scope.newCategorie.icone!=''){
+            if(!(confirm("Êtes-vous sûr de vouloir supprimer l'icone actuel?"))) return false;
+        }
+        else if(!fromFile && $scope.newCategorie.icone!=null && !(confirm("Êtes-vous sûr de vouloir supprimer cette icone ?"))) return false;
+        if($scope.newCategorie){
+            $scope.newCategorie.updateIcone=true;
+            $scope.newCategorie.icone=null;
+            document.getElementById('iconecat').value="";
+        }
     }
     $scope.toggleEtat=function(C){
         var toggleEtat = categoriesService.toggleEtat(C);
@@ -54,10 +56,10 @@ app.controller('categoriesController', ['$scope','categoriesService', function($
                 C.Statut = (C.Statut==1) ? 0 : 1;
             }     
             else{
-                $scope.categoriesError=response.data.message;
+                notifications.showError({message:response.data.message});
             }
         }, function () {
-            $scope.categoriesError="Une erreur est survenue lors de la modification du statut de la catégorie"
+            notifications.showError({message:"Une erreur est survenue lors de la modification du statut de la catégorie"});
         });
     }
     $scope.updateCategorie=function(C){
@@ -89,15 +91,17 @@ app.controller('categoriesController', ['$scope','categoriesService', function($
             var dCat = categoriesService.deleteCategorie(C);
             dCat.then(function (response) {
             if (response.data.success) {
-                $scope.categoriesError=null;
 		$scope.listeCategories=null;
                 $scope.init();
+                notifications.showSuccess({message:"La catégorie a bien été supprimé",hideDelay: 5000,
+                    hide: true,
+                    acceptHTML:true});
             }     
             else{
-                $scope.categoriesError=response.data.message;
+                notifications.showError({message:response.data.message});
             }
         }, function () {
-            $scope.categoriesError="Une erreur est survenue lors de la suppression de la catégorie"
+            notifications.showError({message:"Une erreur est survenue lors de la suppression de la catégorie"});
         });
 	}
     $scope.addCategorie = function(C){
@@ -129,13 +133,16 @@ app.controller('categoriesController', ['$scope','categoriesService', function($
                 $scope.categoriesError=null;
                 $scope.collapseAddCat = true;
                 $scope.annuleModification();
+                notifications.showSuccess({message:"La catégorie a bien été créé/modifié",hideDelay: 5000,
+                    hide: true,
+                    acceptHTML:true});
                 $scope.init();
             }
             else{
-                $scope.categoriesError="Une erreur est survenue lors de l'ajout/modification de la catégorie"
+                notifications.showError({message:"Une erreur est survenue lors de l'ajout/modification de la catégorie"});
             }
         }, function () {
-            $scope.categoriesError="Une erreur est survenue lors de l'ajout/modification de la catégorie"
+            notifications.showError({message:"Une erreur est survenue lors de l'ajout/modification de la catégorie"});
         });
     }
     $scope.init();

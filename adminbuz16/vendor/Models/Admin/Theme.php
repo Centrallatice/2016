@@ -27,6 +27,24 @@ class Theme extends \Slim\Middleware{
             );
         }
     }
+	public function add ($rep,$name) {
+        try {
+            $sql="INSERT INTO themes(nom,rep) VALUES('".$name."','".$rep."')";
+            $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
+            
+            return array (
+				'success' => $sth->execute(array())
+                ,'donnees' => null
+                ,'message' => null
+            );
+        } catch ( Exception $exception ) {
+            return array (
+                'success' => false
+                ,'donnees' => null
+                ,'message' => 'Une erreur est survenue lors de la récupération des données'
+            );
+        }
+    }
     public function call(){
         $this->next->call();
     }

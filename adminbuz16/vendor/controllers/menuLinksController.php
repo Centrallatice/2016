@@ -19,7 +19,6 @@ class menuLinksController extends \Slim\Middleware{
 
             $M->setIdPage( isset($body->menuLinks->page->id) ? $body->menuLinks->page->id:null);
             $M->setIdMenu($body->idMenuParent);
-//            var_dump($body->menuLinks);
             $lienParent=null;
             if(isset($body->menuLinks->lienParent->id)):
                 $lienParent=$body->menuLinks->lienParent->id;
@@ -35,6 +34,7 @@ class menuLinksController extends \Slim\Middleware{
             $body = json_decode($request->getBody());
             $M = new MenuLinks($this->_db);
             $M->setId($body->lien->id);
+            $M->setIdMenu($body->lien->idMenu);
             $M->setIdPage(isset($body->lien->page->id) ? $body->lien->page->id : null);
             $M->setNom($body->lien->nom);
             $M->setIdParent(isset($body->lien->idParent) ? (($body->lien->idParent!=-1) ? $body->lien->idParent : null) : null);

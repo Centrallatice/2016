@@ -22,6 +22,11 @@ class articlesController extends \Slim\Middleware{
             $A->setIdPage($body->article->page->id);
             $A->setDescription($body->article->description);
             $A->setMotsCles($body->article->motsclefs);
+            $A->setLegende($body->article->legende);
+            $A->setDisposition($body->article->disposition);
+            $A->setShowTitre($body->article->showTitle);
+            $A->setShowPointilles($body->article->showPointille);
+            $A->setIdCaroussel($body->article->idCarroussel->id);
             
             $put = false;
             
@@ -36,8 +41,11 @@ class articlesController extends \Slim\Middleware{
                 $mime_type = finfo_buffer($f, $data, FILEINFO_MIME_TYPE);
                 $fExt = ImgTools::getFileExtFromContent($mime_type);
                 $put = file_put_contents(BASE_PATH_UPLOAD_DIR.'/article/'.$fName.$fExt, $data);
+                
+                chmod(BASE_PATH_UPLOAD_DIR.'/article/'.$fName.$fExt,0755);
                 if($put):
                     ImgTools::smart_resize_image(BASE_PATH_UPLOAD_DIR.'/article/'.$fName.$fExt,null,300,300,true,BASE_PATH_UPLOAD_DIR.'/article/300x300/'.$fName.$fExt,false,false,100);
+                chmod(BASE_PATH_UPLOAD_DIR.'/article/300x300/'.$fName.$fExt,0755);
                 endif;
                 
                 $body->article->image=($put) ? $fName.$fExt : null;
@@ -63,6 +71,12 @@ class articlesController extends \Slim\Middleware{
             $A->setDescription($body->article->description);
             $A->setMotsCles($body->article->motsclefs);
             $A->setIdArticle($body->article->id);
+            $A->setLegende($body->article->legende);
+            $A->setDisposition($body->article->disposition);
+            $A->setShowTitre($body->article->showTitle);
+            $A->setShowPointilles($body->article->showPointille);
+            $A->setIdCaroussel($body->article->idCarroussel->id);
+			
             
             $oldImage=null;
             $oldP = $A->getPictureFromIDArti();
@@ -72,7 +86,9 @@ class articlesController extends \Slim\Middleware{
             endif;
             
             $put = false;
-            if(isset($body->article->image) && !is_null($body->article->image) ):
+			
+			
+            if(isset($body->article->image) && !is_null($body->article->image) && $body->article->updateImage):
                 $fName = uniqid();
                 $data = $body->article->image;
                 list($type, $data) = explode(';', $data);
@@ -82,23 +98,36 @@ class articlesController extends \Slim\Middleware{
                 $mime_type = finfo_buffer($f, $data, FILEINFO_MIME_TYPE);
                 $fExt = ImgTools::getFileExtFromContent($mime_type);
                 $put = file_put_contents(BASE_PATH_UPLOAD_DIR.'/article/'.$fName.$fExt, $data);
+                chmod(BASE_PATH_UPLOAD_DIR.'/article/'.$fName.$fExt,0755);
                 if($put):
                     ImgTools::smart_resize_image(BASE_PATH_UPLOAD_DIR.'/article/'.$fName.$fExt,null,300,300,true,BASE_PATH_UPLOAD_DIR.'/article/300x300/'.$fName.$fExt,false,false,100);
+                chmod(BASE_PATH_UPLOAD_DIR.'/article/300x300/'.$fName.$fExt,0755);
                 endif;
                 
                 $body->article->image=($put) ? $fName.$fExt : null;
                 $A->setImage(($put) ? $fName.$fExt : null);
+				$result = $A->updateArticle(true);
+				if($result['success'] && !is_null($oldImage['image'])):
+					@unlink(BASE_PATH_UPLOAD_DIR.'/article/'.$oldImage['image']);
+					@unlink(BASE_PATH_UPLOAD_DIR.'/article/300x300/'.$oldImage['image']);
+				endif;
             else:
-                $A->setImage(null);
+				if(isset($body->article->updateImage) && $body->article->updateImage===true):
+					$A->setImage(null);
+					$result = $A->updateArticle(true);
+					if($result['success'] && !is_null($oldImage['image'])):
+						@unlink(BASE_PATH_UPLOAD_DIR.'/article/'.$oldImage['image']);
+						@unlink(BASE_PATH_UPLOAD_DIR.'/article/300x300/'.$oldImage['image']);
+					endif;
+				else:
+					$result = $A->updateArticle(false);
+					$A->setImage($fName.$fExt);
+				endif;
             endif;
             
             
             
-            $result = $A->updateArticle();
-            if($result['success'] && !is_null($oldImage['image'])):
-                @unlink(BASE_PATH_UPLOAD_DIR.'/article/'.$oldImage['image']);
-                @unlink(BASE_PATH_UPLOAD_DIR.'/article/300x300/'.$oldImage['image']);
-            endif;
+			
             $result['donnees']['nameimage']=($put) ? $fName.$fExt : null;
             echo json_encode($result);
 	}

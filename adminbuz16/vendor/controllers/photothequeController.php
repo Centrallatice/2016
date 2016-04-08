@@ -75,20 +75,17 @@ class photothequeController extends \Slim\Middleware{
             $C = new Phototheque($this->_db);
             $C->setId($body->categorie->id);
             $this->deletePictureDirectory(BASE_PATH_UPLOAD_DIR.'/phototheque/'.$body->categorie->Repertoire.'/minis/');
-//            $this->deletePictureDirectory(BASE_PATH_UPLOAD_DIR.'/phototheque/'.$body->categorie->Repertoire.'/');
-//            $result = $C->deleteCategorie();
-//            echo json_encode($result);   
+            $d = $C->deleteCategorie();
+            echo json_encode($d);
 	}
         public  function deletePictureDirectory($Directory){
         $MyDirectory = opendir($Directory) or die('Erreur');
             while($Entry = @readdir($MyDirectory)) {
              if(is_dir($Directory.'/'.$Entry) && $Entry != '.' && $Entry != '..') {
-                echo '<ul>'.$Directory;
-                    deletePictureDirectory($Directory.'/'.$Entry);
-                echo '</ul>';
+               
              }
              else if($Entry != '.' && $Entry != '..') {
-              echo '<li>'.$Entry.'</li>';
+                 @unlink($Entry);
              }
             }
              closedir($MyDirectory);
@@ -167,15 +164,20 @@ class photothequeController extends \Slim\Middleware{
             
             
             if(move_uploaded_file( $_FILES['file']['tmp_name'] , $destination )):
+                chmod(BASE_PATH_UPLOAD_DIR.'/phototheque/'.$datas['p']['Repertoire'].'/'.$finalName.$extension,0755);
                 $Medias=new Medias($this->_db);
                 $Medias->setFilename($finalName.$extension);
                 $Medias->setRep('phototheque/'.$datas['p']['Repertoire']);
                 $Medias->setidLiaison($datas['p']['id']);
+                $Medias->setNom($datas['nom']);
+                
+                $Medias->setNomAlbum($datas['album']);
                 $Medias->setType("photos");
                 $resAdded = $Medias->addMedia();
                 
                 ImgTools::smart_resize_image(BASE_PATH_UPLOAD_DIR.'/phototheque/'.$datas['p']['Repertoire'].'/'.$finalName.$extension,null,300,300,true,BASE_PATH_UPLOAD_DIR.'/phototheque/'.$datas['p']['Repertoire'].'/minis/'.$finalName.$extension,false,false,100);
                 
+                chmod(BASE_PATH_UPLOAD_DIR.'/phototheque/'.$datas['p']['Repertoire'].'/minis/'.$finalName.$extension,0755);
                 
                 if(!$resAdded['success']):
                     unlink(BASE_PATH_UPLOAD_DIR.'/phototheque/'.$datas['p']['Repertoire'].'/'.$finalName.$extension);

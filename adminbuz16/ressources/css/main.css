@@ -17,7 +17,7 @@
     display:block;
 }
 .panel-action{
-    background:#f3f3f3;
+    margin-top:10px;
     border-bottom:1px solid black;
     border-top:1px solid black;
 }
@@ -82,4 +82,17 @@ li.nosub{
     background-color: #fff;
     height: 25px;
     border: 1px solid #ddd;
+}
+
+.line-legend li span{
+    display:block !important;
+    width:100px !important;
+    position:relative !important;
+}
+.line-legend li span{
+    width:110px !important;
+    
+}
+.notifications,.notifications >div{
+    z-index: 10000;
 }

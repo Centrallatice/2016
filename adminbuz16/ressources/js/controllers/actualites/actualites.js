@@ -31,7 +31,7 @@ app.controller('actualitesListsController', ['$scope','actualitesService','$loca
     
     $scope.init();
 }]);
-app.controller('actualitesAddController', ['$scope','actualitesService','$location','categoriesService', function($scope,actualitesService,$location,categoriesService) {
+app.controller('actualitesAddController', ['$scope','actualitesService','$location','categoriesService','modulesService', function($scope,actualitesService,$location,categoriesService,modulesService) {
     $scope.newActualite=null;
     $scope.errorAjoutActu=null;
     $scope.categoriesError=null;
@@ -93,6 +93,18 @@ app.controller('actualitesAddController', ['$scope','actualitesService','$locati
         }, function () {
             $scope.categoriesError="Une erreur est survenue lors de la récupération des catégories";
         });
+        var getDiapos = modulesService.getAllByType('caroussel');
+        getDiapos.then(function (response) {
+            if (response.data.success) {
+                $scope.listeModulesDiapo = response.data.donnees;
+            }
+            else{
+                $scope.pagesError = response.data.message;
+            }
+        }, function () {
+            $scope.Error = true;
+            $scope.Message="Une erreur est survenue lors de la récupération des diaporamas existants";
+        });
     };
 	$scope.init();
 }]);
@@ -101,7 +113,7 @@ app.controller('actualitesAddController', ['$scope','actualitesService','$locati
 
 
 
-app.controller('actualitesUpdateController', ['$scope','actualitesService','categoriesService','$location','$route', function($scope,actualitesService,categoriesService,$location,$route) {
+app.controller('actualitesUpdateController', ['$scope','actualitesService','categoriesService','$location','$route','modulesService', function($scope,actualitesService,categoriesService,$location,$route,modulesService) {
     $scope.newActualite=null;
     $scope.errorAjoutActu=null;
     $scope.categoriesError=null;
@@ -123,6 +135,19 @@ app.controller('actualitesUpdateController', ['$scope','actualitesService','cate
             $location.path("/actualites/lists");
         }
         else{
+            var getDiapos = modulesService.getAllByType('caroussel');
+            getDiapos.then(function (response) {
+                if (response.data.success) {
+                    $scope.listeModulesDiapo = response.data.donnees;
+                }
+                else{
+                    $scope.pagesError = response.data.message;
+                }
+            }, function () {
+                $scope.Error = true;
+                $scope.Message="Une erreur est survenue lors de la récupération des diaporamas existants";
+            });
+                            
             var getCategories = categoriesService.getCategories();
             getCategories.then(function (response) {
                 if (response.data.categories.success) {
@@ -135,11 +160,18 @@ app.controller('actualitesUpdateController', ['$scope','actualitesService','cate
                             $scope.newActualite = response.data.donnees;
                             $scope.baseImage = response.data.pathImage;
                             $scope.newActualite.updateImage=false;
-
+                            
                             if(response.data.donnees.idCategorie){
                                 for(var c in $scope.listeCategories){
                                     if($scope.listeCategories[c].id==$scope.newActualite.idCategorie){
                                         $scope.newActualite.idCategorie=$scope.listeCategories[c];
+                                    }
+                                }
+                            }
+                            if(response.data.donnees.idCarroussel){
+                                for(var c in $scope.listeModulesDiapo){
+                                    if($scope.listeModulesDiapo[c].id==$scope.newActualite.idCarroussel){
+                                        $scope.newActualite.idCarroussel=$scope.listeModulesDiapo[c];
                                     }
                                 }
                             }

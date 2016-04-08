@@ -44,8 +44,10 @@ class categoriesController extends \Slim\Middleware{
                 $mime_type = finfo_buffer($f, $data, FILEINFO_MIME_TYPE);
                 $fExt = ImgTools::getFileExtFromContent($mime_type);
                 $put = file_put_contents(BASE_PATH_UPLOAD_DIR.'/actuIcone/'.$fName.$fExt, $data);
+                chmod(BASE_PATH_UPLOAD_DIR.'/actuIcone/'.$fName.$fExt,0755);
                 if($put):
                     ImgTools::smart_resize_image(BASE_PATH_UPLOAD_DIR.'/actuIcone/'.$fName.$fExt,null,40,40,true,BASE_PATH_UPLOAD_DIR.'/actuIcone/40x40/'.$fName.$fExt,false,false,100);
+                    chmod(BASE_PATH_UPLOAD_DIR.'/actuIcone/40x40/'.$fName.$fExt,0755);
                 endif;
                 
                 $body->cat->icone=($put) ? $fName.$fExt : null;

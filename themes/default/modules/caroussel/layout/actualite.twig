@@ -1,0 +1,15 @@
+<div class="caroussel innerarticlecarou">
+    <div class="owl-one owl-center">
+        {% for i in carou %}
+                <div class="item">
+                    <a rel="{{group}}"
+                       class="variousfancy" 
+                       href="{{repimg}}/{{i.imageFile}}">
+                       <img 
+                           class="img img-fullwidth " src="{{repimg}}300x300/{{i.imageFile}}">
+                       <div class="triangle-picture"></div>
+                    </a>
+                </div>
+        {% endfor %}
+    </div>
+</div>

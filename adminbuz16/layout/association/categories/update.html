@@ -1,0 +1,43 @@
+<div class="row">
+    <div class="col-xs-12">
+        <section class="panel">
+            <header class="panel-heading">
+                <span class="title">Modification d'catégorie d'associations</span>
+                <div class="pull-right">
+                    <a class="btn btn-danger btn-sm" href="#/association/categories/lists" role="button"><i class="fa fa-arrow-left"></i> Annuler</a>
+                </div>                
+            </header>
+            <br />
+            <div class="panel-body panel-action" >
+            <div class="col-xs-12">
+                    <form class="addCat-form" name="updateCat" novalidate role="form">
+                        <div class="form-group"  ng-class="{'has-error':updateCat.nom.$error.required}">
+                            <label for="nom">Nom de la catégorie</label>
+                            <input type="text" required class="form-control" ng-model='newCatAsso.nom' id="nom" name="nom">
+                            <span class="help-block" ng-show="updateCat.nom.$error.required">Ce champ est obligatoire.</span>
+                        </div>
+                        <div class="row nopadding">
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label for="icone">Image de la catégorie</label>
+                                    <input type="file" ng-click='changeIcone(true)' ng-model="newCatAsso.image" file-select="data"  id="image">
+                                    <span id="holder"></span>
+                               </div>
+                            </div>
+                            <div class="col-xs-6" ng-if="newCatAsso.updateIcone===false && newCatAsso.image!==null && newCatAsso.image!==''">
+                                <img ng-src="{{imagePath}}{{newCatAsso.image}}">
+                                <button class='btn btn-sm btn-defaut' title='Supprimer cette image' ng-click='changeIcone(false)'><i class='fa fa-times'></i></button>
+                            </div>
+                        </div>
+                        <div class="text-center block-center">
+                            <button type="submit" ng-disabled="updateCat.nom.$error.required" class="btn btn-success" ng-click='updateCatAsso(newCatAsso)'>
+                                Modifier cette catégorie
+                            </button>
+                        </div>
+                    </form>
+                <hr />
+                </div>
+                </div>
+        </section>
+    </div>
+</div>

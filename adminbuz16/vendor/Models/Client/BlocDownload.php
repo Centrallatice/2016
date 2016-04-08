@@ -47,6 +47,7 @@ class BlocDownload extends \Slim\Middleware{
             );
         }
     }
+    
     public function getByIDModule($id) {
         try {
             
@@ -56,7 +57,46 @@ class BlocDownload extends \Slim\Middleware{
                 FROM 
                     blocdownload
                 WHERE
-                    idModule=:i";
+                    idModule=:i
+                ORDER By id desc    ";
+            $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
+            $sth->execute(array("i"=>$id));
+            if($sth){
+                $r=$sth->fetchAll(\PDO::FETCH_ASSOC);
+                return array (
+                    'success' => true
+                    ,'donnees' => (count($r) > 0) ? $r : array()
+                    ,'message' => null
+                );
+
+            }else{
+                return array (
+                    'success' => false
+                    ,'donnees' => null
+                    ,'message' => null
+                );
+            }
+            
+        } catch ( Exception $exception ) {
+            return array (
+                'success' => false
+                ,'donnees' => null
+                ,'message' => 'Une erreur est survenue lors de la récupération des données'
+            );
+        }
+    }
+    public function getByIDRefModule($id) {
+        try {
+            
+            $sql="
+                SELECT 
+                    *
+                FROM 
+                    blocdownload
+                WHERE
+                    idModule=(SELECT id FROM modules WHERE idCaroussel=:i LIMIT 0,1)
+                ORDER By id desc    
+                ";
             $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
             $sth->execute(array("i"=>$id));
             if($sth){

@@ -19,6 +19,7 @@ class actualitesController extends \Slim\Middleware{
             $A->setContent($body->actualite->contenu);
             $A->setResume($body->actualite->resume);
             $A->setIdCategorie($body->actualite->idCategorie->id);
+            $A->setIdCarou($body->actualite->idCarroussel->id);
             
             
             if(isset($body->actualite->image) && !is_null($body->actualite->image)):
@@ -31,8 +32,10 @@ class actualitesController extends \Slim\Middleware{
                 $mime_type = finfo_buffer($f, $data, FILEINFO_MIME_TYPE);
                 $fExt = ImgTools::getFileExtFromContent($mime_type);
                 $put = file_put_contents(BASE_PATH_UPLOAD_DIR.'/actuPicture/'.$fName.$fExt, $data);
+                chmod(BASE_PATH_UPLOAD_DIR.'/actuPicture/'.$fName.$fExt,0755);
                 if($put):
-                    ImgTools::smart_resize_image(BASE_PATH_UPLOAD_DIR.'/actuPicture/'.$fName.$fExt,null,300,300,true,BASE_PATH_UPLOAD_DIR.'/actuPicture/300x300/'.$fName.$fExt,false,false,100);
+                    ImgTools::smart_resize_image(BASE_PATH_UPLOAD_DIR.'/actuPicture/'.$fName.$fExt,null,300,300,false,BASE_PATH_UPLOAD_DIR.'/actuPicture/300x300/'.$fName.$fExt,false,false,100);
+                    chmod(BASE_PATH_UPLOAD_DIR.'/actuPicture/300x300/'.$fName.$fExt,0755);
                 endif;
                 
                 $body->actualite->image=($put) ? $fName.$fExt : null;
@@ -50,6 +53,7 @@ class actualitesController extends \Slim\Middleware{
             $A->setContent($body->actualite->contenu);
             $A->setResume($body->actualite->resume);
             $A->setIdCategorie($body->actualite->idCategorie->id);
+            $A->setIdCarou($body->actualite->idCarroussel->id);
             $A->setIdActu($body->actualite->id);
             
             
@@ -72,14 +76,22 @@ class actualitesController extends \Slim\Middleware{
                 $mime_type = finfo_buffer($f, $data, FILEINFO_MIME_TYPE);
                 $fExt = ImgTools::getFileExtFromContent($mime_type);
                 $put = file_put_contents(BASE_PATH_UPLOAD_DIR.'/actuPicture/'.$fName.$fExt, $data);
+                chmod(BASE_PATH_UPLOAD_DIR.'/actuPicture/'.$fName.$fExt,0755);
                 if($put):
-                    ImgTools::smart_resize_image(BASE_PATH_UPLOAD_DIR.'/actuPicture/'.$fName.$fExt,null,300,300,true,BASE_PATH_UPLOAD_DIR.'/actuPicture/300x300/'.$fName.$fExt,false,false,100);
+                    ImgTools::smart_resize_image(BASE_PATH_UPLOAD_DIR.'/actuPicture/'.$fName.$fExt,null,300,300,false,BASE_PATH_UPLOAD_DIR.'/actuPicture/300x300/'.$fName.$fExt,false,false,100);
+                    chmod(BASE_PATH_UPLOAD_DIR.'/actuPicture/300x300/'.$fName.$fExt,0755);
                 endif;
                 
-                $body->actualite->newImage=($put) ? $fName.$fExt : null;
+                $body->actualite->newImage=($put) ? $fName.$fExt : null; 
+                $A->setImage(isset($body->actualite->newImage) ? $body->actualite->newImage : null);
+            else:
+                $oldpicture = $A->getPictureFromIDActu();
+                if($oldpicture['success']):
+                    $A->setImage($oldpicture['donnees']['image']);
+                endif;
             endif;
             
-            $A->setImage(isset($body->actualite->newImage) ? $body->actualite->newImage : null);
+           
             
             $result = $A->updateActualite();
             echo json_encode($result);

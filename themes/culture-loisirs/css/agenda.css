@@ -1,0 +1,37 @@
+
+.blocAgenda{
+    background-color: #fcfafb;
+    margin-top:50px;
+    border: 1px solid #ebebeb;
+    -moz-box-shadow: 1px 2px 10px 5px #cfcfcf;
+    -webkit-box-shadow: 1px 2px 10px 5px #cfcfcf;
+    -o-box-shadow: 1px 2px 10px 5px #cfcfcf;
+    box-shadow: 1px 2px 10px 5px #cfcfcf;
+    filter: progid:DXImageTransform.Microsoft.Shadow(color=#cfcfcf, Direction=153, Strength=10);
+}
+.blocAgenda h1,.blocAgenda .choixAgenda{
+    text-align: left;
+}
+fieldset.choixAgenda {
+    border: solid 1px #CCC;
+    border-width: 1px;
+    padding: 15px 10px 15px 10px;
+    margin-bottom: 20px;
+}
+fieldset.choixAgenda legend {
+    font-family: 'Lora';
+    color: #555;
+    font-size: 1.4em;
+    padding: 0 5px;
+    font-weight: bold;
+}
+.moisAgenda .detailMoisAgenda p.titreEvenement{
+    font-weight: bold;
+}
+.moisAgenda h2{
+    border-bottom:2px solid #ebebeb;
+}
+.moisAgenda .detailMoisAgenda{
+    padding-top:10px;
+    border-bottom:1px dotted #ebebeb;
+}

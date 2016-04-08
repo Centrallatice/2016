@@ -85,9 +85,20 @@
             </header>
             
                 <div class="panel-body panel-action" uib-collapse="collapseAddPicture">
-                        <div class="col-xs-4">
-                            <h4>Ajouter de nouvelles images <br />(1MB maximum)</h4>
-                                <button ngf-select="uploadFiles($files, $invalidFiles)" class="btn btn-info" multiple accept="image/*" ngf-max-height="1000" ngf-max-size="1MB"><i class='fa fa-files-o'></i> Choisir les images</button>
+                        <div class="col-xs-8">
+                            <h4>Ajouter de nouvelles images <br />(2MB maximum)</h4>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                      1) Saisissez le titre : <input type="text" class="form-control" id="titreimageajout" name="titreimageajout" ng-model="titreimageajout">                                    
+                                      2) Saisissez le nom de l'album : <input type="text" class="form-control" id="albumimageajout" name="albumimageajout" ng-model="albumimageajout">                                    
+                                </div>
+                                <div class="col-xs-6">
+                                    <br /><button ngf-select="uploadFiles($files, $invalidFiles)" class="btn btn-info" multiple accept="image/*" ngf-max-size="4MB"><i class='fa fa-files-o'></i>3) Choisir les images</button>                     
+                                </div>
+                                <div class="col-xs-12 alert alert-danger" ng-if="errFiles!=null && errFiles.length>0">
+                                    Une erreur est survenue, veuillez vérifier que l'un des fichiers dépasse les 4MB autorisés
+                                </div>
+                            </div>
                         </div>
                         <div class="col-xs-6">
                             <div ng-show="files.length>0">
@@ -106,9 +117,11 @@
                 <div class="panel-body panel-list-pictures">
                     <div class="col-xs-12">
                         <div ng-repeat="(item,value) in pictureCatParent.pictures" class="col-xs-3 containerPicture">		
+
+                            
                             <div class="panel panel-info">
                                 <div class="panel-heading">
-                                      {{value.filename}}
+                                      {{value.nom}} - {{value.filename}}
                                       <button ng-click="deletePicture(value)" class="close"><span aria-hidden="true">&times;</span></button>
                                 </div>
                                 <div class="panel-body">
@@ -117,6 +130,8 @@
                                     </a>
                                 </div>
                             </div>
+                            
+                            
                         </div>
                     </div>
                 </div>

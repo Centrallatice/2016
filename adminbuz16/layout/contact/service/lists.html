@@ -1,0 +1,71 @@
+<div class="row">
+    <div class="col-xs-12">
+        <section class="panel">
+            <header class="panel-heading">
+                <span class="title">Mes Services</span>
+                <div class="pull-right">
+                    <a class="btn btn-success btn-sm" href="#/contact/service/add" role="button"><i class="fa fa-plus-circle"></i> Créer un nouveau service</a>
+                </div> 
+            </header>
+            <br />
+            <div class='row'>
+                <div class='col-xs-4 col-xs-offset-8'>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">Rechercher</span>
+                        <input type="text" class="form-control" ng-model='filtreService' aria-describedby="basic-addon1">
+                    </div>
+                </div>
+            </div>
+            <br />
+            <br />
+            <div class="panel-body panel-action">
+                <div class="col-xs-12" ng-if="ready">
+                    <table class="table table-hover table-responsive table-striped" ng-if="listeService.length>0">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Email</th>
+                                <th>Adresse</th>
+                                <th>Téléphone</th>
+                                <th width='80px'>Editer</th>
+                                <th width='80px'>Supprimer</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="(k,v) in listeService|filter:filtreService">
+                                <td>{{v.nom}}</td>
+                                <td>{{v.email}}</td>
+                                <td><strong>Rue : </strong>{{v.adresserue}}<br />
+                                    <strong>Ville : </strong>{{v.adresseville}}<br /><strong>CP : </strong>{{v.adressecp}}</td>
+                                <td>{{v.telephone}}<br /> {{v.telephone2}}</td>
+                                <td class="text-center">
+                                    <a class='btn btn-sm btn-info' title='Modifier' role="button" ng-href="#/contact/service/update/{{v.id}}">
+                                        <i class='fa fa-pencil-square-o'></i>
+                                    </a>
+                                </td>
+                                <td class="text-center">
+                                    <button class='btn btn-sm btn-danger block-center text-center' title='Supprimer' ng-click='deleteService(v.id)'>
+                                        <i class='fa fa-times'></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div ng-if="listeService.length==0" class='text-center'>
+                        <br />
+                        <br />
+                        <br />
+                        Vous n'avez pas encore créé de service <a role='button' href='#/contact/service/add' class='btn btn-info'>Créer un service</a>
+                        <br />
+                        <br />
+                        <br />
+                    </div>
+                </div>
+				
+		<div class="col-xs-12" ng-if="!ready">
+                    <br /><center><strong>Chargement en cours <i class="fa fa-spin fa-spinner fa-2x"></i><br /></center>
+                </div>
+            </div>
+	</section>
+    </div>
+</div>

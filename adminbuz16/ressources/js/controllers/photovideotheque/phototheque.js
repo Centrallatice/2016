@@ -9,7 +9,8 @@ app.controller('photothequeController', ['$scope','photothequeService','Upload',
     $scope.categoriesError=null;
     $scope.listeCategories=null;
     $scope.basePathRep=null;
-    
+    $scope.titreimageajout="";
+    $scope.albumimageajout="";
     $scope.pictureCatParent=null;
     
     $scope.picturesCategorie=function(C){
@@ -30,7 +31,7 @@ app.controller('photothequeController', ['$scope','photothequeService','Upload',
                     file: file,
                     sendFieldsAs: 'form',
                     url: './vendor/index.php/photothequeController/addPicture',
-                    fields: {p:$scope.pictureCatParent}
+                    fields: {p:$scope.pictureCatParent,nom:$scope.titreimageajout,album:$scope.albumimageajout}
                 });
                 file.upload.then(function (response) {
                     $timeout(function () {

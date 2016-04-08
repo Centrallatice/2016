@@ -9,7 +9,7 @@
         <title>Administration du Site Mairie Buzancais</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        
+            
         <link href="ressources/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="ressources/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>
         <link href="../public/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
@@ -17,7 +17,10 @@
         <link href="ressources/css/main.css" rel="stylesheet" type="text/css"/>
         <link href="ressources/css/login.css" rel="stylesheet" type="text/css"/>
         <link href="node_modules/angular-loading-bar/src/loading-bar.css" rel="stylesheet" type="text/css"/>
-        
+        <link href="node_modules/angular-chart/angular-chart.min.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet prefetch" href="node_modules/ng-notifications-bar/dist/ngNotificationsBar.min.css" />
+
+
         <script src="../public/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js" type="text/javascript"></script>
         <script src="bower_components/jquery/dist/jquery.min.js" type="text/javascript"></script>
         <script src="node_modules/angular/angular.min.js" type="text/javascript"></script>
@@ -33,11 +36,17 @@
         <script src="ressources/js/vendor/ui-bootstrap-1.1.2.min.js" type="text/javascript"></script>
         <script src="ressources/js/vendor/ui-bootstrap-tpls-1.1.2.min.js" type="text/javascript"></script>
         <script src="ressources/js/routage.js" type="text/javascript"></script>
+        <script src="node_modules/angular-chart/Chart/Chart.min.js" type="text/javascript"></script>
+        <script src="node_modules/angular-chart/angular-chart.min.js" type="text/javascript"></script>
+        <script src="node_modules/angular-sanitize/angular-sanitize.js"></script>
+        <script src="node_modules/ng-notifications-bar/dist/ngNotificationsBar.min.js"></script>
+
         <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900'>
 	<link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Montserrat:400,700'>
 	<link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
-        
-        <!-- ckEditor --->
+        <script src="node_modules/angular-scroll/angular-scroll.min.js" type="text/javascript"></script>
+         <!-- ckEditor --->
+       
         <script src="bower_components/ckeditor/ckeditor.js" type="text/javascript"></script>
         <script src="bower_components/ng-ckeditor/ng-ckeditor.js" type="text/javascript"></script>
         <link href="bower_components/ng-ckeditor/ng-ckeditor.css" rel="stylesheet" type="text/css"/>
@@ -65,16 +74,28 @@
         <script src="ressources/js/controllers/params/coordonnees.js" type="text/javascript"></script>
         <script src="ressources/js/controllers/params/sociaux.js" type="text/javascript"></script>
         <script src="ressources/js/controllers/photovideotheque/phototheque.js" type="text/javascript"></script>
+        <script src="ressources/js/controllers/photovideotheque/videostheque.js" type="text/javascript"></script>
         <script src="ressources/js/controllers/flashController/flashController.js" type="text/javascript"></script>
         <script src="ressources/js/controllers/articles/articles.js" type="text/javascript"></script>
         <!-- Module Controllers -->
         <script src="ressources/js/controllers/modules/modulesController.js" type="text/javascript"></script>
         <script src="ressources/js/controllers/modules/diaporamaController.js" type="text/javascript"></script>
         <script src="ressources/js/controllers/modules/blocDownloadController.js" type="text/javascript"></script>
+        <script src="ressources/js/controllers/modules/carousselController.js" type="text/javascript"></script>
         <script src="ressources/js/controllers/menus/menus.js" type="text/javascript"></script>
         <script src="ressources/js/controllers/menus/menuLinks.js" type="text/javascript"></script>
+        <script src="ressources/js/controllers/modules/HTMLContentController.js" type="text/javascript"></script>
+        <script src="ressources/js/controllers/medias/mediasController.js" type="text/javascript"></script>
+        <script src="ressources/js/controllers/trombinoscope/trombinoscopeController.js" type="text/javascript"></script>
+        <script src="ressources/js/controllers/contact/service/contactAddService.js" type="text/javascript"></script>
+        <script src="ressources/js/controllers/association/categorie/catAssoController.js" type="text/javascript"></script>
+        <script src="ressources/js/controllers/association/entites/assoController.js" type="text/javascript"></script>
+    
+    
     </head>
     <body ng-class="{'skin-black':userData!==null,'whitebg':location.path()=='/404'}">
+        <notifications-bar class="notifications"></notifications-bar>
+
         <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->

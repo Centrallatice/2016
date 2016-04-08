@@ -1,5 +1,6 @@
 <?php
 use Models\Client\Menus;
+use Models\Client\Actualite;
 use Models\Client\MenuLinks;
 
 class actualitesController extends \Slim\Middleware{
@@ -30,8 +31,12 @@ class actualitesController extends \Slim\Middleware{
             endforeach;
         endif;
         
+        $Actu = new Actualite($this->_db);
+        $actualites = $Actu->getActualites('dateAjout','DESC');
+        
         return array(
             "success"=>true,"donnees"=>array(
+                "actualites"=>$actualites['success'] ? $actualites['donnees'] : array(),
                 "pagemenu"=>$MenusPage['success'] ? $MenusPage['donnees']  : array()
             )
         );

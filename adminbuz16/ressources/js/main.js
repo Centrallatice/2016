@@ -1,6 +1,6 @@
 angular.module('buzancais', ['ngRoute','ui.bootstrap','colorpicker.module',
-    'angularFileUpload','ngCkeditor','angularMoment','angular-loading-bar',
-    'ngFileUpload','bootstrapLightbox']).controller('HomeController', function() {
+    'angularFileUpload','ngCkeditor','angularMoment','angular-loading-bar','duScroll',
+    'chart.js','ngFileUpload','bootstrapLightbox','ngNotificationsBar', 'ngSanitize']).controller('HomeController', function() {
    
 }).directive('fileSelect', ['$window', function ($window) {
     return {

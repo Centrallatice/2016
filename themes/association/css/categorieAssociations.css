@@ -1,0 +1,99 @@
+
+.blocMiniServices{margin-top:0px !important;}
+
+body{
+    background:url('../img/backgroundsCat/fondensemble-sport.jpg') top left #d87b36 no-repeat;
+}
+.logoCatAss{
+    margin:auto;
+    text-align:center;
+}
+hr {
+    margin: 5px 0;
+}
+.innerArticle{
+    margin: 30px 0 0 0;
+}
+.innerArticle .row{
+    margin:30px -15px
+}
+p.desc{
+    color:rgb(64,45,30);
+    font-weight:900;
+    font-size:20px;
+}
+.textpan p{
+    line-height:14px;
+    margin:0 0 9px;
+    font-size: 12px;
+    word-wrap: break-word;
+}
+.textpan .titre{
+    color:white;font-weight: 900;font-size:16px;
+    line-height:18px;
+}
+
+.textpan .desc,.textpan .desc a{
+    color:white;
+    text-decoration: none;
+}
+
+.blocAsso .cache{
+    margin-top: -204px;
+    margin-left: 6px;
+    position: absolute;
+    opacity:1;
+}
+.blocAsso{
+    -moz-box-shadow: 0px 2px 3px 0px #330001;
+    -webkit-box-shadow: 0px 2px 3px 0px #330001;
+    -o-box-shadow: 0px 2px 3px 0px #330001;
+    box-shadow: 0px 2px 3px 0px #330001;
+    filter: progid:DXImageTransform.Microsoft.Shadow(color=#330001, Direction=180, Strength=3);
+}
+.blocAsso .triangle {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 10px 0 10px;
+    margin: 0;
+    bottom: -10px;
+    position: absolute;
+    z-index: 100;
+    border-color: #392002 transparent transparent transparent;
+}
+.blocAsso:hover img{
+    opacity: 0.3;
+}
+
+.blocAsso .textpan,.blocAssoNoPic .textpan{
+    display:none;
+    padding: 10px;
+    overflow: hidden;
+    top:0;
+    left:0;
+    position: absolute;
+    background-color: rgba(226, 1, 123,1);
+    text-align: center;
+    color: white;
+    margin: 0 15px;
+    z-index: 1000;
+}
+.blocAsso{
+    background-color:white;
+}
+.card .titre{
+    color:#e54702;
+    font-size: 18px;
+    text-align: center;
+    line-height:20px;
+    margin:0 0 5px;
+    font-weight: 900;
+    padding: 25px 15px 2px;
+}
+.card .desc{
+    color:black;
+    font-size: 18px;
+    text-align: center;
+    padding: 2px 15px 5px;
+}

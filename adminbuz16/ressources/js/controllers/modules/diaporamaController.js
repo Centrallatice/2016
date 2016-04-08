@@ -1,10 +1,14 @@
 var app = angular.module('buzancais');
-app.controller('diaporamaController', ['$rootScope','$scope','$location','diaporamaService','pagesService','modulesService','$sce', function($rootScope,$scope,$location,diaporamaService,pagesService,modulesService,$sce) {
+app.controller('diaporamaController', ['$rootScope','$scope','$location','diaporamaService',
+    'pagesService','modulesService','$sce','notifications','$document', function($rootScope,$scope,$location,
+    diaporamaService,pagesService,modulesService,$sce,notifications,$document) {
+    $scope.editorOptions = {
+        language: 'fr',
+        height:200
+    };
     $scope.collapseAddDiaporama=true;
     $scope.collapseAddPhotos=true;
-    $scope.errorAddDiaporama=null;
-    $scope.diaporamaError=null;
-    $scope.pageError=null;
+    
     $scope.envoiImageEnCours=false;
     
     $scope.annuleModification=function(){
@@ -21,6 +25,8 @@ app.controller('diaporamaController', ['$rootScope','$scope','$location','diapor
         $scope.collapseAddPhotos=false;
         $scope.collapseAddDiaporama=true;
         $scope.pictureDiapo = D;
+        var someElement = angular.element(document.getElementById('anchor'));
+        $document.scrollToElement(someElement, 300, 2000);
     };
     $scope.getHTMLContent=function(content){
         return $sce.trustAsHtml(content);
@@ -39,13 +45,28 @@ app.controller('diaporamaController', ['$rootScope','$scope','$location','diapor
                         }
                         index++;
                     }
+                    notifications.showSuccess({
+                        message:'L\'image a bien été supprimé !',
+                        hideDelay: 5000,
+                        hide: true,
+                        acceptHTML:true
+                    });
                 }
                 else{
-                    $scope.pagesError = response.data.message;
+                    notifications.showError({
+                        message:response.data.message,
+                        hideDelay: 5000,
+                        hide: true,
+                        acceptHTML:true
+                    });
                 }
             }, function () {
-                $scope.Error = true;
-                $scope.Message="Une erreur est survenue lors de la suppression";
+                notifications.showError({
+                    message:'Une erreur est survenue lors de la suppression de l\'image!',
+                    hideDelay: 5000,
+                    hide: true,
+                    acceptHTML:true
+                });
             });
         }
     }
@@ -63,14 +84,34 @@ app.controller('diaporamaController', ['$rootScope','$scope','$location','diapor
                 img.id=response.data.donnees;
                 img.Contenu=img.contenu;
                 img.imageFile=response.data.filename;
+                $scope.pictureDiapo.rep=response.data.rep;
+                
+                if(!$scope.pictureDiapo.pictures) $scope.pictureDiapo.pictures = new Array();
                 $scope.pictureDiapo.pictures.push(img);
+                
+                notifications.showSuccess({
+                    message:'L\'image a bien été ajoutée !',
+                    hideDelay: 5000,
+                    hide: true,
+                    acceptHTML:true
+                });
             }
             else{
-                $scope.pagesError = response.data.message;
+                notifications.showError({
+                    message:response.data.message,
+                    hideDelay: 5000,
+                    hide: true,
+                    acceptHTML:true
+                });
+                
             }
         }, function () {
-            $scope.Error = true;
-            $scope.Message="Une erreur est survenue lors de la récupération des diaporamas existants";
+            notifications.showError({
+                message:"Une erreur est survenue lors de la récupération des diaporamas existants",
+                hideDelay: 5000,
+                hide: true,
+                acceptHTML:true
+            });
         });
     }
     $scope.init = function(){
@@ -80,11 +121,20 @@ app.controller('diaporamaController', ['$rootScope','$scope','$location','diapor
                 $scope.listePages = response.data.donnees;
             }
             else{
-                $scope.pagesError = response.data.message;
+                notifications.showError({
+                    message: response.data.message,
+                    hideDelay: 5000,
+                    hide: true,
+                    acceptHTML:true
+                });
             }
         }, function () {
-            $scope.Error = true;
-            $scope.Message="Une erreur est survenue lors de la récupération des pages";
+            notifications.showError({
+                message:"Une erreur est survenue lors de la récupération des pages",
+                hideDelay: 5000,
+                hide: true,
+                acceptHTML:true
+            });
         });
         var getDiapos = modulesService.getAllByType('diaporama');
         getDiapos.then(function (response) {
@@ -92,15 +142,24 @@ app.controller('diaporamaController', ['$rootScope','$scope','$location','diapor
                 $scope.listeModulesDiapo = response.data.donnees;
             }
             else{
-                $scope.pagesError = response.data.message;
+                notifications.showError({
+                    message:response.data.message,
+                    hideDelay: 5000,
+                    hide: true,
+                    acceptHTML:true
+                });
             }
         }, function () {
-            $scope.Error = true;
-            $scope.Message="Une erreur est survenue lors de la récupération des diaporamas existants";
+            notifications.showError({
+                message:"Une erreur est survenue lors de la récupération des diaporamas existants",
+                hideDelay: 5000,
+                hide: true,
+                acceptHTML:true
+            });
         });
     };
     $scope.deleteDiaporama = function(m){
-        if(!confirm("Êtes vous sûr de vouloir supprimer ce module ?")) return false;
+        if(!confirm("Êtes vous sûr de vouloir supprimer ce diaporama ?")) return false;
         var dModule = modulesService.deleteModule(m);
         dModule.then(function (response) {
             if (response.data.success) {
@@ -111,25 +170,29 @@ app.controller('diaporamaController', ['$rootScope','$scope','$location','diapor
                     }
                     index++;
                 }
+                notifications.showSuccess({
+                    message:"Le diaporama a bien été supprimé",
+                    hideDelay: 5000,
+                    hide: true,
+                    acceptHTML:true
+                });
+                $scope.init();
             }
             else{
-                $scope.pagesError = response.data.message;
+                notifications.showError({
+                    message:response.data.message,
+                    hideDelay: 5000,
+                    hide: true,
+                    acceptHTML:true
+                });
             }
         }, function () {
-            $scope.Error = true;
-            $scope.Message="Une erreur est survenue lors de la récupération des pages";
-        });
-        var getDiapos = modulesService.getAllByType('diaporama');
-        getDiapos.then(function (response) {
-            if (response.data.success) {
-                $scope.listeModulesDiapo = response.data.donnees;
-            }
-            else{
-                $scope.pagesError = response.data.message;
-            }
-        }, function () {
-            $scope.Error = true;
-            $scope.Message="Une erreur est survenue lors de la récupération des diaporamas existants";
+            notifications.showError({
+                message:"Une erreur est survenue lors de la suppression du diaporama",
+                hideDelay: 5000,
+                hide: true,
+                acceptHTML:true
+            });
         });
     };
     $scope.addDiaporama = function(module){
@@ -165,13 +228,31 @@ app.controller('diaporamaController', ['$rootScope','$scope','$location','diapor
                 
                 $scope.listeModulesDiapo.push(module);
                 $scope.annuleModification();
+                notifications.showSuccess({
+                    message:"Le diaporama a bien été créé",
+                    hideDelay: 5000,
+                    hide: true,
+                    acceptHTML:true
+                });
+                
+                $scope.picturesDiaporama(module);
+                
             }
             else{
-                $scope.pagesError = response.data.message;
+                notifications.showError({
+                    message:response.data.message,
+                    hideDelay: 5000,
+                    hide: true,
+                    acceptHTML:true
+                });
             }
         }, function () {
-            $scope.Error = true;
-            $scope.Message="Une erreur est survenue lors de la récupération des pages";
+            notifications.showError({
+                message:"Une erreur est survenue lors de la récupération des pages",
+                hideDelay: 5000,
+                hide: true,
+                acceptHTML:true
+            });
         });
     };
     $scope.annuleModification();

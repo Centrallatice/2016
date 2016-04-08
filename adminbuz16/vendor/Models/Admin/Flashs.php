@@ -12,7 +12,38 @@ class Flashs extends \Slim\Middleware{
     public function  __construct ($db) {
         $this->_db=$db;
     }
-    
+    public function getSubscribers(){
+	try {
+            $sql="SELECT DISTINCT email FROM newsletteremail";
+            $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
+            $sth->execute();
+            if($sth){
+                $res=array();
+                while($r=$sth->fetch(\PDO::FETCH_ASSOC)){
+                    array_push($res,$r['email']);
+                }
+                
+                return array (
+                    'success' => true
+                   ,'donnees' => (count($res) > 0) ? $res : array()
+                    ,'message' => null
+                );
+            }else{
+                return array (
+                    'success' => false
+                    ,'donnees' => null
+                    ,'message' => null
+                );
+            }
+            
+        } catch ( Exception $exception ) {
+            return array (
+                'success' => false
+                ,'donnees' => null
+                ,'message' => 'Une erreur est survenue lors de l\'insertion de l\'adresse'
+            );
+        }	
+	}
     public function getAll () {
         try {
             $sql="SELECT 
@@ -178,6 +209,15 @@ class Flashs extends \Slim\Middleware{
     }
     public function setContenu ( $d) {
             $this->_strContenu = trim ( $d);
+    }
+    public function getTitre () {
+            return $this->_strTitre;
+    }
+    public function getResume ( ) {
+            return $this->_strResume ;
+    }
+    public function getContenu ( ) {
+            return $this->_strContenu ;
     }
     public function setId( $i) {
             $this->_intID = $i;

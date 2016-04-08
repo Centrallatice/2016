@@ -31,14 +31,28 @@
                             <input type="text" ng-change="setURL(newPage.Nom)" class="form-control" ng-model='newPage.Nom' id="Nom" aria-describedby="helpBlockNom">
                             <span id="helpBlockNom" class="help-block" ng-show="controleChamp.Nom">Ce champ est obligatoire.</span>
                         </div>
-				
+                        
+			<div class="form-group">
+                            <label for="idCategorie">Catégorie</label>
+                            <select class="form-control" ng-model='newPage.idCategorie' id="idCategorie" name="idCategorie" ng-options="categorie as categorie.Nom for categorie in listeCategories track by categorie.id "></select>
+                        </div>
+                        
 			<div class="form-group" ng-class="{'has-error':controleChamp.type}">
                             <label for="name">Type de la page</label>
                             <select class="form-control" ng-model='newPage.type' name="type" id="type" aria-describedby="helpBlockType">
                                 <option value="2">Page d'affichage d'un ou plusieurs articles</option>
                                 <option value="3">Page d'affichage des actualités</option>
                                 <option value="4">Page de formulaire de contact</option>
+                                <option value="5">Page d'affichage de l'agenda</option>
+                                <option value="6">Page d'affichage des associations d'une catégorie</option>
                             </select>
+                            <span id="helpBlockType" class="help-block" ng-show="controleChamp.type">Ce champ est obligatoire.</span>
+                        </div>
+						
+			<div ng-show="newPage.type==6" class="form-group">
+                            <label for="idCatAsso">Catégorie d'associations a afficher</label>
+                            <select require class="form-control" ng-model='newPage.idCatAsso' id="idCatAsso" name="idCatAsso" ng-options="categorie as categorie.nom for categorie in listeCatAsso track by categorie.id "></select>
+							
                             <span id="helpBlockType" class="help-block" ng-show="controleChamp.type">Ce champ est obligatoire.</span>
                         </div>
 
@@ -82,6 +96,7 @@
                             <th>Nom</th>
                             <th>Titre</th>
                             <th>Thème</th>
+                            <th>Catégorie</th>
                             <th>Date</th>
                             <th width='80px'>Editer</th>
                             <th width='80px'>Supprimer</th>
@@ -93,6 +108,7 @@
                             <td>{{value.Nom}}</td>
                             <td>{{value.titre}}</td>
                             <td>{{value.ThemeName}}</td>
+                            <td>{{value.CatNom}}</td>
                             <td>{{value.date}}</td>
                             <td class="text-center">
                                 <button class='btn btn-sm btn-info' title='Modifier' ng-click='updatePage(value)'>

@@ -1,0 +1,46 @@
+{% extends "base.twig" %}
+{% block title %}{{titrePage}}{% endblock %}
+{% block description %}{{descriptionPage}}{% endblock %}
+{% block keywords %}{{motsclefsPage}}{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{BASETHEME}}/css/home.css" rel="stylesheet" type="text/css"/>
+    <link href="{{BASETHEME}}/modules/blocdownload/css/blocdownload.css" rel="stylesheet" type="text/css"/>
+    <link href="{{BASETHEME}}/blocks/coordonnees/css/coordonnees.css" rel="stylesheet" type="text/css"/>
+    <link href="{{BASETHEME}}/blocks/services/css/services.css" rel="stylesheet" type="text/css"/>
+    <link href="{{BASETHEME}}/blocks/phototheque/css/phototheque.css" rel="stylesheet" type="text/css"/>
+    <link href="{{BASETHEME}}/modules/actualite/css/actualite.css" rel="stylesheet" type="text/css"/>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+    
+{% block body %}
+    {% include 'global/header.twig' %}
+    <div class="bloc-maincontainer">
+        <div class="row">
+            
+            <!-- COL_MIDDLE-->
+            <div class="col-xs-24 col-sm-24 col-md-18">
+                {% if actualite|length>0 %}
+                    {% include '/modules/actualite/layout/displayCenterColumn.twig' %}
+                {% endif %}
+            </div>
+            <!-- COL_RIGHT-->
+            <div class="col-xs-24 col-sm-24 col-md-6">
+                <!-- COL_RIGHT_ONE -->
+                {% include '/blocks/coordonnees/layout/displayTopRight.twig' %}
+                <div class="separight"></div>
+                <!-- COL_RIGHT_CENTER -->
+                {% include '/blocks/services/layout/displayCenterRight.twig' %}
+                <div class="separight"></div>
+                {% include '/blocks/phototheque/layout/displayCenterRight.twig' %}
+                <div class="separight"></div>
+                {% include '/modules/facebook/layout/displayBottomRight.twig' %}
+            </div>
+        </div>
+        {% include 'global/footer.twig' %}    
+    </div>
+    
+{% endblock %}
+

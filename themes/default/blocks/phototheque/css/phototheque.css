@@ -8,7 +8,17 @@
     width:100%;
     background-size:35%;
 }
-
+.innerAlbum{
+    margin:0;
+    list-style-type: none;
+    padding:0 0 0 25px;
+}
+.innerAlbum li.active a{
+    color:yellow;
+}
+.innerAlbum li a:before{
+    content:"> ";
+}
 .blocPhototheque .content{
     padding:10px 12px 0 12px;
 }

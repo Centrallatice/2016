@@ -1,64 +1,149 @@
 {% extends "base.twig" %}
-{% block title %}{{titrePage}}{% endblock %}
-{% block description %}{{descriptionPage}}{% endblock %}
-{% block keywords %}{{motsclefsPage}}{% endblock %}
+{% block title %}{{dataPage.titrePage}}{% endblock %}
+{% block description %}{{dataPage.descriptionPage}}{% endblock %}
+{% block keywords %}{{dataPage.motsclefsPage}}{% endblock %}
 {% block stylesheets %}
     {{ parent() }}
-    <link href="{{BASETHEME}}/css/home.css" rel="stylesheet" type="text/css"/>
-    <link href="{{BASETHEME}}/modules/blocdownload/css/blocdownload.css" rel="stylesheet" type="text/css"/>
-    <link href="{{BASETHEME}}/blocks/coordonnees/css/coordonnees.css" rel="stylesheet" type="text/css"/>
-    <link href="{{BASETHEME}}/blocks/services/css/services.css" rel="stylesheet" type="text/css"/>
-    <link href="{{BASETHEME}}/blocks/phototheque/css/phototheque.css" rel="stylesheet" type="text/css"/>
-    <link href="{{BASETHEME}}/modules/actualite/css/actualite.css" rel="stylesheet" type="text/css"/>
+    <link rel='stylesheet prefetch' href="{{BASETHEME}}/css/toolbar.css" rel="stylesheet" type="text/css"/>
+    <link href="{{BASETHEME}}/css/actualites.css" rel="stylesheet prefetch" type="text/css"/>
+    <link href="{{BASETHEME}}/modules/blocdownload/css/blocdownload.css" rel="stylesheet prefetch" type="text/css"/>
+    <link href="{{BASETHEME}}/blocks/coordonnees/css/coordonnees.css" rel="stylesheet prefetch" type="text/css"/>
+    <link href="{{BASETHEME}}/blocks/services/css/services.css" rel="stylesheet prefetch" type="text/css"/>
+    <link href="{{BASETHEME}}/blocks/phototheque/css/phototheque.css" rel="stylesheet prefetch" type="text/css"/>
+    <link href="{{BASETHEME}}/modules/actualite/css/actualite.css" rel="stylesheet prefetch" type="text/css"/>
+    <link rel='stylesheet prefetch' href="{{BASEURL}}libs/fancybox/source/jquery.fancybox.css" type="text/css"/>
+    <link rel='stylesheet prefetch' href="{{BASEURL}}libs/fancybox/source/helpers/jquery.fancybox-buttons.css" type="text/css"/>
+    <link rel='stylesheet prefetch' href="{{BASEURL}}libs/fancybox/source/helpers/jquery.fancybox-thumbs.css" type="text/css"/>
+     
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
+    <script type="text/javascript" src="{{BASEURL}}libs/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>   
+    <script type="text/javascript" src="{{BASEURL}}libs/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>   
+    <script type="text/javascript" src="{{BASEURL}}libs/fancybox/source/helpers/jquery.fancybox-buttons.js"></script>   
+    <script type="text/javascript" src="{{BASEURL}}libs/fancybox/source/helpers/jquery.fancybox-media.js"></script>   
+    <script type="text/javascript" src="{{BASEURL}}libs/fancybox/source/helpers/jquery.fancybox-thumbs.js"></script>   
+   
+    <script type="text/javascript" src="{{BASETHEME}}/modules/actualites/js/actualites.js"></script>
 {% endblock %}
     
 {% block body %}
-    {% include 'global/header.twig' %}
-    <div class="bloc-maincontainer">
+    {% include 'global/header.twig' with {forcebreadactu:true}%}
+    <div class="bloc-maincontainer contentPage actualites">
         <div class="row">
-            <!-- COL_LEFT-->
-            <div class="hidden-xs col-sm-8 col-md-5 nopadding">
-                <!-- COL_LEFT_ONE -->
-                {% if pagemenu|length>0 %}
-                    {% include '/modules/menus/layout/displayLeftColumn.twig' %}
-                {% endif %}
+            <div class="colmiddle col-xs-24 col-sm-24 col-md-22">
+                <div class="col-xs-24 col-sm-24 col-md-22 nopadding">
+                    <div class="innerArticle container-article">
+                        <div class="media">
+                            <div class="media-left media-left-categorie">
+                                <img class="media-object" src="{{BASEIMG}}icone-actualites.png">
+                            </div>
+                            <div class="media-body">
+                                <h2 class="media-heading">
+                                    Nos Actualités
+                                </h2>
+                                <div class="linebottomcat"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="owl-carousel" id="owl-actualites">
+                            {% set border = 0 %}
+                            {% for actualite in actualites %}
+                                {% set loopDebut = loop.index-1 %}
+                               
+                                
+                                {% if loop.index>1 %}
+                                    {% if loopDebut is divisible by(6) %}
+                                        <div class="blocCarousel">
+                                    {% endif %}
+                                {% else %}
+                                    <div class="blocCarousel">
+                                {% endif %}
+
+                                <div class="blocActualite sameheight borderLeft {{actualite.CatNom|replace({' ': '-'})|lower}} col-xs-24 col-sm-24 col-md-8"> 
+                                    {% if (actualite.image!='' and actualite.image is not null) %} 
+                                        <img 
+                                        class="noPrint img img-responsive fancyboxme" 
+                                        href="{{BASEURL}}public/upload/actuPicture/{{actualite.image}}"
+                                        style="margin:auto;border:2px solid {% if categories[actualite.idCat] is defined %}{{categories[actualite.idCat].color}}{% else %}navy{% endif %}"
+                                        src="{{BASEURL}}public/upload/actuPicture/300x300/{{actualite.image}}">
+                                        <div class="triangle noPrint" style="border-color: {% if categories[actualite.idCat] is defined %}{{categories[actualite.idCat].color}}{% else %}navy{% endif %} transparent transparent transparent"></div>
+                                    {% elseif (actualite.contentCarou|length>0 and actualite.idCarroussel is not null) %} 
+
+                                        <img 
+                                        class="noPrint img img-responsive fancyboxme" 
+                                        href="{{actualite.urlCarou}}{{actualite.contentCarou[0].imageFile}}" 
+                                        style="margin:auto;border:2px solid {% if categories[actualite.idCat] is defined %}{{categories[actualite.idCat].color}}{% else %}navy{% endif %}"
+                                        src="{{actualite.urlCarou}}300x300/{{actualite.contentCarou[0].imageFile}}">
+                                        <div class="triangle noPrint" style="border-color: {% if categories[actualite.idCat] is defined %}{{categories[actualite.idCat].color}}{% else %}navy{% endif %} transparent transparent transparent"></div>
+                                    {% endif %}
+                                    <div class="detailActualite">
+                                        <div class="media noPrint">
+                                            <div class="media-left noPrint">
+                                                    <img class="media-object" src="{% if categories[actualite.idCat] is defined %}{{BASEURL}}public/upload/actuIcone/40x40/{{categories[actualite.idCat].icone}}{% endif %} " alt="">
+
+                                            </div>
+                                            <div class="media-body">
+                                                <h4 class="media-heading">
+                                                    {% if categories[actualite.idCat] is defined %}
+                                                        <span style="color:{% if categories[actualite.idCat] is defined %}{{categories[actualite.idCat].color}}{% else %}navy{% endif %}">{{actualite.CatNom}}</span>
+                                                    {% endif %}    
+                                                    <br />
+                                                    {{actualite.dateEvenementFR}}
+                                                </h4>
+                                            </div>
+                                        </div>
+                                        <div class="resumeActivite contenu-article">
+                                            <a style="text-decoration:none" href="{{BASEURL}}actualite/{{actualite.urlCatNom}}/{{actualite.url}}.html">{{actualite.resume|truncate(255, true)}}</a>
+                                        </div>
+                                        <div class="readmoreActu noPrint">
+                                            <a style="color:{% if categories[actualite.idCat] is defined %}{{categories[actualite.idCat].color}}{% else %}navy{% endif %}" href="{{BASEURL}}actualite/{{actualite.urlCatNom}}/{{actualite.url}}.html">> Lire la suite</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {% if (loop.index is divisible by(6) or loop.index==actualites|length)%}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% if modules['BOTTOM_PAGE'] %}
+                        {% for carou in modules['BOTTOM_PAGE'] %}
+                            {% if carou.type=='caroussel' %}
+                                {% include '/modules/caroussel/layout/displayBottomPage.twig' %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
                 
-                <!-- COL_LEFT_TWO -->
-                {% if modules['HEADER'] %}
-                    {% for headerModule in modules['COL_LEFT_TWO'] %}
-                        {% if headerModule.type=='blocdownload' %}
-                            {% include '/modules/blocdownload/layout/displayLeftColumn.twig' %}
-                        {% endif %}
-                    {% endfor %}
-                {% endif %}
-                
-                <div class="hidden-xs col-sm-24 hidden-md hidden-lg nopadding">
+                <div class="col-xs-24 hidden-sm col-md-6 nopadding noPrint col-right-one">
                     <!-- COL_RIGHT_ONE -->
-                    {% include '/blocks/coordonnees/layout/displayTopRight.twig' %}
-                    <div class="separight"></div>
-                    <!-- COL_RIGHT_CENTER -->
-                    {% include '/blocks/services/layout/displayCenterRight.twig' %}
-                    <div class="separight"></div>
-                    {% include '/blocks/phototheque/layout/displayCenterRight.twig' %}
-                    <div class="separight"></div>
-                    {% include '/modules/facebook/layout/displayBottomRight.twig' %}
+                    
+                    {% if modules['COL_RIGHT_ONE'] %}
+                        {% for m in modules['COL_RIGHT_ONE'] %}
+                            {% if m.type=='customcontent' %}
+                                <div class="customcontentright">
+                                    {{m.contenuHTML |raw }}
+                                </div>
+                            {% elseif m.type=='blocdownload' %}
+                                {% include '/modules/blocdownload/layout/displayRightColumn.twig' %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    <!-- COL_RIGHT_TWO-->
+                    {% if modules['COL_RIGHT_TWO'] %}
+                        {% for m in modules['COL_RIGHT_TWO'] %}
+                            {% if m.type=='blocdownload' %}
+                                {% include '/modules/blocdownload/layout/displayRightColumn.twig' %}
+                            {% elseif m.type=='customcontent' %}
+                                {{m.contenuHTML |raw }}
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
                 </div>
             </div>
-            <!-- COL_MIDDLE-->
-            <div class="col-xs-24 col-sm-16 col-md-13">
-                {% if actualites|length>0 %}
-                    {% include '/modules/actualites/layout/displayCenterColumn.twig' %}
-                {% endif %}
-            </div>
-            <!-- COL_RIGHT-->
-            <div class="col-xs-24 hidden-sm col-md-4 nopadding">
-                <!-- COL_RIGHT_ONE -->
-                {% include '/blocks/infospratiques/layout/displayTopRight.twig' %}
-            </div>
-            <div class="hidden-xs hidden-sm col-md-2 nopadding">
+            <div class="hidden-xs hidden-sm col-md-2 nopadding noPrint">
                 <!-- COL_RIGHT_ONE -->
                 {% include '/blocks/services/layout/displayMiniInnerColRight.twig' %}
             </div>

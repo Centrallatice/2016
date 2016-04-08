@@ -20,8 +20,7 @@
 
                         <div class="form-group" ng-class="{'has-error':controleChamp.Page}">
                             <label for="page">Page associée</label>
-                            <span class="label label-danger" ng-if="pageError!=null">{{pageError}}</span>
-                            <select ng-if="pageError===null" class="form-control" ng-model='newDiaporama.idPage' id="parent" ng-options="page as page.Nom for page in listePages | orderBy:'Nom' track by page.id " aria-describedby="helpBlockPage"></select>
+                            <select class="form-control" ng-model='newDiaporama.idPage' id="parent" ng-options="page as page.Nom for page in listePages | orderBy:'Nom' track by page.id " aria-describedby="helpBlockPage"></select>
                             <span id="helpBlockPage" class="help-block" ng-show="controleChamp.Page">Ce champ est obligatoire.</span>
                         </div>
 
@@ -37,11 +36,7 @@
                             </select>
                             <span id="helpBlockPosition" class="help-block" ng-show="controleChamp.Type">Ce champ est obligatoire.</span>
                         </div>
-                        
-                        <div class="alert alert-danger" ng-if="errorAddDiaporama!==null">
-                            {{ errorAddDiaporama }}
-                        </div>
-                        
+                                                
                         <div class="text-center block-center">
                             <button type="submit" class="btn btn-success" ng-click='addDiaporama(newDiaporama)'>
                                 <span ng-if="newDiaporama.toChange">Modifier ce diaporama</span>
@@ -55,17 +50,7 @@
                 </div>
             </div>
             <hr />
-            <br /><br />
-            <div class='row' ng-if="listeModulesDiapo.length>0">
-                <div class='col-xs-4 col-xs-offset-8'>
-                    <div class="input-group">
-                        <span class="input-group-addon" id="basic-addon1">Rechercher</span>
-                        <input type="text" class="form-control" ng-model='filtreDiaporama' aria-describedby="basic-addon1">
-                    </div>
-                </div>
-            </div>
-            
-            <div class="panel-body" ng-show="diaporamaError===null && listeModulesDiapo.length>0">
+            <div class="panel-body" ng-show="listeModulesDiapo.length>0">
                 <table class="table table-hover table-responsive">
                     <thead>
                         <tr>
@@ -78,30 +63,27 @@
                         </tr>
                     </thead>
                     <tbody >
-                        <tr ng-repeat="(item,value) in listeModulesDiapo |filter:filtreDiaporama">
-                            <td>{{value.id}}</td>
-                            <td>{{value.nom}}</td>
-                            <td>{{value.type| uppercase}}</td>
-                            <td>{{value.NomPage}}</td>
+                        <tr ng-repeat="d in listeModulesDiapo">
+                            <td>{{d.id}}</td>
+                            <td>{{d.nom}}</td>
+                            <td>{{d.type| uppercase}}</td>
+                            <td>{{d.NomPage}}</td>
                             <td class="text-center">
-                                <button class='btn btn-sm btn-danger block-center text-center' title='Supprimer' ng-click='deleteDiaporama(value)'>
+                                <button class='btn btn-sm btn-danger block-center text-center' title='Supprimer' ng-click='deleteDiaporama(d)'>
                                     <i class='fa fa-times'></i>
                                 </button>
                             </td>
                             <td class="text-center">
-                                <button class='btn btn-sm btn-default' title='Gérer les images' ng-click='picturesDiaporama(value)'>
+                                <button class='btn btn-sm btn-default' title='Gérer les images' ng-click='picturesDiaporama(d)'>
                                     <i class='fa fa-files-o'></i>
                                 </button>
                             </td>
                         </tr>
                 </table>
             </div>
-            <div class="panel-body" ng-show="diaporamaError!==null || listePages.length==0">
-                <div class="col-xs-12" ng-show="diaporamaError!==null">
-                    {{ diaporamaError }}
-                </div>
-                <div class="col-xs-12 alert alert-warning" ng-show="diaporamaError===null && listePages.length==0">
-                    Vous n'avez créé aucune page
+            <div class="panel-body" ng-show="listeModulesDiapo.length==0">
+                <div class="col-xs-12 alert alert-warning" ng-show="listeModulesDiapo.length==0">
+                    Vous n'avez créé aucun diaporama
                 </div>
             </div>
         </section>
@@ -118,7 +100,8 @@
                     <a class="btn btn-success btn-sm" ng-click="collapseAddPicture = !collapseAddPicture" role="button"><i class="fa fa-plus"></i> Ajouter des photos</a>
                 </div>                
             </header>
-            <div class="panel-body panel-action" uib-collapse="collapseAddPicture">
+            
+            <div class="panel-body panel-action"  uib-collapse="collapseAddPicture">
                 <div class="col-xs-12">
                     <h5>Ajouter une nouvelle image (1MB maximum)</h5>
                     <input type="file" ng-model="picture.fichier" file-select="data" file-loaded="myLoaded()" file-error="myError($error)" file-progress="myProgress($total,$loaded)" id="iconecat">
@@ -126,7 +109,7 @@
                 <hr />
                 <div class="col-xs-12">
                     <h4>Texte associé à l'image</h4>
-                    <textarea rows="5"
+                    <textarea rows="2"
                             ng-model="picture.contenu"
                             name="pageBody"
                             ckeditor="editorOptions" >
@@ -163,3 +146,4 @@
         </section>
     </div>
 </div>
+<div id="anchor"></div>

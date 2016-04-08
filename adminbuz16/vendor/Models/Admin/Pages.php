@@ -8,8 +8,10 @@ class Pages extends \Slim\Middleware{
     private $_strNom=null;
     private $_strDesc=null;
     private $_intIdTheme=null;
+    private $_intIdCatAsso=null;
     private $_intID=null;
     private $_strMC=null;
+    private $_intIDCategorie=null;
     
     public function  __construct ($db) {
         $this->_db=$db;
@@ -23,17 +25,24 @@ class Pages extends \Slim\Middleware{
                     P.titre, 
                     P.type, 
                     P.idTheme, 
+                    P.IdCatAsso, 
                     P.idAuteur, 
                     DATE_FORMAT(P.date,'%d/%m/%Y %H:%i') as date, 
                     P.description, 
                     P.motsclefs,
-                    T.nom as ThemeName
+                    T.nom as ThemeName,
+                    P.idCategorie,
+                    C.Nom as CatNom
                 FROM 
                     pages P
                 LEFT JOIN
                     themes T
                 ON
                     P.idTheme=T.id
+                LEFT JOIN
+                    categories C
+                ON
+                    P.idCategorie=C.id
                 order by 
                     P.Nom ASC";
             $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
@@ -108,9 +117,9 @@ class Pages extends \Slim\Middleware{
         try {
             $sql="
                 INSERT INTO pages
-                    (Nom,titre,type,idTheme,idAuteur,date,description,motsclefs) 
+                    (Nom,titre,type,idTheme,idAuteur,date,description,motsclefs,IdCategorie,IdCatAsso) 
                 VALUES 
-                (:Name,:Titre,:type,:idTheme,:Auteur,NOW(),:Desc,:MC)";
+                (:Name,:Titre,:type,:idTheme,:Auteur,NOW(),:Desc,:MC,:IdCategorie,:idca)";
             
             $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
            
@@ -121,6 +130,8 @@ class Pages extends \Slim\Middleware{
             $sth->bindParam(':Auteur', $_SESSION['DataUser']['id'], \PDO::PARAM_INT);
             $sth->bindParam(':Desc', $this->_strDesc, \PDO::PARAM_STR);
             $sth->bindParam(':MC', $this->_strMC, \PDO::PARAM_STR,255);
+            $sth->bindParam(':IdCategorie', $this->_intIDCategorie, \PDO::PARAM_INT);
+            $sth->bindParam(':idca', $this->_intIdCatAsso, \PDO::PARAM_INT);
           
             if($sth->execute()){
                 $lastId = $this->_db->lastInsertId();
@@ -178,6 +189,36 @@ class Pages extends \Slim\Middleware{
             );
         }
     }
+	public function getPageById ($id) {
+        try {
+            $sql="
+                SELECT * FROM pages
+                    WHERE id=:i LIMIT 0,1";
+            
+            $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
+            if($sth->execute(array('i'=>$id))){
+                $r=$sth->fetch();
+                return array (
+                    'success' => true
+                    ,'donnees' => $r
+                    ,'message' => null
+                );
+            }else{
+                return array (
+                    'success' => false
+                    ,'donnees' => null
+                    ,'message' => null
+                );
+            }
+            
+        } catch ( Exception $exception ) {
+            return array (
+                'success' => false
+                ,'donnees' => null
+                ,'message' => 'Une erreur est survenue lors de la récupération des données'
+            );
+        }
+    }
     public function updatePage () {
         
         try {
@@ -190,7 +231,9 @@ class Pages extends \Slim\Middleware{
                     type=:type,
                     idTheme=:idTheme,
                     description=:Desc,
-                    motsclefs=:MC
+                    IdCatAsso=:idca,
+                    motsclefs=:MC,
+                    IdCategorie=:IdCategorie
                 WHERE
                     id=:i
                ";
@@ -204,6 +247,8 @@ class Pages extends \Slim\Middleware{
             $sth->bindParam(':Desc', $this->_strDesc, \PDO::PARAM_STR);
             $sth->bindParam(':MC', $this->_strMC, \PDO::PARAM_STR,255);
             $sth->bindParam(':i', $this->_intID, \PDO::PARAM_INT);
+            $sth->bindParam(':IdCategorie', $this->_intIDCategorie, \PDO::PARAM_INT);
+            $sth->bindParam(':idca', $this->_intIdCatAsso, \PDO::PARAM_INT);
          
             if($sth->execute()){
                 return array (
@@ -231,6 +276,9 @@ class Pages extends \Slim\Middleware{
     public function setTitre ( $t) {
             $this->_strTitre = trim ( $t);
     }
+	public function setCatAsso ( $t) {
+            $this->_intIdCatAsso = trim ( $t);
+    }
     public function setNom ( $n) {
             $this->_strNom = trim ( $n);
     }
@@ -248,6 +296,9 @@ class Pages extends \Slim\Middleware{
     }
     public function setId( $i) {
             $this->_intID = $i;
+    }
+    public function setIdCategorie( $i) {
+            $this->_intIDCategorie = $i;
     }
     public function call(){
         $this->next->call();

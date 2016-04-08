@@ -23,7 +23,11 @@ class Phototheque extends \Slim\Middleware{
             $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
             $sth->execute(array());
             if($sth){
+                
                 $r=$sth->fetchAll(\PDO::FETCH_ASSOC);
+                foreach($r as $k=>$v):
+                    $r[$k]['albums']=$this->getAlbumByCategories($r[$k]['id']);
+                endforeach;
                 return array (
                     'success' => true
                    ,'donnees' => (count($r) > 0) ? $r : array()
@@ -46,7 +50,39 @@ class Phototheque extends \Slim\Middleware{
             );
         }
     }
+    public function getAlbumByCategories ($idLiaison) {
+        try {
+            $sql="SELECT 
+                    DISTINCT(NomAlbum)
+                FROM 
+                    medias
+                WHERE
+                    idLiaison = '".$idLiaison."'
+                ORDER BY
+                    NomAlbum ASC";
     
+            $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
+            $sth->execute(array());
+            if($sth){
+                $r=$sth->fetchAll(\PDO::FETCH_ASSOC);
+                return $r;
+
+            }else{
+                return array (
+                    'success' => false
+                    ,'donnees' => null
+                    ,'message' => null
+                );
+            }
+            
+        } catch ( Exception $exception ) {
+            return array (
+                'success' => false
+                ,'donnees' => null
+                ,'message' => 'Une erreur est survenue lors de la récupération des données'
+            );
+        }
+    }
     public function setNom ( $n) {
             $this->_strNom = trim ( $n);
     }

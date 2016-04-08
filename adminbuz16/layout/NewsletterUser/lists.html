@@ -1,0 +1,32 @@
+<div class="row">
+    <div class="col-xs-12">
+        <section class="panel">
+            <header class="panel-heading">
+                <span class="title">Utilisateurs inscrits aux newsletters</span>              
+            </header>
+            <br />
+            <div class='row'>
+                <div class='col-xs-4 col-xs-offset-8'>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">Rechercher</span>
+                        <input type="text" class="form-control" ng-model='filtreUsers' aria-describedby="basic-addon1">
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body" ng-show="listeUsers.length>0">
+                <table class="table table-hover table-responsive">
+                    <thead>
+                        <tr>
+                            <th>email</th>
+                        </tr>
+                    </thead>
+                    <tbody >
+                        <tr ng-repeat="(item,value) in listeUsers | filter:filtreUsers">
+                           
+                            <td>{{value}}</td>                            
+                        </tr>
+                </table>
+            </div>
+	</section>
+    </div>
+</div>

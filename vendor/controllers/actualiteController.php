@@ -23,8 +23,10 @@ class actualiteController extends \Slim\Middleware{
         $categories = $Cat->getAll();
         
         $Actu = new Actualite($this->_db);
-		$Actu->setUrl(str_replace('.html','',$slug));
+	$Actu->setUrl(str_replace('.html','',$slug));
         $actualite = $Actu->getActualiteBySlug();
+        
+        $pager = $this->getPrevNextPos($actualite['donnees']['id']);
         
         $Coord = new Coordonnees($this->_db);
         $coordonnees = $Coord->getAll();
@@ -41,9 +43,25 @@ class actualiteController extends \Slim\Middleware{
                 "categories"=>$categories['success'] ? $categories['donnees']  : array(),
                 "coordonnees"=>$coordonnees['success'] ? $coordonnees['donnees']  : array(),
                 "categoriesphotos"=>$categoriesPhotos['success'] ? $categoriesPhotos['donnees']  : array(),
-                "sociaux"=>$sociaux['success'] ? $sociaux['donnees']  : array()
+                "sociaux"=>$sociaux['success'] ? $sociaux['donnees']  : array(),
+                "pager"=>$pager
             )
         );
+    }
+    public function getPrevNextPos($idActu){
+        $A = new Actualite($this->_db);
+        $allActu = $A->getActualites('dateAjout','DESC');
+        $prev = null;
+        $next = null;
+        if($allActu['success']):
+            for($i=0;$i<count($allActu['donnees']);$i++):
+                if($allActu['donnees'][$i]['id']==$idActu):
+                    if(isset($allActu['donnees'][$i+1])) $next=$allActu['donnees'][$i+1];
+                    if(isset($allActu['donnees'][$i-1])) $prev=$allActu['donnees'][$i-1];
+                endif;
+            endfor;
+        endif;
+        return array("prev"=>$prev,"next"=>$next);
     }
     public function call(){
         $this->next->call();

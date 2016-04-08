@@ -10,10 +10,15 @@ class Article extends \Slim\Middleware{
     private $_strResume = null;
     private $_strDescription = null;
     private $_strMotsClefs = null;
+    private $_strLegende = null;
     private $_strImage = null;
     private $_intIdCategorie = null;
+    private $_intIdCaroussel = null;
     private $_intIdArticle = null;
     private $_intIdPage = null;
+    private $_strDisposition = null;
+    private $_boolShowTitre = null;
+    private $_boolShowPointilles = null;
     private $_db = null;
 
     public function  __construct ($db) {
@@ -72,9 +77,14 @@ class Article extends \Slim\Middleware{
                     A.description,
                     A.motsclefs,
                     A.image,
+                    A.legende,
                     DATE_FORMAT(A.dateAjout,'%d/%m/%Y %H:%i') as dateAjout,
                     C.Nom as CatNom,
-                    P.Nom as PageNom
+                    P.Nom as PageNom,
+                    A.disposition,
+                    A.showtitre as showTitle,
+                    A.showpointilles as showPointille,
+                    A.idCaroussel 
                 FROM
                     articles A
                 LEFT JOIN
@@ -124,11 +134,16 @@ class Article extends \Slim\Middleware{
                     A.description,
                     A.motsclefs,
                     A.image,
+                    A.legende,
                     DATE_FORMAT(A.dateAjout,'%d/%m/%Y %H:%i') as dateAjout,
                     C.Nom as CatNom,
                     C.id as idCategorie,
                     P.id as idPage,
-                    P.Nom as PageNom
+                    P.Nom as PageNom,
+                    A.disposition,
+                    A.showtitre as showTitle,
+                    A.showpointilles as showPointille,
+                    A.idCaroussel 
                 FROM
                     articles A
                 LEFT JOIN
@@ -214,12 +229,7 @@ class Article extends \Slim\Middleware{
                 ,'message' => 'Le titre est obligatoire'
             );
         
-        if ( is_null ( $this->_strContent ) )
-            return array (
-                'success' => false
-                ,'donnees' => null
-                ,'message' => 'Le contenu est obligatoire'
-            );
+       
         if ( is_null ( $this->_strResume ) )
             return array (
                 'success' => false
@@ -258,7 +268,13 @@ class Article extends \Slim\Middleware{
                      `description`, 
                      `motsclefs`, 
                      `dateajout`, 
-                     `titre`) 
+                     `titre`,
+                     `legende`,
+                    `disposition`,
+                    `showtitre`,
+                    `showpointilles`,
+                    `idCaroussel`
+                     ) 
                 VALUES      
                     (
                      :idc,
@@ -270,7 +286,13 @@ class Article extends \Slim\Middleware{
                      :desc, 
                      :mc, 
                      NOW(), 
-                     :t) 
+                     :t,
+                     :legende,
+                     :disposition,
+                     :showtitre,
+                     :showpointilles,
+                     :idCaroussel
+                     ) 
             ";
             
             $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
@@ -291,6 +313,12 @@ class Article extends \Slim\Middleware{
             $sth->bindParam(':image',$this->_strImage, \PDO::PARAM_STR,255);
             $sth->bindParam(':mc',$this->_strMotsClefs, \PDO::PARAM_STR,255);
             $sth->bindParam(':t', $this->_strTitre, \PDO::PARAM_STR,255);
+            $sth->bindParam(':legende', $this->_strLegende, \PDO::PARAM_STR,255);
+            $sth->bindParam(':disposition', $this->_strDisposition, \PDO::PARAM_STR);
+            $sth->bindParam(':showtitre', $this->_boolShowTitre, \PDO::PARAM_INT);
+            $sth->bindParam(':showpointilles', $this->_boolShowPointilles, \PDO::PARAM_INT);
+            $sth->bindParam(':idCaroussel', $this->_intIdCaroussel, \PDO::PARAM_INT);
+			
           
             if($sth->execute()){
                 $lastId = $this->_db->lastInsertId();
@@ -300,6 +328,7 @@ class Article extends \Slim\Middleware{
                     ,'message' => null
                 );
             }else{
+                
                 print_r($sth->errorInfo());
                 return array (
                     'success' => false
@@ -352,7 +381,7 @@ class Article extends \Slim\Middleware{
             );
         }
     }
-    public function updateArticle () {
+    public function updateArticle ($updatePicture=false) {
 	 if ( is_null ( $this->_strTitre ) )
             return array (
                 'success' => false
@@ -407,12 +436,16 @@ class Article extends \Slim\Middleware{
                     titre=:t, 
                     contenu=:c,
                     resume=:r,
-                    idCategorie=:idc,
-                    image=:image,
+                    idCategorie=:idc,".(($updatePicture) ? 'image=:image,':'')."
                     description=:description,
                     motsclefs=:motsclefs,
                     idPage=:idPage,
-                    url=:url
+                    url=:url,
+                    legende=:legende,
+                    disposition=:dispo,
+                    showtitre=:showtitre,
+                    showpointilles=:showpointilles,
+                    idCaroussel=:idCaroussel
                 WHERE
                     id=:idArticle
             ";
@@ -422,13 +455,20 @@ class Article extends \Slim\Middleware{
             $sth->bindParam(':t', $this->_strTitre, \PDO::PARAM_STR,255);
             $sth->bindParam(':c', $this->_strContent, \PDO::PARAM_STR);
             $sth->bindParam(':r', $this->_strResume, \PDO::PARAM_STR);
-            $sth->bindParam(':image', $this->_strImage, \PDO::PARAM_STR);
+            if($updatePicture) :
+		$sth->bindParam(':image', $this->_strImage, \PDO::PARAM_STR);
+            endif;
             $sth->bindParam(':url', $url, \PDO::PARAM_STR);
             $sth->bindParam(':description', $this->_strDescription, \PDO::PARAM_STR);
             $sth->bindParam(':motsclefs', $this->_strMotsClefs, \PDO::PARAM_STR);
             $sth->bindParam(':idc', $this->_intIdCategorie, \PDO::PARAM_INT);
             $sth->bindParam(':idArticle', $this->_intIdArticle, \PDO::PARAM_INT);
             $sth->bindParam(':idPage', $this->_intIdPage, \PDO::PARAM_INT);
+            $sth->bindParam(':legende', $this->_strLegende, \PDO::PARAM_STR);
+            $sth->bindParam(':dispo', $this->_strDisposition, \PDO::PARAM_STR);
+            $sth->bindParam(':showtitre', $this->_boolShowTitre, \PDO::PARAM_INT);
+            $sth->bindParam(':showpointilles', $this->_boolShowPointilles, \PDO::PARAM_INT);
+            $sth->bindParam(':idCaroussel', $this->_intIdCaroussel, \PDO::PARAM_INT);
             
             if($sth->execute()){
                 return array (
@@ -463,6 +503,9 @@ class Article extends \Slim\Middleware{
     public function setContent($str){
         $this->_strContent = $str;
     }
+    public function setLegende($str){
+        $this->_strLegende = $str;
+    }
     public function setDescription($str){
         $this->_strDescription= $str;
     }
@@ -472,8 +515,20 @@ class Article extends \Slim\Middleware{
     public function setImage($str){
         $this->_strImage = $str;
     }
+    public function setDisposition($str){
+        $this->_strDisposition = $str;
+    }
+    public function setShowTitre($bool){
+        $this->_boolShowTitre = $bool;
+    }
+    public function setShowPointilles($bool){
+        $this->_boolShowPointilles = $bool;
+    }
     public function setIdCategorie($i){
         $this->_intIdCategorie = $i;
+    }
+    public function setIdCaroussel($i){
+        $this->_intIdCaroussel = $i;
     }
     public function setIdPage($i){
         $this->_intIdPage = $i;

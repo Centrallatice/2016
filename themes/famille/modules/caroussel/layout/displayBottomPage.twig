@@ -1,0 +1,60 @@
+<div class="caroussel bottompage">
+    {% if carou.showTitle==1 %}<div class="titre"><span>{{carou.nom}}</span></div>{%endif %}
+    <div class="owl-horizontal">
+        {% set groupeencours,groupeadded=null,0%}
+        
+        {% for i in carou.pictures %}
+            {% if (i.groupe==null or i.groupe!=groupeencours)%}
+                
+                <div class="item">
+
+                    <a {% if i.groupe!='' %} rel="{{i.groupe}}" {% endif %}
+                       class="{% if i.Contenu is null %}fancyboxme{% else %}fancycontent{% endif %}" 
+                       {% if i.Contenu is not null %} id="{{i.id}}"{% endif %}
+                       href="{{carou.rep}}/{{i.imageFile}}">
+                       <img style="border:2px solid {{dataPage.ColorCategorie}}" class="img img-fullwidth"
+                             src="{{carou.rep}}300x300/{{i.imageFile}}">
+                       {% if i.libelle!='' %}
+                           <span style="font-style:italic;margin-top:2px;text-align:center;font-size:11px;display:block;
+                                 line-height:11px;color:{{dataPage.ColorCategorie}}"><strong>{{i.libelle}}</strong></span>
+                       {% endif %}
+                       {% if i.Contenu is not null %}
+                           <div class="knowmorecarou" style="background-color:{{dataPage.ColorCategorie}}">En savoir plus</div>
+                       {% endif %}
+                       <div class="triangle-picture" style="border-color: {{dataPage.ColorCategorie}} transparent transparent transparent;"></div>
+                    </a>
+                    <div style="display:none" id="data-content-carou-{{i.id}}">
+                        {{i.Contenu| raw}}
+                    </div>
+                </div>
+            {% endif %}    
+                               
+            {% set groupeencours=i.groupe %}
+        {% endfor %}
+    </div>
+    {% set groupeencours,groupeadded=null,0%}
+    {% for i in carou.pictures %}
+        {% if (i.groupe!=null and i.groupe==groupeencours)%}
+            <a style="display:none" rel="{{i.groupe}}"
+                class="{% if i.Contenu is null %}fancyboxme{% else %}fancycontent{% endif %}" 
+                {% if i.Contenu is not null %} id="{{i.id}}"{% endif %}
+                href="{{carou.rep}}/{{i.imageFile}}">
+                <img style="border:2px solid {{dataPage.ColorCategorie}}" class="img img-fullwidth"
+                      src="{{carou.rep}}/{{i.imageFile}}">
+                {% if i.libelle!='' %}
+                    <span style="font-style:italic;margin-top:2px;text-align:center;font-size:11px;display:block;
+                          line-height:11px;color:{{dataPage.ColorCategorie}}"><strong>{{i.libelle}}</strong></span>
+                {% endif %}
+                {% if i.Contenu is not null %}
+                    <div class="knowmorecarou" style="background-color:{{dataPage.ColorCategorie}}">En savoir plus</div>
+                    <div class="triangle-picture" style="border-color: {{dataPage.ColorCategorie}} transparent transparent transparent;"></div>
+                {% endif %}
+             </a>
+             <div style="display:none" id="data-content-carou-{{i.id}}">
+                 {{i.Contenu| raw}}
+             </div>
+        {% endif %}  
+        {% set groupeencours=i.groupe %}
+    {% endfor %}             
+    
+</div>

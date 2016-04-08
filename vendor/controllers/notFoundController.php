@@ -30,7 +30,8 @@ class notFoundController extends \Slim\Middleware{
         $MenusPage=null;
         if($index['success']):
             $Menus = new Menus($this->_db);
-            $MenusPage = $Menus->getMenusByIdPage($index['donnees']['idPage']);
+            $MenusPage = $Menus->getMenusAllPage();
+            
             if($MenusPage['success'] && count($MenusPage['donnees'])>0):
                 foreach($MenusPage['donnees'] as $k=>$v):
                 
@@ -54,7 +55,7 @@ class notFoundController extends \Slim\Middleware{
         $actualites = $Actu->getActualites('dateAjout','DESC');
         
         $A = new Agenda($this->_db);
-        $agendas = $A->getAgendas('dateEvenement','DESC');
+        $agendas = $A->getAgendas('dateEvenement','ASC');
         
         $Coord = new Coordonnees($this->_db);
         $coordonnees = $Coord->getAll();

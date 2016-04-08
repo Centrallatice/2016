@@ -1,6 +1,6 @@
 {% if menu.liens|length>0 %}
 	{% for menuLinks in menu.liens %}
-		<li><a href="{{menuLinks.url}}.html">{{menuLinks.nom}}</a></li>
+		<li><a id="{{menuLinks.url}}" href="{{BASEURL}}{{menuLinks.url}}.html">{{menuLinks.nom}}</a></li>
 		{% include 'global/menuDepthLast.twig' with {'menu': menuLinks} %}
 	{% endfor %}
 {% endif %}

@@ -1,0 +1,57 @@
+<div class="row">
+    <div class="col-xs-12">
+        <section class="panel">
+            
+            <header class="panel-heading">
+                <span class="title">Gestion des catégories d'associations</span>
+                <div class="pull-right">
+                    <a class="btn btn-success btn-sm" href="#/association/categories/add" role="button"><i class="fa fa-plus"></i> Créer une catégorie d'association</a>
+                </div>                
+            </header>
+            <br />
+            <div class='row'>
+                <div class='col-xs-4 col-xs-offset-8'>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">Rechercher</span>
+                        <input type="text" class="form-control" ng-model='filtreCategorie' aria-describedby="basic-addon1">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="panel-body" ng-show="listeCatAsso.length>0">
+                <table class="table table-hover table-responsive">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Nom</th>
+                            <th>Image</th>
+                            <th>Date</th>
+                            <th width='80px' class="text-center">Editer</th>
+                            <th width='80px' class="text-center">Supprimer</th>
+                        </tr>
+                    </thead>
+                    <tbody >
+                        <tr ng-repeat="(item,value) in listeCatAsso | filter:filtreCategorie">
+                            <td>{{value.id}}</td>
+                            <td>{{value.nom}}</td>
+                            <td><img ng-if="value.image!==null" style="max-width:150px !important" ng-src="{{imagePath}}{{value.image}}"></td>
+                            <td>{{value.dateAjout}}</td>
+                            <td class="text-center">
+                                <a role='button' class='btn btn-sm btn-info' ng-href="#/association/categories/update/{{value.id}}">
+                                    <i class='fa fa-pencil-square-o'></i> Modifier
+                                </a>
+                            </td>
+                            <td class="text-center"><button class='btn btn-sm btn-danger block-center text-center' title='Supprimer' ng-click='deleteCatAsso(value)'><i class='fa fa-times'></i></button></td>
+                            
+                        </tr>
+                </table>
+            </div>
+            <div class="panel-body" ng-show="listeCatAsso.length==0">
+               
+                <div class="col-xs-12 alert alert-warning" ng-show="listeCatAsso.length==0">
+                    Vous n'avez créé aucune catégorie d'association
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

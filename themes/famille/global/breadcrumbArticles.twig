@@ -1,0 +1,23 @@
+<div class="row">
+    <div class="col-xs-24 col-sm-12 breadcrumbsTop">
+        <a href="{{BASEURL}}" id="homebread"><i class="fa fa-home"></i></a>
+        {% if (dataPage and dataPage.CatParentNom is not null) %}
+            <span class="separation">></span>  <a href="{{BASEURL}}{{dataPage.urlParentPage}}.html">{{dataPage.CatParentNom}}</a>
+        {% endif %}
+        <span class="separation">></span>  
+        <span class="pEnCours" style="color:{{dataPage.ColorParentCategorie}}">{{dataPage.CatNom}}</span>
+    </div>
+    <div class="col-xs-24 col-sm-12">
+        <div class="btn-toolbar-text noPrint" role="toolbar">
+            <div class="btn-group" role="group" aria-label="Dézommer"><a id="btnTypoLess" href="javascript:void(0);" title="Réduire la taille du texte" role="button" class="btn btn-sm btn-default boldme  btn-tprint">A-</a></div>
+            <div class="btn-group" role="group" aria-label="Zoomer"><a id="btnTypoMore" href="javascript:void(0);" title="Agrandir la taille du texte" role="button" class="btn btn-sm btn-default boldme  btn-tprint">A+</a></div>
+            <div class="btn-group" role="group" aria-label="Zoomer"><a id="print" href="javascript:void(0);" title="Imprimer la page" class="btn btn-sm  btn-default btn-tprint"><i class="fa fa-print"></i></a></div>
+            <div class="btn-group sociaux-btn">
+                <div class="btn-group spanner" role="group" aria-label="Partagez">Partagez</div>
+                <div class="btn-group" role="group" aria-label="Partager sur Facebook"><a href="http://www.facebook.com/share.php?u={{ REDIRECT_SCRIPT_URI |url_encode  }}" title="Partager sur facebook" id="facebook" target="_blank"  role="button" class="btn btn-sm  btn-default"></a></div>
+                <div class="btn-group" role="group" aria-label="Partager sur twitter"><a href="https://twitter.com/share?url={{ REDIRECT_SCRIPT_URI |url_encode  }}" title="En parler sur twitter" id="twitter" target="_blank"  role="button" class="btn btn-sm  btn-default"></a></div>
+                <div class="btn-group" role="group" aria-label="Partager sur Google +"><a href="https://plus.google.com/share?url={{ REDIRECT_SCRIPT_URI |url_encode  }}" id="googlePlus" title="Partager sur Google+"  role="button" class="btn btn-sm  btn-default"></a></div>
+            </div>
+        </div>
+    </div>
+</div>

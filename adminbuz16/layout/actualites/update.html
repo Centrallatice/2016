@@ -21,22 +21,35 @@
                             <select class="form-control" ng-model='newActualite.idCategorie' id="idCategorie" aria-describedby="helpBlockCat" ng-options="categorie as categorie.Nom for categorie in listeCategories track by categorie.id "></select>
                             <span id="helpBlockCat" class="help-block" ng-show="controleChamp.idCategorie">Ce champ est obligatoire.</span>
                         </div>
-                        <div class="row nopadding">
-                            <div class="col-xs-4">
-                                 <div class="form-group">
-                                    <label for="Image">Image</label>
-                                    <input type="file" ng-focus="changeImageSilence()" ng-model="newActualite.newImage" file-select="data" file-loaded="myLoaded()" file-error="myError($error)" file-progress="myProgress($total,$loaded)" id="image">
-                                    <span id="holder"></span>
+                          
+                        
+                        <fieldset style="padding:25px; border:1px solid #ebebeb">
+                            <div class="row nopadding">
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                       <label for="Image">Image</label>
+                                       <input type="file" ng-focus="changeImageSilence()" ng-model="newActualite.newImage" file-select="data" file-loaded="myLoaded()" file-error="myError($error)" file-progress="myProgress($total,$loaded)" id="image">
+                                       <span id="holder"></span>
+                                   </div>
+                               </div>
+                               <div class="col-xs-8" ng-show="newActualite.image!==null && newActualite.image!==''">
+                                   <label>Image actuelle</label>
+                                   <img ng-if="newActualite.image!==null" class="thumbnail img" style='max-width:250px;max-height:250px' ng-src="{{baseImage}}{{newActualite.image}}">
+                                   <button class='btn btn-sm btn-danger' title='Supprimer cette image' ng-click='changeImage()'><i class='fa fa-times'></i></button>
+                               </div>
+                            </div>
+                            <div class="row nopadding">
+                                <div class="col-xs-12"><center><strong>OU</strong></center></div>
+                            </div>
+                            <div class="row nopadding">
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <label for="idCarroussel">Carrousel associé</label>
+                                        <select class="form-control" ng-model='newActualite.idCarroussel' id="listeModulesDiapo" name="listeModulesDiapo" ng-options="carou as carou.nom for carou in listeModulesDiapo track by carou.id "></select>
+                                   </div>
                                 </div>
                             </div>
-                            <div class="col-xs-8" ng-show="newActualite.image!==null && newActualite.image!==''">
-                                <label>Image actuelle</label>
-                                <img ng-if="newActualite.image!==null" class="thumbnail img" style='max-width:250px;max-height:250px' ng-src="{{baseImage}}{{newActualite.image}}">
-                                <button class='btn btn-sm btn-danger' title='Supprimer cette image' ng-click='changeImage()'><i class='fa fa-times'></i></button>
-                            </div>
-                        </div>
-                        
-                       
+                        </fieldset>
                         <div class="form-group" ng-class="{'has-error':controleChamp.resume}">
                             <label for="resume">Résumé</label>
                             <textarea class="form-control" ng-model='newActualite.resume' aria-describedby="helpBlockResume" rows="5"></textarea>

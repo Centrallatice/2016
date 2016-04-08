@@ -1,1 +1,166 @@
 {% extends "base.twig" %}
+{% block title %}Site Officiel de La Ville de Buzançais{% endblock %}
+{% block description %}Accéder au site officiel de la ville de Buzançais et découvrez ses infrastructures, ses services, son patrimoine et son actualité{% endblock %}
+{% block keywords %}buzançais,ville de 
+buzançais,mairie,buzancais, buzancays,36,indre,région centre, 
+présentation,information,actualités,services,découverte,tourisme,patrimoine,culture,évènement,pêche,étang,visiter,camping,hôtels,restaurants,entreprises,associations,conseilmunicipal,services
+ communaux,action sociale,loisirs,vie associative,vie 
+pratique,randonnée,séjours,hébergement{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{BASETHEME}}/css/phototheque.css" rel="stylesheet prefetch" type="text/css"/>
+    <link rel='stylesheet prefetch' href="{{BASETHEME}}/css/toolbar.css" rel="stylesheet" type="text/css"/>
+    <link href="{{BASETHEME}}/modules/blocdownload/css/blocdownload.css" rel="stylesheet prefetch" type="text/css"/>
+    <link href="{{BASETHEME}}/blocks/coordonnees/css/coordonnees.css" rel="stylesheet prefetch" type="text/css"/>
+    <link href="{{BASETHEME}}/blocks/services/css/services.css" rel="stylesheet prefetch" type="text/css"/>
+    <link href="{{BASETHEME}}/css/recherche.css" rel="stylesheet prefetch" type="text/css"/>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}  
+{% endblock %}
+    
+{% block body %}
+    <div class="blocHeader">
+    <div class="row">
+        <div class="decotopsite"></div>
+    </div>
+    <div class="row rowlogoflash">
+        <div class="col-xs-24 col-sm-24 col-md-22 col-md-offset-1">
+            <!-- LOGO -->
+            <div class="col-xs-24 col-sm-6">
+                <a href="{{BASEURL}}index.html"><img class="img img-responsive" src="{{BASEIMG}}LOGO-BUZ.jpg"></a>
+            </div>
+            <!-- FlashInfo -->
+            {% if flashs|length>0 %}
+                <div class="hidden-xs col-sm-12 col-md-9">
+                    <div class="panel panel-flashinfo">
+                        <div class="panel-heading">Flash INFO</div>
+                        <div class='panel-body'>
+                            <div class="owl-carousel" id="owl-flashinfo">
+                                {% for flash in flashs %}
+                                    <p class="contentFlashInfo">
+                                        {{flash.resume}}
+                                    </p>
+                                {% endfor %}
+                            </div>
+                            <a class="readmore btn-newsletter" role='button'>M'inscrire aux informations du flash info</a>
+                        </div>
+
+                    </div>
+                </div>
+            {% endif %}
+            <!-- Recherche Et Sous Menu -->
+            <div class="hidden-xs col-sm-6 blocrecherche {% if flashs|length>0 %}col-md-offset-3 {% else %} col-md-offset-12{% endif %}">
+                <div class="col-xs-24">
+                    <form method="POST" action="{{BASEURL}}recherche.html" class="pull-right">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Rechercher ..."  name="rechercheall" aria-describedby="basic-addon-loupe">
+                            <span class="input-group-addon" id="basic-addon-loupe"><img src="{{BASEIMG}}loupe-seul.png"></span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>        
+    </div>        
+
+    <!-- menu -->
+    {% include 'global/mainMenu.twig' %}
+    
+    
+    <div class="row hidden-xs">
+        <div id="header-slider">
+            <div role="listbox">
+                <div class="item active">
+                    <img src="{{BASEURL}}themes/default/img/bannieres/banniere-videotheque.jpg" class="img img-responsive">
+                </div>  
+            </div>
+        </div>
+        {% include 'global/breadcrumbArticles.twig' with{titleBread:"Recherche"} %} 
+    </div>
+</div>
+
+    <div class="bloc-maincontainer contentPage actualites">
+        <div class="row">
+            <div class="colmiddle col-xs-24 col-sm-24 col-md-22">
+                <div class="col-xs-24 nopadding">
+                    <div class="innerArticle">
+                        <div class="media">
+                            <div class="media-left">
+                                <img class="media-object" src="{{BASEIMG}}icone-VIDEO.png">
+                            </div>
+                            <div class="media-body">
+                                <h2 class="media-heading">
+                                    Votre Recherche
+                                </h2>
+                                <div class="linebottomcat"></div>
+                            </div>
+                        </div>
+                               
+                        {% if Articles|length>0 %}
+                            <h4>{{Articles|length}} résultat(s) dans les articles</h4>
+                            {% for i in Articles %}
+                                <div class="col-xs-24 blocresultsearch">
+                                    <div class="col-xs-24">
+                                        {% if i.titre|length>0 %}
+                                            <p class="title"><strong>{{i.titre}}</strong></p>
+                                        {% else %}
+                                            <p class="title"><strong>Aucun titre défini</strong></p>
+                                        {% endif %}
+                                        {% if i.contenu|length>0 %}
+                                            {% set result = "<span style='background-color:yellow'>"~searchAsked~"</span>" %}
+                                            {% set contenu = i.contenu|striptags|slice(0,400)|replace({searchAsked:result}) %}
+                                            {{contenu|raw}}...
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-xs-24 blocreadmore">
+                                        <a href="{{i.lien}}.html">Lire la suite</a>
+                                    </div>
+                                </div>
+                                <hr />
+                            {% endfor %}
+                        {% endif %}
+                        {% if Actualites|length>0 %}
+                            <h4>{{Actualites|length}} résultat(s) dans les actualités</h4>
+                            {% for i in Actualites %}
+                                <div class="col-xs-24 blocresultsearch">
+                                    <div class="col-xs-24">
+                                        {% if i.titre|length>0 %}
+                                            <p class="title"><strong>{{i.titre}}</strong></p>
+                                        {% else %}
+                                            <p class="title"><strong>Aucun titre défini</strong></p>
+                                        {% endif %}
+                                        {% if i.contenu|length>0 %}
+                                            {% set result = "<span style='background-color:yellow'>"~searchAsked~"</span>" %}
+                                            {% set contenu = i.contenu|striptags|slice(0,400)|replace({searchAsked:result}) %}
+                                            {{contenu|raw}}...
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-xs-24 blocreadmore">
+                                        <a href="actualite/{{i.urlCatNom}}/{{i.url}}.html">Lire la suite</a>
+                                    </div>
+                                </div>
+                                <hr />
+                            {% endfor %}
+                        {% endif %}
+                        
+                    </div>
+                    {% if modules['BOTTOM_PAGE'] %}
+                        {% for carou in modules['BOTTOM_PAGE'] %}
+                            {% if carou.type=='caroussel' %}
+                                {% include '/modules/caroussel/layout/displayBottomPage.twig' %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                
+                
+            </div>
+            <div class="hidden-xs hidden-sm col-md-2 nopadding noPrint">
+                <!-- COL_RIGHT_ONE -->
+                {% include '/blocks/services/layout/displayMiniInnerColRight.twig' %}
+            </div>
+        </div>
+    {% include 'global/footer.twig' %}    
+    </div>
+    
+{% endblock %}

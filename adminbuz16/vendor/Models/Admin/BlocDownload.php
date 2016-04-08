@@ -88,11 +88,7 @@ class BlocDownload extends \Slim\Middleware{
     
     public function addBloc(){
         try {
-            if(is_null($this->_idModule) || is_null($this->_strFilename)|| is_null($this->_strFilename)):
-                return array('success' => false
-                    ,'donnees' => null
-                    ,'message' => 'Une erreur est survenue lors de la création de l\'image');
-            endif;
+           
             $sql="
                 INSERT INTO blocdownload(idModule,pdf,image,titre,sstitre,intitule)
                 VALUES(:i,:p,:f,:t,:ss,:int)";

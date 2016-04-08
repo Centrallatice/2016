@@ -1,0 +1,75 @@
+<div class="row">
+    <div class="col-xs-12">
+        <section class="panel">
+            <header class="panel-heading">
+                <span class="title">Modifier un service</span>
+                <div class="pull-right">
+                    <a class="btn btn-success btn-sm" href="#/contact/service/lists" role="button"><i class="fa fa-arrow-left"></i> Annuler</a>
+                </div>                
+            </header>
+            <div class="panel-body panel-action">
+                <div class="col-xs-12">
+                    <form class="addCat-form" name="ajoutService" novalidate role="form" >
+					
+                        <div class="form-group" ng-class="{'has-error':ajoutService.nom.$error.required}">
+                            <label for="nom">Nom</label>
+                            <input type="text" required class="form-control" ng-model='newService.nom' id="nom" name="nom" aria-describedby="helpBlockNom">
+                            <span id="helpBlockNom" class="help-block" ng-show="ajoutService.nom.$error.required">Ce champ est obligatoire.</span>
+                        </div>
+                        <fieldset>
+                            <legend><strong>Contact</strong></legend>
+                            <div  style="padding-left:25px" class="form-group">
+                                <label for="email">Adresse E-mail</label>
+                                <input type="text" class="form-control" ng-model='newService.email' id="email" name="email">
+                            </div>
+                            <div  style="padding-left:25px" class="form-group">
+                                <label for="telephone">Téléphone 1 :</label>
+                                <input type="text" class="form-control" ng-model='newService.telephone' id="telephone" name="telephone">
+                            </div>
+                            <div  style="padding-left:25px" class="form-group">
+                                <label for="telephone2">Téléphone 2  :</label>
+                                <input type="text" class="form-control" ng-model='newService.telephone2' id="telephone2" name="telephone2">
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend><strong>Adresse</strong></legend>
+                            <div  style="padding-left:25px" class="form-group">
+                                <label for="adresserue">Rue :</label>
+                                <input type="text" class="form-control" ng-model='newService.adresserue' id="adresserue" name="adresserue">
+                            </div>
+                            <div  style="padding-left:25px" class="form-group">
+                                <label for="adresseville">Ville :</label>
+                                <input type="text" class="form-control" ng-model='newService.adresseville' id="adresseville" name="adresseville">
+                            </div>
+                            <div  style="padding-left:25px" class="form-group">
+                                <label for="adressecp">Code Postal :</label>
+                                <input type="text" class="form-control" ng-model='newService.adressecp' id="adressecp" name="adressecp">
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend><strong>Localisation</strong></legend>
+                            <div  style="padding-left:25px" class="form-group">
+                                <label for="lienggmap">URL de Google MAP :</label>
+                                <input type="text" class="form-control" ng-model='newService.lienggmap' id="lienggmap" name="lienggmap">
+                            </div>
+                            <div  style="padding-left:25px" class="form-group">
+                                <label for="iframeggmap">Carte Google MAP (iframe)  :</label>
+                                <textarea row="5" class="form-control" ng-model='newService.iframeggmap' id="iframeggmap" name="iframeggmap"></textarea> 
+                            </div>
+                        </fieldset>
+                        <div class="form-group">
+                            <label for="horaires">Horaires  :</label>
+                            <textarea row="5" class="form-control" ng-model='newService.horaires' id="horaires" name="horaires"></textarea> 
+                        </div>
+                        <div class="text-center block-center">
+                            <button type="submit" class="btn btn-success" ng-disabled="ajoutService.$error.required" ng-click='updateService()'>
+                               Modifier ce service
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+	</section>
+    </div>
+</div>
+

@@ -1,5 +1,6 @@
 var app = angular.module('buzancais');
-app.controller('pagesController', ['$rootScope','$scope','$location','pagesService','categoriesService','themesService', function($rootScope,$scope,$location,pagesService,categoriesService,themesService) {
+app.controller('pagesController', ['$rootScope','$scope','$location','pagesService','categoriesService','themesService','catAssoService','notifications', 
+function($rootScope,$scope,$location,pagesService,categoriesService,themesService,catAssoService,notifications) {
     $scope.pages = null;
     $scope.pagesError = null;
     $scope.themesError = null;
@@ -13,6 +14,7 @@ app.controller('pagesController', ['$rootScope','$scope','$location','pagesServi
     };	
     
     $scope.delPage=function(p){
+        if(!confirm("Êtes-vous sûr de vouloir supprimer cette page ?")) return false;
         var delPage = pagesService.delPage(p);
         delPage.then(function (response) {
             if (response.data.success) {
@@ -33,6 +35,42 @@ app.controller('pagesController', ['$rootScope','$scope','$location','pagesServi
         });
     }
     $scope.init = function(){
+        var getCategories = categoriesService.getCategories();
+        getCategories.then(function (response) {
+            if (response.data.categories.success) {
+                $scope.categoriesError=null;
+                $scope.listeCategories = response.data.categories.donnees;
+            }
+            else{
+                $scope.categoriesError = response.data.categories.message;
+            }
+        }, function () {
+            $scope.categoriesError="Une erreur est survenue lors de la récupération des catégories";
+        });
+        
+	var getS = catAssoService.getCatAssos();
+        getS.then(function (response) {
+            if (response.data.success) {
+                $scope.ready = true;
+                $scope.listeCatAsso = response.data.donnees;
+            }     
+            else{
+                notifications.showError({
+                    message:"Une erreur est survenue lors de la récupération des catégories",
+                    hideDelay: 5000,
+                    hide: true,
+                    acceptHTML:true
+                });
+            }
+        }, function () {
+            notifications.showError({
+                message:"Une erreur est survenue lors de la récupération des catégories",
+                hideDelay: 5000,
+                hide: true,
+                acceptHTML:true
+            });
+        });
+		
         var getThemes = themesService.getThemes();
         getThemes.then(function (response) {
             if (response.data.success) {
@@ -68,6 +106,7 @@ app.controller('pagesController', ['$rootScope','$scope','$location','pagesServi
             description:null,
             motsclefs:null,
             id:null,
+            idCatAsso:null,
             toChange:false
         };
     }
@@ -79,6 +118,19 @@ app.controller('pagesController', ['$rootScope','$scope','$location','pagesServi
                 if($scope.listeThemes[e]['id']==P.idTheme) theme=$scope.listeThemes[e];
             }
         }
+        var categorie = null;
+        if(P.idCategorie!==null){
+            for(var e in $scope.listeCategories){
+                if($scope.listeCategories[e]['id']==P.idCategorie) categorie=$scope.listeCategories[e];
+            }
+        }
+		
+	var catAsso = null;
+        if(P.IdCatAsso!==null){
+            for(var e in $scope.listeCatAsso){
+                if($scope.listeCatAsso[e]['id']==P.IdCatAsso) catAsso=$scope.listeCatAsso[e];
+            }
+        }
         $scope.newPage={
             id:P.id,
             titre:P.titre,
@@ -87,6 +139,8 @@ app.controller('pagesController', ['$rootScope','$scope','$location','pagesServi
             idTheme:theme,
             description:P.description,
             motsclefs:P.motsclefs,
+            idCategorie:categorie,
+            idCatAsso:catAsso,
             toChange:true
         };
         $scope.collapseAddPage = false;

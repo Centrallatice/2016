@@ -1,0 +1,87 @@
+.btn-toolbar-text{
+    float:right;
+    margin: 10px 10px 10px 0;    
+}
+.btn-toolbar-text .sociaux-btn{
+    background-color:#f7f5f6;
+    padding:0px 5px 0;    
+}
+
+.btn-toolbar-text .sociaux-btn .spanner{
+    font-size:10px;
+    text-transform: uppercase;
+    color:#c1c1c3;
+    line-height: 32px;
+    vertical-align: middle;
+    margin-right:8px;
+    height:32px;
+}
+.btn-toolbar-text a.btn.boldme{
+    font-weight: 700;
+}
+.btn-toolbar-text a.btn.btn-tprint{
+    background-image: linear-gradient(to bottom, #d7d7d9 0%, #c0c1c3 100%);
+}
+.btn-toolbar-text a.btn.btn-tprint:hover{
+    background-image: linear-gradient(to bottom, #c0c1c3 0%,#d7d7d9  100%);
+}
+.btn-toolbar-text a{
+    width:32px;
+    height:32px;
+}
+.btn-toolbar-text a#facebook{
+    background:url('../img/sociaux/facebook-logo-button-square.png') center no-repeat;
+    background-size:contain;
+    border:none;
+    width:22px;
+    margin:5px 3px 5px 3px;
+    height:22px;
+}
+.btn-toolbar-text a#twitter{
+    background:url('../img/sociaux/twitter-logo-button-square.png') center no-repeat;
+    background-size:contain;
+    border:none;
+    width:22px;
+    margin:5px 3px 5px 3px;
+    height:22px;
+}
+.btn-toolbar-text a#googlePlus{
+    background:url('../img/sociaux/google-plus-logo-button-square.png') center no-repeat;
+    background-size:contain;
+    border:none;
+    width:22px;
+    margin:5px 3px 5px 3px;
+    height:22px;
+}
+.btn-toolbar-text a#facebook i{
+}
+.btn-toolbar-text .btn-group a{
+    font-size: 11px;
+}
+.blocHeader{
+    padding-bottom:5px;
+}
+
+.breadcrumbsTop{
+    padding-top:20px;
+    text-transform: uppercase;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight:bold;
+    font-size:12px;
+    letter-spacing:-1px;
+}
+.breadcrumbsTop a#homebread i{
+    font-size: 20px;
+    font-weight: 300;
+}
+
+.breadcrumbsTop a{
+    text-decoration: none;
+    color:#8a8a89;
+}
+.breadcrumbsTop span.separation{
+    color:grey;
+}
+body.Piscine .breadcrumbsTop span.pEnCours{
+    color:#e97300;
+}

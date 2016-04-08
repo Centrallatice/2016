@@ -44,7 +44,6 @@ class MenuLinks extends \Slim\Middleware{
             if(is_null($this->_intIdParent)) $sql.=" AND idParent IS NULL ";
             else $sql.=" AND idParent=".$this->_intIdParent;
             $sql.=" ORDER BY ordre ASC ";
-            
             $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
             
             if($sth->execute(array())){

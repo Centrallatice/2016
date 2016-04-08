@@ -1,0 +1,102 @@
+body .menuLeftInnerPage{
+    background:url('../img/blocksMenu/menugauche-famille.png') top center no-repeat;
+    margin-top:-10px;
+    background-size:inherit;
+    min-height:180px;
+}
+
+.contentPage .triangle-menu{
+    border-color: #410287 transparent transparent transparent;
+}
+.menuLeftInnerPage  .content{
+    margin-top:110px;
+    padding:0px 0px 0 0px;
+    font-family: "lato",sans-serif;
+    width:100%;
+    float:left;
+}
+
+.menuLeftInnerPage .content .backBrown
+{
+    padding:0 0 33px 0;
+    background-color:#5502b2;
+        -moz-box-shadow: 0px 5px 3px -3px #330001;
+    -webkit-box-shadow: 0px 5px 3px -3px #330001;
+    -o-box-shadow: 0px 5px 3px -3px #330001;
+    box-shadow: 0px 5px 3px -3px #330001;
+    filter: progid:DXImageTransform.Microsoft.Shadow(color=#330001, Direction=180, Strength=3);
+}
+.menuLeftInnerPage .content .titre{
+    font-size: 1.2vw;
+    padding: 9px 13px 0px 13px;
+    letter-spacing: -1px;
+    margin: 0;
+    color: #f9ed0d;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+.menuLeftInnerPage .content ul{
+    list-style-type: none;
+    margin:0;
+    padding:0;
+}
+.menuLeftInnerPage .content ul li{
+    border-top:1px solid #af8553;
+}
+
+.menuLeftInnerPage .content ul > li.depth-0:last-child{
+    border-bottom:1px solid #af8553;
+}
+.menuLeftInnerPage .content ul li.depth-0 > a{
+    font-size: 14px;
+    letter-spacing: -1px;
+    text-transform: uppercase;
+    display:block;
+    padding: 3px 10px 3px 10px;
+}
+.menuLeftInnerPage .content ul li.depth-0 > a{
+    color:white;
+}
+.menuLeftInnerPage .content ul li.depth-0.active > a{
+    background-color:#e2017b;
+}
+.menuLeftInnerPage .content ul li.depth-0.active > a,
+.menuLeftInnerPage .content ul li.depth-1.active a{
+    color:white !important;
+    display:block;
+}
+.menuLeftInnerPage .content ul li.depth-1 a{
+    padding: 3px 10px 3px 20px;
+    display:block;
+    color: white;
+}
+
+
+.menuLeftInnerPage .content ul li.depth-0:not(.active) a:hover,
+.menuLeftInnerPage .content ul li.depth-1:not(.active) a:hover
+{
+    color:yellow;
+    text-decoration: none;
+}
+
+
+@media only screen and (min-width : 1401px){
+
+    .menuLeftInnerPage .content .titre{
+        font-size: 18px;
+    }
+}
+
+@media only screen and (min-width : 1200px) and (max-width : 1400px){
+    
+    .menuLeftInnerPage .content .titre{
+        font-size: 16px;
+    }
+}
+
+@media only screen and (min-width : 1024px) and (max-width : 1199px){
+    .menuLeftInnerPage .content .titre{
+        font-size: 16px;
+    }
+}

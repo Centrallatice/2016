@@ -1,0 +1,26 @@
+<section class="container-article col-xs-24">
+    {% if (arti.titre and arti.titre!='' and arti.showTitle == 1) %}
+        <div class="col-xs-24">
+            <div class="titrePageActu"><span>{{arti.titre}}</span></div>
+        </div>
+    {% endif %}
+        
+    {% if arti.image %}
+        <div class="col-sm-24 col-md-8 hidden-xs">
+            <a class="fancyboxme" href="{{BASE_PATH_UPLOAD_URL}}/article/{{arti.image}}">
+                <img class="img img-fullwidth"
+                     src="{{BASE_PATH_UPLOAD_URL}}/article/300x300/{{arti.image}}">
+                <div class="triangle-picture"></div>
+            </a>
+            <p class='legende'>{{arti.legende}}</p>
+        </div>
+    {% elseif (arti.idCaroussel and arti.contentCarou|length >0) %}
+       {% include '/modules/caroussel/layout/innerArticle.twig'  with {carou:arti.contentCarou,repimg:arti.urlCarou} %}
+    {% endif %} 
+    <div class="col-sm-24 col-md-16 {% if (not arti.image or arti.image==null or arti.image =='') %}col-md-offset-8{%endif%}">
+        <div class='contenu-article'>
+            {{arti.contenu |replace({'http://www.buzancais.fr/2016/':BASEURL})| raw}}
+        </div>
+    </div>
+</section>
+{% if arti.showPointille==1 %} <div class="pointilleRose"></div> {% endif %}

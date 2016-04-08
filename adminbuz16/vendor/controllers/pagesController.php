@@ -27,6 +27,8 @@ class pagesController extends \Slim\Middleware{
             $p->setIdTheme($body->page->idTheme->id);
             $p->setMotsClefs($body->page->motsclefs);
             
+            if(isset($body->page->idCatAsso->id)) $p->setCatAsso ($body->page->idCatAsso->id);
+            if(isset($body->page->idCategorie->id)) $p->setIdCategorie ($body->page->idCategorie->id);
             if(isset($body->page->toChange) && $body->page->toChange===true):
                
                 $p->setId($body->page->id);

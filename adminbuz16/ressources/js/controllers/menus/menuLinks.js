@@ -1,17 +1,13 @@
 var app = angular.module('buzancais');
 
-app.controller('menuLinkAddController', ['$scope','menuLinksService','$location','menuService','$route','pagesService','$q', function($scope,menuLinksService,$location,menuService,$route,pagesService,$q) {
+app.controller('menuLinkAddController', ['$scope','menuLinksService','$location','menuService','$route','pagesService','$q','notifications', function($scope,menuLinksService,$location,menuService,$route,pagesService,$q,notifications) {
     $scope.ready=false;
-    $scope.successLienMenu=null;
-    $scope.successAjoutLienMenu=null;
-    $scope.errorAjoutLienMenu=null;
     $scope.newMenuLink=null;
-    $scope.errorLienMenu=null;
     $scope.idMenu=$route.current.params.idMenu;
     
     $scope.init=function(){
         if(!$route.current.params.idMenu || $route.current.params.idMenu===null || $route.current.params.idMenu===""){
-            alert("Le menu n'a pas été trouvé");
+            notifications.showError({message:"Le menu n'a pas été trouvé"});
             $location.path("/menus/lists");
         }
         else{
@@ -24,12 +20,11 @@ app.controller('menuLinkAddController', ['$scope','menuLinksService','$location'
                     $scope.nomMenu=res[0].data.donnees.nom;
                     $scope.listePages=res[1].data.donnees;
                     $scope.listeMenuLinks=res[2].data.donnees;
-                    $scope.listeMenuLinks.unshift({id:'-1',nom:'Aucun'});
+                    if($scope.listeMenuLinks) $scope.listeMenuLinks.unshift({id:'-1',nom:'Aucun'});
                     $scope.ready=true;
                 }
                 else{
-                    $scope.errorAjoutLienMenu="Une erreur est survenue lors de la récupération des données";
-                    $scope.successAjoutLienMenu=null;
+                    notifications.showError({message:"Une erreur est survenue lors de la récupération des données"});
                     $scope.ready=true;
                 }
             });
@@ -41,19 +36,23 @@ app.controller('menuLinkAddController', ['$scope','menuLinksService','$location'
         addLink.then(function (response) {
             if (response.data.success) {
                 $location.path('/menus/linkLists/'+$route.current.params.idMenu);
+				notifications.showSuccess({
+                    message:'Le lien a bien été créé !',
+                    hideDelay: 3000,
+                    hide: true,
+                    acceptHTML:true
+                });
             }
             else{
-                $scope.errorAjoutLienMenu = response.data.message;
-                $scope.successAjoutLienMenu=null;
+                notifications.showError({message:"Une erreur est survenue lors de la création du lien"});
             }
         }, function () {
-            $scope.errorAjoutLienMenu="Une erreur est survenue lors de la création du lien";
-             $scope.successAjoutLienMenu=null;
+            notifications.showError({message:"Une erreur est survenue lors de la création du lien"});
         });
     };
     $scope.init();
 }]);
-app.controller('menuLinksListsController', ['$scope','menuLinksService','$location','menuService','$route', function($scope,menuLinksService,$location,menuService,$route) {
+app.controller('menuLinksListsController', ['$scope','menuLinksService','$location','menuService','$route','notifications', function($scope,menuLinksService,$location,menuService,$route,notifications) {
     $scope.ready=false;
     $scope.successLienMenu=null;
     $scope.errorLienMenu=null;
@@ -68,7 +67,7 @@ app.controller('menuLinksListsController', ['$scope','menuLinksService','$locati
     
     $scope.init=function(){
         if(!$route.current.params.idMenu || $route.current.params.idMenu===null || $route.current.params.idMenu===""){
-            alert("Le menu n'a pas été trouvé");
+            notifications.showError({message:"Le menu n'a pas été trouvé"});
             $location.path("/menus/lists");
         }
         else{
@@ -78,12 +77,10 @@ app.controller('menuLinksListsController', ['$scope','menuLinksService','$locati
                     $scope.nomMenu=response.data.donnees.nom;
                 }
                 else{
-                    $scope.successLienMenu=null;
-                    $scope.errorLienMenu="Une erreur est survenue lors de la récupération  du menu";
+                    notifications.showError({message:"Une erreur est survenue lors de la récupération  du menu"});
                 }
             }, function () {
-                $scope.successLienMenu=null;
-                $scope.errorLienMenu="Une erreur est survenue lors de la récupération  du menu";
+                notifications.showError({message:"Une erreur est survenue lors de la récupération  du menu"});
             });    
         
             var getMenuLinks = menuLinksService.getmenuLinks($route.current.params.idMenu);
@@ -94,12 +91,10 @@ app.controller('menuLinksListsController', ['$scope','menuLinksService','$locati
                     
                 }
                 else{
-                    $scope.successLienMenu=null;
-                    $scope.errorLienMenu = response.data.message;
+                    notifications.showError({message:response.data.message});
                 }
             }, function () {
-                $scope.successLienMenu=null;
-                $scope.errorLienMenu="Une erreur est survenue lors de la récupération  du menu";
+                notifications.showError({message:"Une erreur est survenue lors de la récupération  du menu"});
             });
         }
     }
@@ -108,8 +103,12 @@ app.controller('menuLinksListsController', ['$scope','menuLinksService','$locati
         var delMenuLink = menuLinksService.delmenuLinks(id,$route.current.params.idMenu);
         delMenuLink.then(function (response) {
             if (response.data.success) {
-                $scope.errorLienMenu=null;
-                $scope.successLienMenu="Le lien a bien été supprimé";
+                notifications.showSuccess({
+                    message:'Le lien a bien été supprimé !',
+                    hideDelay: 3000,
+                    hide: true,
+                    acceptHTML:true
+                });
                 var index=0;
                 for(var e in $scope.listeMenus){
                     if($scope.listeMenus[e].id==id){
@@ -119,52 +118,51 @@ app.controller('menuLinksListsController', ['$scope','menuLinksService','$locati
                 }
             }
             else{
-                $scope.successLienMenu=null;
-                $scope.errorLienMenu = response.data.message;
+                notifications.showError({message:"Une erreur est survenue lors de la suppression du lien de menu"});
             }
         }, function () {
-                $scope.successLienMenu=null;
-            $scope.errorLienMenu="Une erreur est survenue lors de la suppression du lien de menu";
+            notifications.showError({message:"Une erreur est survenue lors de la suppression du lien de menu"});
         });
     }
     $scope.init();
 }]);
-app.controller('menuLinkUpdateController', ['$scope','menuLinksService','$location','$q','menuService','$route','pagesService', function($scope,menuLinksService,$location,$q,menuService,$route,pagesService) {
+app.controller('menuLinkUpdateController', ['$scope','menuLinksService','$location','$q','menuService','$route','pagesService','notifications', function($scope,menuLinksService,$location,$q,menuService,$route,pagesService,notifications) {
     $scope.errorAjoutLienMenu=null;
     $scope.successAjoutLienMenu=null;
     $scope.ready=false;
     $scope.init=function(){
         if(!$route.current.params.idMenu || $route.current.params.idMenu===null || $route.current.params.idMenu===""){
-            alert("Le Menu n'a pas été trouvé");
+            notifications.showError({message:"Le Menu n'a pas été trouvé"});
             $location.path("/menus/linkLists/"+$route.current.params.idMenu);
         }
         else if(!$route.current.params.idLinkMenu || $route.current.params.idLinkMenu===null || $route.current.params.idLinkMenu===""){
-            alert("Le lien de menu n'a pas été trouvé");
+            notifications.showError({message:"Le lien de menu n'a pas été trouvé"});
             $location.path("/menus/linkLists/"+$route.current.params.idMenu);
         }
         else{
             $scope.idMenu = $route.current.params.idMenu;
             $scope.idLinkMenu = $route.current.params.idLinkMenu;
             $q.all([
-                menuLinksService.getmenuLink($route.current.params.idLinkMenu),
                 menuLinksService.getmenuLinks($route.current.params.idMenu),
+                menuLinksService.getmenuLink($route.current.params.idLinkMenu),
                 pagesService.getPages()])
             .then(function (res) {
                 if(res[0].data.success && res[1].data.success){
-                    $scope.newMenu=res[0].data.donnees;
-                    $scope.listeMenuLinks = res[1].data.donnees;
+                    $scope.newMenu=res[1].data.donnees;
+                    $scope.listeMenuLinks = res[0].data.donnees;
                     $scope.listePages=res[2].data.donnees;
                     $scope.listeMenuLinks.unshift({id:'-1',nom:'Aucun'});
+                    
                     for(var e in $scope.listePages){
                         if($scope.listePages[e].id==$scope.newMenu.idPage){
                             $scope.newMenu.page=$scope.listePages[e];
                         }
                     }
+                    
                     $scope.ready=true;
                 }
                 else{
-                    $scope.errorAjoutLienMenu="Une erreur est survenue lors de la récupération des données";
-                    $scope.successAjoutLienMenu=null;
+                    notifications.showError({message:"Une erreur est survenue lors de la récupération des données"});
                     $scope.ready=true;
                 }
             });
@@ -177,17 +175,19 @@ app.controller('menuLinkUpdateController', ['$scope','menuLinksService','$locati
         var updateLink = menuLinksService.updatemenuLink(lien);
         updateLink.then(function (response) {
             if (response.data.success) {
-                $scope.errorAjoutLienMenu=null;
-                $scope.successAjoutLienMenu="Le lien a bien été modifié";
+                notifications.showSuccess({
+                    message:'Le lien a bien été modifié !',
+                    hideDelay: 3000,
+                    hide: true,
+                    acceptHTML:true
+                });
                 $location.path("/menus/linkLists/"+$route.current.params.idMenu);
             }
             else{
-                $scope.successAjoutLienMenu=null;
-                $scope.errorAjoutLienMenu = response.data.message;
+                notifications.showError({message:response.data.message});
             }
         }, function () {
-            $scope.successAjoutLienMenu=null;
-            $scope.errorAjoutLienMenu="Une erreur est survenue lors de la suppression du lien de menu";
+            notifications.showError({message:"Une erreur est survenue lors de la suppression du lien de menu"});
         });
     };
     $scope.init();

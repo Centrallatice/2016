@@ -1,0 +1,91 @@
+body.Commerce--Artisanat .caroussel.bottompage{
+    float:left;
+    width:100%;
+    padding:10px 35px 10px 35px;
+    background:#c1c1c1;
+}
+body.Zone-Industrielle .caroussel.bottompage,
+body.Environnement .caroussel.bottompage,
+body.Déchets .caroussel.bottompage
+{
+    float:left;
+    width:100%;
+    padding:10px 10px 10px 15px;
+}
+
+body.Hébergement .caroussel.bottompage
+{
+    float:left;
+    width:95%;
+    padding:10px 10px 10px 15px;
+}
+.caroussel .titre span{
+    background-color:#39302b;
+    border-radius:5px;
+    padding:3px 10px;
+    color:white;
+    font-weight:700; 
+}
+body.Environnement .caroussel .titre span,
+body.Déchets .caroussel .titre span{
+    background-color:transparent;
+    border-radius:5px;
+    padding:3px 10px;
+    color:#e0007e;
+    font-weight:700; 
+}
+
+body.Piscine .caroussel .item span{
+    background-color:#5a493f;
+    display:block;
+    color:white !important;
+    font-weight:700; 
+    margin-top:0px !important;
+    padding:3px 0 !important;
+}
+body.Equipements-sportifs .caroussel .item span{
+    background-color:#ef6b01;
+    display:block;
+    color:white !important;
+    font-weight:700; 
+    margin-top:0px !important;
+    padding:3px 0 !important;
+}
+body.Piscine .caroussel .item img{
+    border:2px solid #5a493f !important;
+}
+body.Piscine .triangle-picture{
+    border-color: #5a493f transparent transparent transparent !important;
+}
+body.Commerce--Artisanat .caroussel .titre {
+    margin:15px auto;
+    text-align: center;
+}
+body.Zone-Industrielle .caroussel .titre,
+body.Environnement .caroussel .titre,
+body.Déchets .caroussel .titre
+{
+    margin:15px 5px 15px 0px ;
+    text-align: left;
+}
+body.Zone-Industrielle .caroussel,
+body.Hébergement .caroussel{
+    margin-left:15px;
+    margin-right:15px;
+}
+.knowmorecarou{
+    font-size:11px;
+    color:white;
+    text-align:center;
+    padding:3px 0;
+}
+.pointilleDecale{
+    margin-left:35px;
+}
+
+
+
+.innerarticlecarou{
+    padding-left:0 !important;
+    margin:0 !important;
+}

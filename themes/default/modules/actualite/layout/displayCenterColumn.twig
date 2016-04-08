@@ -1,10 +1,58 @@
-<div class="actualites-center">
-    
+<div class="inneractualite">
+    <div class="media">
+        <div class="media-left media-left-categorie">
+            <img class="media-object" src="{{BASEIMG}}icone-actualites.png">
+        </div>
+        <div class="media-body">
+            <h2 class="media-heading">
+                Nos Actualités
+            </h2>
+            <div class="linebottomcat"></div>
+        </div>
+    </div>
     <h1>{{actualite.titre}}</h1>
-    <div class="actualites-center">
-        {{actualite.contenu|raw}}
-    </div> 
-    
-    <div class="triangle-top"></div>
+    <h4>Publié le {{actualite.dateEvenementFR}} - Par le service communication</h4>
+    {% if (actualite.image!='' and actualite.image is not null) %} 
+        <div class="media">
+            <div class="media-left">
+                 <a rel="actu"
+                       class="variousfancy" 
+                       href="{{BASEURL}}public/upload/actuPicture/{{actualite.image}}">
+                <img 
+                    class="img media-object media-article" 
+                    src="{{BASEURL}}public/upload/actuPicture/300x300/{{actualite.image}}">
+                </a>
+                <div class='triangle-picture'></div>
+                </div>
+            <div class="media-body contenu-article">{{actualite.contenu|raw}}</div>
+        </div>
+    {% elseif (actualite.contentCarou|length>0 and actualite.idCarroussel is not null) %} 
+        <div class="row">
+            <div class="col-xs-8">
+                {% include '/modules/caroussel/layout/actualite.twig'  with {carou:actualite.contentCarou,repimg:actualite.urlCarou,group:actualite.url} %}
+            </div>
+            <div class="col-xs-15 contenu-article">
+                {{actualite.contenu|raw}}
+            </div>
+        </div>
+    {% endif %}
+    <div class="row noPrint">
+        <div class="col-xs-24 col-sm-6 col-sm-offset-18">
+            <div class="media mediaback">
+            <div class="media-left"><img 
+                    class="img media-object" 
+                    src="{{BASEIMG}}icone-loupe.png">
+                </div>
+                <div class="media-body"><a href="{{BASEURL}}actualites.html">> Retour aux actualités</a></div>
+        </div>
+        </div>
+    </div>
 </div>
-<div class="triangle-bottom-actu"></div>
+<div class="pageractualite noPrint">
+    <ul class="pager">
+        <li><a href="{{BASEURL}}actualite/{{pager.prev.urlCatNom}}/{{pager.prev.url}}.html">< Précèdent</a></li>
+        <li><a href="{{BASEURL}}actualite/{{pager.next.urlCatNom}}/{{pager.next.url}}.html">Suivant ></a></li>
+       
+    </ul></div>
+    
+    

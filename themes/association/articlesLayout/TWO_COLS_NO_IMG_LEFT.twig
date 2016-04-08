@@ -1,0 +1,13 @@
+<section class="container-article col-xs-24">
+    <div class="col-sm-24 col-md-8 hidden-xs">
+        {% if (arti.titre!='' and arti.showTitle==1)  %}
+            <div class="titrePageActu"><span>{{arti.titre}}</span></div>
+        {% endif %}
+    </div>
+    <div class="col-sm-24 col-md-16">
+        <div class='contenu-article'>
+            {{arti.contenu |replace({'http://www.buzancais.fr/2016/':BASEURL})| raw}}
+        </div>
+    </div>
+</section>
+{% if arti.showPointille==1 %} <div class="pointilleRose"></div> {% endif %}

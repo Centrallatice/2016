@@ -1,69 +1,11 @@
 <aside class="left-side sidebar-offcanvas">
     <section class="sidebar">
         <ul class="sidebar-menu">
-            <li class="nosub">
-                <a href="#/categories">
-                    <i class="fa fa-files-o"></i> <span>Catégories</span>
-                </a>
-            </li>
             <uib-accordion close-others="true">
                 <uib-accordion-group >
                     <uib-accordion-heading>
                         <a href>
-                            <i class="fa fa-files-o"></i> <span>Agenda / Evénements</span>
-                        </a>
-                    </uib-accordion-heading>
-                    <ul ng-class="">
-                        <li>
-                            <a href="#/agenda/lists">
-                                Gestion de les événements
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#/agenda/add">
-                                Ajouter un événement
-                            </a>
-                        </li>
-                    </ul>
-                </uib-accordion-group>
-                <uib-accordion-group >
-                    <uib-accordion-heading>
-                        <a href>
-                            <i class="fa fa-files-o"></i> <span>Pages</span>
-                        </a>
-                    </uib-accordion-heading>
-                    <ul ng-class="">
-                        <li>
-                            <a href="#/pages/lists">
-                                Gestion des pages
-                            </a>
-                        </li>
-                    </ul>
-                </uib-accordion-group>
-                <uib-accordion-group >
-                    <uib-accordion-heading>
-                        <a href>
-                            <i class="fa fa-files-o"></i> <span>Articles</span>
-                        </a>
-                    </uib-accordion-heading>
-                    <ul ng-class="">
-                        <li>
-                            <a href="#/articles/lists">
-                                Mes articles
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#/articles/add">
-                                Créer un article
-                            </a>
-                        </li>
-                    </ul>
-                </uib-accordion-group>
-                
-                <uib-accordion-group >
-                    <uib-accordion-heading>
-                        <a href>
-                            <i class="fa fa-files-o"></i> <span>Actualités</span>
+                            <i class="fa fa-newspaper-o"></i><span>Actualités</span>
                         </a>
                     </uib-accordion-heading>
                     <ul ng-class="">
@@ -79,21 +21,40 @@
                         </li>
                     </ul>
                 </uib-accordion-group>
-                <uib-accordion-group >
+                <uib-accordion-group>
                     <uib-accordion-heading>
                         <a href>
-                            <i class="fa fa-files-o"></i> <span>Paramètres</span>
+                            <i class="fa fa-calendar-check-o"></i><span>Agenda / Evénements</span>
                         </a>
                     </uib-accordion-heading>
                     <ul ng-class="">
                         <li>
-                            <a href="#/param/coordonnees">
-                                Coordonnées
+                            <a href="#/agenda/lists">
+                                Gestion des événements
                             </a>
                         </li>
                         <li>
-                            <a href="#/param/sociaux">
-                                Réseaux Sociaux
+                            <a href="#/agenda/add">
+                                Ajouter un événement
+                            </a>
+                        </li>
+                    </ul>
+                </uib-accordion-group>
+                <uib-accordion-group >
+                    <uib-accordion-heading>
+                        <a href>
+                            <i class="fa fa-paperclip"></i><span>Articles</span>
+                        </a>
+                    </uib-accordion-heading>
+                    <ul ng-class="">
+                        <li>
+                            <a href="#/articles/lists">
+                                Mes articles
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/articles/add">
+                                Créer un article
                             </a>
                         </li>
                     </ul>
@@ -101,7 +62,95 @@
 				<uib-accordion-group >
                     <uib-accordion-heading>
                         <a href>
-                            <i class="fa fa-files-o"></i> <span>Menus</span>
+                            <i class="fa fa-object-group"></i><span>Associations</span>
+                        </a>
+                    </uib-accordion-heading>
+                    <ul ng-class="">
+                        <li>
+                            <a href="#/association/entites/lists">
+                                Nos associations
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/association/entites/add">
+                               Ajouter une association
+                            </a>
+                        </li>
+			<li>
+                            <a href="#/association/categories/lists">
+                               Catégories d'association
+                            </a>
+                        </li>
+			<li>
+                            <a href="#/association/categories/add">
+                               Ajouter une catégorie d'association
+                            </a>
+                        </li>
+                    </ul>
+                </uib-accordion-group>
+                <li class="nosub">
+                    <a href="#/categories">
+                        <i class="fa fa-th-list"></i><span>Catégories</span>
+                    </a>
+                </li>
+                <uib-accordion-group >
+                    <uib-accordion-heading>
+                        <a href>
+                            <i class="fa fa-question"></i><span>Contact</span>
+                        </a>
+                    </uib-accordion-heading>
+                    <ul ng-class="">
+                        <li>
+                            <a href="#/contact/service/show">
+                                Afficher les demandes
+                            </a>
+                        </li>
+<!--                    <li>
+                            <a href="#/contact/service/add">
+                                Créer une adresse de contact
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/contact/service/lists">
+                                Mes adresses de contact
+                            </a>
+                        </li>-->
+                    </ul>
+                </uib-accordion-group>
+                <li class="nosub">
+                    <a href="#/flashinfos">
+                        <i class="fa fa-bolt"></i><span>Flash infos</span>
+                    </a>
+                </li>
+                
+                <uib-accordion-group >
+                    <uib-accordion-heading>
+                        <a href>
+                            <i class="fa fa-camera-retro"></i><span>Médias</span>
+                        </a>
+                    </uib-accordion-heading>
+                    <ul ng-class="">
+                        <li class="nosub">
+                            <a href="#/photovideotheque/photo">
+                                <span>Gestion des photos</span>
+                            </a>
+                        </li>
+                        <li class="nosub">
+                            <a href="#/photovideotheque/videos">
+                                <span>Gestion des vidéos</span>
+                            </a>
+                        </li>
+                        <li class="nosub">
+                            <a href="#/medias/documents">
+                                <span>Gestion des documents</span>
+                            </a>
+                        </li>
+                    </ul>
+                </uib-accordion-group>
+		<uib-accordion-group >
+                    <uib-accordion-heading>
+                        <a href>
+                            <i class="fa fa-bars"></i><span>Menus</span>
                         </a>
                     </uib-accordion-heading>
                     <ul ng-class="">
@@ -117,48 +166,82 @@
                         </li>
                     </ul>
                 </uib-accordion-group>
+                
                 <uib-accordion-group >
                     <uib-accordion-heading>
                         <a href>
-                            <i class="fa fa-files-o"></i> <span>Photos / Vidéos</span>
-                        </a>
-                    </uib-accordion-heading>
-                    <ul ng-class="">
-                        <li class="nosub">
-                            <a href="#/photovideotheque/photo">
-                                <i class="fa fa-files-o"></i> <span>Gestion des photos</span>
-                            </a>
-                        </li>
-                        <li class="nosub">
-                            <a href="#/photovideotheque/videos">
-                                <i class="fa fa-files-o"></i> <span>Gestion des vidéos</span>
-                            </a>
-                        </li>
-                    </ul>
-                </uib-accordion-group>
-                <uib-accordion-group >
-                    <uib-accordion-heading>
-                        <a href>
-                            <i class="fa fa-files-o"></i> <span>Modules</span>
+                            <i class="fa fa-archive"></i><span>Modules</span>
                         </a>
                     </uib-accordion-heading>
                     <ul ng-class="">
                         <li >
                             <a href="#/modules/add/diaporama">
-                                <i class="fa fa-files-o"></i> <span>Diaporama</span>
+                                 <span>Diaporama</span>
+                            </a>
+                        </li>
+                        <li >
+                            <a href="#/modules/add/caroussel">
+                                 <span>Carrousel</span>
                             </a>
                         </li>
                         <li>
                             <a href="#/modules/add/blocdownload">
-                                <i class="fa fa-files-o"></i> <span>Téléchargements de documents</span>
+                                <span>Téléchargements de documents</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/modules/lists/HTMLcontent">
+                                <span>Contenu personnalisé</span>
                             </a>
                         </li>
                     </ul>
                 </uib-accordion-group>
+                
+                <uib-accordion-group >
+                    <uib-accordion-heading>
+                        <a href>
+                            <i class="fa fa-files-o"></i><span>Pages</span>
+                        </a>
+                    </uib-accordion-heading>
+                    <ul ng-class="">
+                        <li>
+                            <a href="#/pages/lists">
+                                Gestion des pages
+                            </a>
+                        </li>
+                    </ul>
+                </uib-accordion-group>
+                
+                
+                <uib-accordion-group >
+                    <uib-accordion-heading>
+                        <a href>
+                            <i class="fa fa-cogs"></i><span>Paramètres</span>
+                        </a>
+                    </uib-accordion-heading>
+                    <ul ng-class="">
+                        <li>
+                            <a href="#/param/coordonnees">
+                                Coordonnées
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/param/sociaux">
+                                Réseaux Sociaux
+                            </a>
+                        </li>
+                    </ul>
+                </uib-accordion-group>
+<!--                <li class="nosub">
+                    <a href="#/trombinoscope/lists">
+                        <i class="fa fa-users"></i><span>Trombinoscope</span>
+                    </a>
+                </li>-->
             </uib-accordion>
+            
             <li class="nosub">
-                <a href="#/flashinfos">
-                    <i class="fa fa-files-o"></i> <span>Flash infos</span>
+                <a href="#/listenl">
+                    <i class="fa fa-list-alt"></i><span>Utilisateurs inscrits à la newsletter</span>
                 </a>
             </li>
         </ul>

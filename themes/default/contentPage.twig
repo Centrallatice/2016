@@ -1,60 +1,153 @@
 {% extends "base.twig" %}
-{% block title %}{{titrePage}}{% endblock %}
-{% block description %}{{descriptionPage}}{% endblock %}
-{% block keywords %}{{motsclefsPage}}{% endblock %}
+{% block title %}{{dataPage.titrePage}}{% endblock %}
+{% block description %}{{dataPage.descriptionPage}}{% endblock %}
+{% block keywords %}{{dataPage.motsclefsPage}}{% endblock %}
 {% block stylesheets %}
     {{ parent() }}
-    <link href="{{BASETHEME}}/css/home.css" rel="stylesheet" type="text/css"/>
-    <link href="{{BASETHEME}}/blocks/services/css/services.css" rel="stylesheet" type="text/css"/>
+    <link rel='stylesheet prefetch' href="{{BASETHEME}}/css/toolbar.css" rel="stylesheet" type="text/css"/>
+    <link rel='stylesheet prefetch' href="{{BASETHEME}}/css/home.css" rel="stylesheet" type="text/css"/>
+    <link rel='stylesheet prefetch' href="{{BASETHEME}}/css/contentPage.css" rel="stylesheet" type="text/css"/>
+    <link rel='stylesheet prefetch' href="{{BASETHEME}}/css/innerMenus.css" rel="stylesheet" type="text/css"/>
+    <link rel='stylesheet prefetch' href="{{BASETHEME}}/blocks/services/css/services.css" rel="stylesheet" type="text/css"/>
+    <link rel='stylesheet prefetch' href="{{BASETHEME}}/modules/blocdownload/css/blocdownload.css" rel="stylesheet" type="text/css"/>
+    <link rel='stylesheet prefetch' href="{{BASETHEME}}/modules/caroussel/css/caroussel.css" rel="stylesheet" type="text/css"/>
+    <link rel='stylesheet prefetch' href="{{BASEURL}}libs/fancybox/source/jquery.fancybox.css" type="text/css"/>
+    <link rel='stylesheet prefetch' href="{{BASEURL}}libs/fancybox/source/helpers/jquery.fancybox-buttons.css" type="text/css"/>
+    <link rel='stylesheet prefetch' href="{{BASEURL}}libs/fancybox/source/helpers/jquery.fancybox-thumbs.css" type="text/css"/>
+        
 {% endblock %}
-{% block javascripts %}
+{% block ogdata %}
+   {% if articles|length>0 %}
+        {% set imagepageset,detailarticleset=0,0 %}
+        {% for arti in articles %}
+            {% if (imagepageset == 0 and arti.image) %}
+                <meta property="og:image" content="{{BASE_PATH_UPLOAD_URL}}/article/{{arti.image}}">
+                <link href="{{BASE_PATH_UPLOAD_URL}}/article/300x300/{{arti.image}}" rel="image_src"  />
+                {% set imagepageset=1 %}
+            {% endif %}
+            {% if (detailarticleset==0) %}
+                <meta property="og:title" content="{{arti.titre}}">
+                <meta property="og:type" content="Article">
+                <meta property="og:description" content="{{arti.description}}">
+                <meta property="og:site_name" content="Mairie de Buzancais">
+                {% set detailarticleset=1 %}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+{% block javascripts %}   
     {{ parent() }}
+    <script type="text/javascript" src="{{BASEURL}}libs/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>   
+    <script type="text/javascript" src="{{BASEURL}}libs/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>   
+    <script type="text/javascript" src="{{BASEURL}}libs/fancybox/source/helpers/jquery.fancybox-buttons.js"></script>   
+    <script type="text/javascript" src="{{BASEURL}}libs/fancybox/source/helpers/jquery.fancybox-media.js"></script>   
+    <script type="text/javascript" src="{{BASEURL}}libs/fancybox/source/helpers/jquery.fancybox-thumbs.js"></script>   
+    <script src="{{BASEJS}}initFancy.js" type="text/javascript"></script>
 {% endblock %}
-    
+{% block bodyclass %}{{dataPage.CatNom|replace({' ':'-','/':'',"'":'-'})}}{% endblock %}    
 {% block body %}
-    {% include 'global/header.twig' %}
-    <div class="bloc-maincontainer">
+    {% include 'global/header.twig' with {'breadcrumbsarticle':1}%}
+    
+                                
+    <div class="bloc-maincontainer contentPage {{dataPage.CatNom}}">
         <div class="row">
             <!-- COL_LEFT-->
-            <div class="hidden-xs col-sm-8 col-md-5 nopadding">
+            <div class="hidden-xs col-sm-6 col-md-4 nopaddingleft noPrint">
                 <!-- COL_LEFT_ONE -->
                 {% if pagemenu|length>0 %}
                     {% include '/modules/menus/layout/displayLeftColumn.twig' %}
                 {% endif %}
-                
-                <!-- COL_LEFT_TWO -->
-                {% if modules['HEADER'] %}
-                    {% for headerModule in modules['COL_LEFT_TWO'] %}
-                        {% if headerModule.type=='blocdownload' %}
-                            {% include '/modules/blocdownload/layout/displayLeftColumn.twig' %}
-                        {% endif %}
-                    {% endfor %}
-                {% endif %}
-                
-                <div class="hidden-xs col-sm-24 hidden-md hidden-lg nopadding">
-                    <!-- COL_RIGHT_ONE -->
-                    {% include '/blocks/coordonnees/layout/displayTopRight.twig' %}
-                    <div class="separight"></div>
-                    <!-- COL_RIGHT_CENTER -->
-                    {% include '/blocks/services/layout/displayCenterRight.twig' %}
-                    <div class="separight"></div>
-                    {% include '/blocks/phototheque/layout/displayCenterRight.twig' %}
-                    <div class="separight"></div>
-                    {% include '/modules/facebook/layout/displayBottomRight.twig' %}
-                </div>
             </div>
             <!-- COL_MIDDLE-->
-            <div class="col-xs-24 col-sm-16 col-md-13">
-                {% if actualites|length>0 %}
-                    {% include '/modules/actualites/layout/displayCenterColumn.twig' %}
+            <div class="colmiddle col-xs-24 col-sm-18 col-md-18">
+                <div class="col-xs-24 col-sm-24 {% if (modules['COL_RIGHT_ONE'] or modules['COL_RIGHT_TWO'])%} col-md-18 {% else %} col-md-24 {% endif %}nopadding">
+                    <div class="innerArticle">
+                            <div class="media">
+                                <div class="media-left media-left-categorie">
+                                    <img class="media-object" src="{{BASE_PATH_UPLOAD_URL}}/actuIcone/{{dataPage.IconeCategorie}}">
+                                </div>
+                                <div class="media-body">
+                                    <h2 class="media-heading {{dataPage.CatNom}}" style="color:{{dataPage.ColorCategorie}}">
+                                        {{dataPage.CatNom}}
+                                    </h2>
+                                    <div class="linebottomcat" style="background-color:{{dataPage.ColorCategorie}}"></div>
+                                </div>
+                            </div>
+                        
+                        {% if articles|length>0 %}
+                            {% if dataPage.CatNom=='Salles municipales' %}
+                                <div class="col-xs-24">
+                                    <div class="titrePageActu"><span>Location de salles</span></div><br>
+                                </div>
+                            {% endif %}
+                            {% set CompteurCol=0 %}
+                            
+                            {% for arti in articles %}
+                                {% if arti.disposition!='' %} 
+                                    {% set template = '/articlesLayout/'~arti.disposition~'.twig' %}
+                                    {% set CompteurCol=CompteurCol+1 %}
+                                {% else %}
+                                    {% set template = '/articlesLayout/default.twig' %}
+                                {% endif %}
+                                {% include template  with {'CompteurCol':CompteurCol,'artiTotal':articles|length}%}
+                            {% endfor %}
+                        {% else %}
+                            <br /><br />
+                            <center><b>Aucun article n'a été publié pour le moment dans cette catégorie.</b></center><br /><br /> <hr />
+                            {% if articlesenfants|length>0 %}
+                                <b>Retrouvez ci-dessous les articles des catégories similaires</b><br />
+                                {% for artie in articlesenfants %}
+                                    <h3 class="media-heading">
+                                        {{artie.titre}}
+                                    </h3>
+                                    <div class='contenu-article'>
+                                        {{artie.resume | raw}} ...
+                                    </div>
+                                    <div class='more-article'>
+                                        <a href="{{BASEURL}}{{artie.url}}.html">Lire la suite ...</a>
+                                    </div>
+                                {% endfor %}
+
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                    {% if modules['BOTTOM_PAGE'] %}
+                        {% for carou in modules['BOTTOM_PAGE'] %}
+                            {% if carou.type=='caroussel' %}
+                                {% include '/modules/caroussel/layout/displayBottomPage.twig' %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                {% if (modules['COL_RIGHT_ONE'] or modules['COL_RIGHT_TWO'])%}
+                    <div class="col-xs-24 hidden-sm col-md-6 nopadding noPrint col-right-one">
+                        <!-- COL_RIGHT_ONE -->
+                        {% if modules['COL_RIGHT_ONE'] %}
+                            {% for m in modules['COL_RIGHT_ONE'] %}
+                                {% if m.type=='customcontent' %}
+                                    <div class="customcontentright">
+                                        {{m.contenuHTML |raw }}
+                                    </div>
+                                {% elseif m.type=='blocdownload' %}
+                                    {% include '/modules/blocdownload/layout/displayRightColumn.twig' %}
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                        <!-- COL_RIGHT_TWO-->
+                        {% if modules['COL_RIGHT_TWO'] %}
+                            {% for m in modules['COL_RIGHT_TWO'] %}
+                                {% if m.type=='blocdownload' %}
+                                    {% include '/modules/blocdownload/layout/displayRightColumn.twig' %}
+                                {% elseif m.type=='customcontent' %}
+                                    {{m.contenuHTML |raw }}
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
                 {% endif %}
             </div>
-            <!-- COL_RIGHT-->
-            <div class="col-xs-24 hidden-sm col-md-4 nopadding">
-                <!-- COL_RIGHT_ONE -->
-                {% include '/blocks/infospratiques/layout/displayTopRight.twig' %}
-            </div>
-            <div class="hidden-xs hidden-sm col-md-2 nopadding">
+            <div class="hidden-xs hidden-sm col-md-2 nopadding noPrint">
+               
                 <!-- COL_RIGHT_ONE -->
                 {% include '/blocks/services/layout/displayMiniInnerColRight.twig' %}
             </div>

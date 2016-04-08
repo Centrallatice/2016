@@ -68,11 +68,8 @@ app.controller('blocDownloadController', ['$rootScope','$scope','$location','blo
         else $scope.blocAddError =null;
     }    
     $scope.ValideAddDocument=function(doc){
-       $scope.blocAddError = null;
-        if(!doc.fichier || !doc.pdf){
-            alert("Vous devez choisir une image et un document");
-            return false;
-        }
+        $scope.blocAddError = null;
+        
         $scope.envoiDocEnCours=true;
         
         var addDocBloc = blocDownloadService.addDocBloc($scope.documentBloc,doc);
@@ -130,6 +127,19 @@ app.controller('blocDownloadController', ['$rootScope','$scope','$location','blo
             $scope.Error = true;
             $scope.Message="Une erreur est survenue lors de la récupération des blocs de téléchargements existants";
         });
+        var getDiapos = modulesService.getAllByType('caroussel');
+        getDiapos.then(function (response) {
+            if (response.data.success) {
+                $scope.listeModulesDiapo = response.data.donnees;
+            }
+            else{
+                $scope.pagesError = response.data.message;
+            }
+        }, function () {
+            $scope.Error = true;
+            $scope.Message="Une erreur est survenue lors de la récupération des diaporamas existants";
+        });
+        $scope.ready=true;
     };
     $scope.deleteBlocDownload = function(m){
         if(!confirm("Êtes vous sûr de vouloir supprimer ce module ?")) return false;
@@ -176,7 +186,7 @@ app.controller('blocDownloadController', ['$rootScope','$scope','$location','blo
         if(!module.nom) $scope.controleChamp.Nom=true;
         else $scope.controleChamp.Nom=false;
 
-        if(!module.idPage) $scope.controleChamp.Page=true; 
+        if(!module.idPage && !module.idCarroussel) $scope.controleChamp.Page=true;
         else $scope.controleChamp.Page=false;
         
         if(!module.position) $scope.controleChamp.Position=true; 
@@ -192,8 +202,8 @@ app.controller('blocDownloadController', ['$rootScope','$scope','$location','blo
             if (response.data.success) {
                 module.type='blocdownload';
                 module.id=response.data.donnees;
-                module.NomPage = module.idPage.Nom;
-                module.blocDownload = {id:null,Nom:null,files:{},titre:null,intitule:null,sstitre:null};
+                module.NomPage = (module.idPage!=null) ? module.idPage.Nom : module.idCarroussel.nom;
+                module.blocDownload = {id:null,Nom:null,files:{},titre:null,intitule:null,sstitre:null,idCarroussel:null};
                 
                 $scope.listeModulesBloc.push(module);
                 $scope.annuleModification();

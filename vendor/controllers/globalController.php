@@ -8,6 +8,7 @@ use Models\Client\Categorie;
 use Models\Client\Coordonnees;
 use Models\Client\Menus;
 use Models\Client\MenuLinks;
+use Models\Client\Themes;
 
 class globalController extends \Slim\Middleware{
     
@@ -16,11 +17,28 @@ class globalController extends \Slim\Middleware{
     function __construct($db){
         $this->_db=$db;
     }
-    public function getDataPage($pageName){
+    public function getDataPage($url){
         $P = new Pages($this->_db);
-        $dataPage = $P->getPageByUrl($pageName);
+        $dataPage = $P->getPageByUrl($url);
+        
+        if($dataPage['success'] && $dataPage['donnees']===false):
+            switch($url):
+                case 'agenda':
+                    $dataPage = $P->getPageAgenda();
+                    break;
+                default:
+                    break;
+            endswitch;
+            
+        endif;
+        
         return $dataPage;
     }
+	public  function getThemes(){
+		$T = new Themes($this->_db);
+		$d = $T->getThemes();
+		return ($d['success']) ? $d['donnees'] : array();
+	}
     public function getMetaDatas($pageName){
         
         $P = new Pages($this->_db);
@@ -57,7 +75,7 @@ class globalController extends \Slim\Middleware{
     public function getMenus($pageName){
         $P = new Pages($this->_db);
         $index = $P->getPageByUrl($pageName);
-        
+       
         $MenusPage=null;
         if($index['success']):
             $Menus = new Menus($this->_db);
@@ -66,7 +84,7 @@ class globalController extends \Slim\Middleware{
             if($MenusPage['success'] && count($MenusPage['donnees'])>0):
                 foreach($MenusPage['donnees'] as $k=>$v):
                 
-                
+                    
                     $MenuLinks = new MenuLinks($this->_db);
                     $MenuLinks->setIdMenu($MenusPage['donnees'][$k]['idMenu']);
                     $MenuLinks->setIdParent(null);
@@ -93,7 +111,6 @@ class globalController extends \Slim\Middleware{
         return $Fdatas;
     }
     public function assignMenuByEnfants($initial,$idMenu){
-       
         
         foreach($initial as $k=>$v):
             $MenuLinks = new MenuLinks($this->_db);

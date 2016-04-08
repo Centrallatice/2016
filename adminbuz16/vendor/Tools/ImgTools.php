@@ -290,6 +290,7 @@ class ImgTools extends \Slim\Middleware{
                 'application/x-wpwin' => '.wpd',
                 'application/x-lotus' => '.wq1',
                 'application/mswrite' => '.wri',
+                'application/msword' => '.docx',
                 'application/x-wri' => '.wri',
                 'text/scriplet' => '.wsc',
                 'application/x-wintalk' => '.wtk ',
@@ -312,6 +313,7 @@ class ImgTools extends \Slim\Middleware{
                 'application/x-zip-compressed' => '.zip',
                 'application/zip' => '.zip',
                 'multipart/x-zip' => '.zip',
+                'application/vnd.oasis.opendocument.text' => '.pdf',
                 'text/x-script.zsh' => '.zsh',
               );
             if (isset($map[$contentType]))

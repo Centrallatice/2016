@@ -2,16 +2,17 @@
     {% if menuLinks.depth==0 %}
         {% if menuLinks.liens|length>0 %}
             <li class="dropdown mega-dropdown dropdown-{{compteur}}">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{menuLinks.nom}}</a>
+                {% set testactive=(menuLinks|menuchildactif(dataPage.idPage)) %}
+                <a href="#" id="{{menuLinks.nom}}" class="dropdown-toggle {% if testactive %} subactive {% endif %}" data-toggle="dropdown">{{menuLinks.nom}}</a>
                 <ul class="dropdown-menu mega-dropdown-menu row">
                     {% if menuLinks.liens|length>0 %}
                         {% for menuLinks1 in menuLinks.liens %}
                             <li class="innerLiDepth1">
                                 <ul>
                                     <li class="dropdown-header">
-                                        <a href="{{menuLinks1.url}}.html">{{menuLinks1.nom}}</a>
+                                        <a id="{{menuLinks1.url}}" href="{{BASEURL}}{{menuLinks1.url}}.html">{{menuLinks1.nom}}</a>
                                     </li>
-									{% include 'global/menuDepthLast.twig' with {'menu': menuLinks1} %}
+                                    {% include 'global/menuDepthLast.twig' with {'menu': menuLinks1} %}
                                 </ul>
                             </li>
                         {% endfor %}
@@ -20,7 +21,7 @@
             </li>
         {% else %}
         <li class="no-dropdown">
-            <a href="{{menuLinks.url}}.html">{{menuLinks.nom}}</a>
+            <a id="{{menuLinks.url}}" href="{{BASEURL}}{{menuLinks.url}}.html">{{menuLinks.nom}}</a>
         </li>
         {% endif %}
     {% endif %}

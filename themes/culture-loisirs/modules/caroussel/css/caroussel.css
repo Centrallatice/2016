@@ -1,0 +1,64 @@
+body.Commerce--Artisanat .caroussel.bottompage{
+    float:left;
+    width:100%;
+    padding:10px 35px 10px 35px;
+    background:#c1c1c1;
+}
+body.Zone-Industrielle .caroussel.bottompage,
+body.Environnement .caroussel.bottompage,
+body.Déchets .caroussel.bottompage,
+body.Hébergement .caroussel.bottompage
+{
+    float:left;
+    width:100%;
+    padding:10px 10px 10px 35px;
+}
+
+.caroussel .titre span{
+    background-color:#39302b;
+    border-radius:5px;
+    padding:3px 10px;
+    color:white;
+    font-weight:700; 
+}
+
+body .caroussel .item span:not(.white){
+    background-color:#5a493f;
+    display:block;
+    color:white !important;
+    font-weight:700; 
+    margin-top:0px !important;
+    padding:3px 0 !important;
+}
+.caroussel .item img{
+    border:2px solid #5a493f !important;
+}
+.triangle-picture{
+    border-color: #5a493f transparent transparent transparent !important;
+}
+.caroussel .titre
+{
+    padding:15px 0 0 0;
+    margin:15px 5px 15px 0px ;
+    text-align: center;
+}
+.caroussel{
+    clear:both;
+    margin-left:30px
+}
+.knowmorecarou{
+    font-size:11px;
+    color:white;
+    text-align:center;
+    padding:3px 0;
+}
+.pointilleDecale{
+    margin-left:35px;
+}
+
+
+
+.innerarticlecarou{
+    padding-left:0 !important;
+    margin:0 !important;
+}

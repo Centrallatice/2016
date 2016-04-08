@@ -1,8 +1,0 @@
-<IfModule mod_rewrite.c>
-    RewriteEngine On
-    RewriteBase /2016
-    RewriteRule ^index\.html$ index.php [L]
-    RewriteRule ^([a-z]*)\.html$ index.php?page=$1 [L]
-    RewriteRule ^([a-z]*)\.html$ index.php?page=$1 [L]
-    RewriteRule ^([a-z]*)/([A-Za-z0-9-]+)$ index.php?page=$1&id=$2 [L]
-</IfModule>

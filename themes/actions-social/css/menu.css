@@ -1,0 +1,436 @@
+.navbar-inverse{
+    background-image: none;
+    background-color:#262626;
+    border-radius: 0px;
+}
+
+.navbar-brand{
+    vertical-align: middle;
+    padding:0px 15px;
+    line-height:52px;
+}
+
+.nav.navbar-nav > li{
+    display:inline;
+}
+
+.navbar-nav>li>.dropdown-menu {
+  margin-top: 0px;
+  border-radius: 0px;
+  border-left:3px solid black;
+  border-right:3px solid black;
+  border-bottom:3px solid black;
+}
+.navbar-inverse .navbar-nav > li > a {
+    color: white;
+}
+.navbar-inverse .navbar-nav .mega-dropdown,.navbar-default .navbar-nav>li.no-dropdown>a {
+    background:url('../img/cercle-bleu.png') 0px 22px no-repeat;
+}
+.navbar-default .navbar-nav>li>a {
+  font-weight: bold;
+  height:50px;
+}
+
+.mega-dropdown {
+  position: static !important;
+}
+
+.mega-dropdown-menu {
+  padding: 20px 0px;
+  width: 101%;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+}
+
+
+.mega-dropdown-menu > li > ul {
+  padding: 0;
+  margin: 0;
+}
+
+.mega-dropdown-menu > li > ul > li {
+  list-style: none;
+}
+
+
+.mega-dropdown-menu > li > ul > li.dropdown-header > a {
+  display: block;
+  padding: 3px 10px;
+  clear: both;
+  font-weight: normal;
+  line-height: 1.428571429;
+  color: black;
+  white-space: normal;
+  font-size: 18px;
+}
+.mega-dropdown-menu > li > ul > li:not(.dropdown-header) > a {
+  display: block;
+  padding: 3px 20px 3px 15px;
+  clear: both;
+  font-weight: normal;
+  line-height: 1.428571429;
+  color: gey;
+  white-space: normal;
+  font-size: 14px;
+}
+.mega-dropdown-menu > li > ul > li:not(.dropdown-header) > a::before {
+  content:"> ";
+  color:#fb7000;
+}
+.mega-dropdown-menu > li ul > li > a:hover,
+.mega-dropdown-menu > li ul > li > a:focus {
+  text-decoration: none;
+  color: black;
+}
+
+.mega-dropdown-menu .dropdown-header {
+  color: #428bca;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 0;
+  color:black;
+  font-size: 11px;
+}
+
+.mega-dropdown-menu form {
+  margin: 3px 20px;
+}
+
+.mega-dropdown-menu .form-group {
+  margin-bottom: 3px;
+}
+
+.mega-dropdown a.dropdown-toggle,.no-dropdown > a{
+    font-size: 12px;
+    text-transform: uppercase;
+}
+/**** COLORS ******/
+.mega-dropdown-menu li.dropdown-header a#histoire{
+    color:#6a3000;
+}
+.mega-dropdown-menu a#patrimoine,
+.mega-dropdown-menu a#histoire{
+    color:#c74a0c;
+}
+.mega-dropdown-menu a#vie-economique{
+    color:#0277fa;
+}
+.mega-dropdown-menu a#commerce-artisanat,.mega-dropdown-menu a#zone-industrielle{
+    color:#02b1fa;
+}
+.mega-dropdown-menu a#environnement{
+    color:#70a907;
+}
+.mega-dropdown-menu a#dechets,.mega-dropdown-menu a#charte-zero-pesticides{
+    color:#71a808;
+}
+.mega-dropdown-menu a#tourisme,.mega-dropdown-menu a#villes-jumelles{
+    color:#6a3000;
+}
+.mega-dropdown-menu a#hebergement{
+    color:#c74a0c;
+}
+
+
+
+
+.navbar-inverse .navbar-nav > li.dropdown-1 > a:hover{
+    background-color: #8b4003;
+}
+.navbar-inverse .navbar-nav > li.dropdown-2 > a:hover{
+    background-color: #037afe;
+}
+.navbar-inverse .navbar-nav > li.dropdown-3 > a:hover{
+    background-color: #ef6b01;
+}
+.navbar-inverse .navbar-nav > li.dropdown-4 > a:hover{
+    background-color: #5502b2;
+}
+.navbar-inverse .navbar-nav > li.dropdown-5 > a:hover{
+    background-color: #0283c0;
+}
+/****** BG MENU ******/
+.dropdown-1 .row{
+    background:url('../img/menuBG/menu-photo-decouvrir.jpg') top center repeat-x white;
+    padding-top:75px;
+}
+.dropdown-2 .row{
+    background:url('../img/menuBG/menu-photo-viemunicipale.jpg') top center repeat-x white;
+    padding-top:75px;
+}
+.dropdown-3 .row{
+    background:url('../img/menuBG/menu-photo-sport.jpg') top center repeat-x white;
+    padding-top:75px;
+}
+.dropdown-4 .row{
+    background:url('../img/menuBG/menu-photo-famille.jpg') top center repeat-x white;
+    padding-top:75px;
+}
+.dropdown-5 .row{
+    background:url('../img/menuBG/menu-photo-actionsociale.jpg') top center repeat-x white;
+    padding-top:75px;
+}
+
+.navbar-default .navbar-nav>li.dropdown-5>a {
+    background:#0283c0;
+}
+
+.dropdown-2 .mega-dropdown-menu > li > ul > li.dropdown-header > a {
+  color: #037afe;
+}
+.dropdown-3 .mega-dropdown-menu > li > ul > li.dropdown-header > a {
+  color: #ef6b01;
+}
+.dropdown-3 .mega-dropdown-menu > li > ul > li.dropdown-header > a#culture-loisirs {
+  color: #e2007a;
+}
+.dropdown-4 .mega-dropdown-menu > li > ul > li.dropdown-header > a {
+  color: #5502b2;
+}
+.dropdown-5 .mega-dropdown-menu > li > ul > li.dropdown-header > a {
+  color: #0283c0;
+}
+
+.dropdown-2 .mega-dropdown-menu > li > ul > li:not(.dropdown-header) > a {
+  color: #3190fa;
+}
+.dropdown-3 .mega-dropdown-menu > li.innerLiDepth1 > ul > li:not(.dropdown-header) > a {
+  color: #ef6b01;
+}
+.dropdown-3 .mega-dropdown-menu > li.innerLiDepth1 > ul > li:not(.dropdown-header) > a::before {
+  color: #ef6b01;
+}
+.dropdown-3 .mega-dropdown-menu > li.innerLiDepth1:last-child > ul > li:not(.dropdown-header) > a {
+  color: #e2007a;
+}
+.dropdown-3 .mega-dropdown-menu > li.innerLiDepth1:last-child > ul > li:not(.dropdown-header) > a::before {
+  color: #e2007a;
+}
+.dropdown-4 .mega-dropdown-menu > li > ul > li:not(.dropdown-header) > a {
+  color: #5502b2;
+}
+
+
+@media only screen and (min-width : 1006px){
+    .mega-dropdown-menu{
+        width:100%;
+        max-width:100%;
+    }
+    .mega-dropdown-menu > li{
+        overflow:hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        padding:0 20px;
+        display: block;
+        float: left;
+    }
+}
+@media (min-width: 1006px) and (max-width:1175px) {
+    .collapse{
+        float: left;
+        width: 94%;
+    }
+    .nav .dropdown >a,.nav .no-dropdown >a{
+        padding: 10px 6px 10px 10px;
+        font-size: 11px;
+    }
+    
+}
+@media (max-width: 1005px) {
+    .dropdown-1 .row{
+        background:white;
+        padding-top:10px;
+    }
+    .navbar-header {
+        float: none;
+    }
+    .navbar-left,.navbar-right {
+        float: none !important;
+    }
+    .navbar-toggle {
+        display: block;
+    }
+    .navbar-collapse {
+        border-top: 1px solid transparent;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+    .navbar-fixed-top {
+	top: 0;
+	border-width: 0 0 1px;
+    }
+    .navbar-collapse.collapse {
+        display: none!important;
+    }
+    .navbar-nav {
+        float: none!important;
+		margin-top: 7.5px;
+	}
+	.navbar-nav>li {
+        float: none;
+    }
+    .navbar-nav>li>a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .collapse.in{
+  	display:block !important;   
+    }
+    .navbar-nav .open .dropdown-menu {
+        position: static;
+        float: none;
+        width: auto;
+        margin-top: 0;
+        background-color: transparent;
+        border: 0;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+}
+
+@media only screen and (min-width : 1401px){
+    .mega-dropdown a.dropdown-toggle,.no-dropdown > a{
+        font-size: 14px;
+        text-transform: uppercase;
+    }
+}
+@media only screen and (min-width : 1200px) and (max-width:1400px) {
+    .mega-dropdown a.dropdown-toggle,.navbar-default .navbar-nav>li.no-dropdown > a{
+        font-size: 12px;
+        text-transform: uppercase;
+        padding-left:17px;
+        padding-right:17px;
+    }
+    .navbar.navbar-inverse{
+        padding-left:25px;
+    }
+    .navbar-header{
+        width:5%
+    }
+    .nav.navbar-nav{
+        width:96%;
+    }
+}
+
+@media only screen and (min-width : 1024px) and (max-width : 1199px){
+    .mega-dropdown a.dropdown-toggle,.navbar-default .navbar-nav>li.no-dropdown > a{
+        font-size: 11px;
+        text-transform: uppercase;
+        padding-left:13px;
+        padding-right:7px;
+        padding-top:15px;
+    }
+/*    .mega-dropdown >  a{
+        font-size:12px;
+    }*/
+    .navbar.navbar-inverse{
+        padding-left:5px;
+    }
+    .mega-dropdown-menu{
+        width:100%;
+        max-width:100%;
+    }
+    .mega-dropdown-menu > li{
+        overflow:hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display:table-cell;
+    }
+}
+@media only screen and (min-width : 979px) and (max-width : 1023px){
+    .mega-dropdown >  a{
+        font-size:12px;
+    }
+    .rowmainmenu{
+        margin-left:-10px;
+        margin-right:-10px;
+    }
+    .navbar-inverse .navbar-nav .mega-dropdown, .navbar-default .navbar-nav>li.no-dropdown>a{
+        background: none;
+    }
+    .mega-dropdown-menu a{
+        color:white !important;
+    }
+    .mega-dropdown-menu li.innerLiDepth1 ul li:not(.dropdown-header){
+        padding-left: 30px;
+    }
+}
+@media only screen and (min-width : 767px) and (max-width : 978px){
+   .mega-dropdown >  a{
+        font-size:12px;
+    }
+    .rowmainmenu{
+        margin-left:-10px;
+        margin-right:-10px;
+    }
+    .navbar-inverse .navbar-nav .mega-dropdown, .navbar-default .navbar-nav>li.no-dropdown>a{
+        background: none;
+    }
+    .mega-dropdown-menu a{
+        color:white !important;
+    }
+    .mega-dropdown-menu li.innerLiDepth1 ul li:not(.dropdown-header){
+        padding-left: 30px;
+    }
+    .navbar-inverse .navbar-nav .mega-dropdown, .navbar-default .navbar-nav>li.no-dropdown>a{
+        background:none;
+    }
+    .mega-dropdown-menu a#histoire,
+    .mega-dropdown-menu a#patrimoine,
+    .mega-dropdown-menu a#commerce-artisanat, .mega-dropdown-menu a#zone-industrielle,
+    .mega-dropdown-menu a#dechets, .mega-dropdown-menu a#charte-zero-pesticides,
+    .mega-dropdown-menu a#hebergement,
+    .mega-dropdown-menu a#tourisme, .mega-dropdown-menu a#villes-jumelles{
+        color:white;
+    }
+    .mega-dropdown-menu > li > ul > li:not(.dropdown-header) > a{
+        padding:3px 20px 3px 55px
+    }
+}
+
+@media only screen and (min-width : 480px) and (max-width : 766px) {
+    .rowmainmenu{
+        margin-left:-10px;
+        margin-right:-10px;
+    }
+    .navbar-inverse .navbar-nav .mega-dropdown, .navbar-default .navbar-nav>li.no-dropdown>a{
+        background: none;
+    }
+    .mega-dropdown-menu a{
+        color:white !important;
+    }
+    .mega-dropdown-menu li.innerLiDepth1 ul li:not(.dropdown-header){
+        padding-left: 30px;
+    }
+    .navbar-inverse .navbar-nav .mega-dropdown, .navbar-default .navbar-nav>li.no-dropdown>a{
+        background:none;
+    }
+    .mega-dropdown-menu a#histoire,
+    .mega-dropdown-menu a#patrimoine,
+    .mega-dropdown-menu a#commerce-artisanat, .mega-dropdown-menu a#zone-industrielle,
+    .mega-dropdown-menu a#dechets, .mega-dropdown-menu a#charte-zero-pesticides,
+    .mega-dropdown-menu a#hebergement,
+    .mega-dropdown-menu a#tourisme, .mega-dropdown-menu a#villes-jumelles{
+        color:white;
+    }
+    .mega-dropdown-menu > li > ul > li:not(.dropdown-header) > a{
+        padding:3px 20px 3px 55px
+    }
+}
+
+@media only screen and (min-width : 320px) and (max-width : 479px){
+.navbar-inverse .navbar-nav .mega-dropdown, .navbar-default .navbar-nav>li.no-dropdown>a{
+        background:none;
+    }
+    .mega-dropdown-menu a#histoire,
+    .mega-dropdown-menu a#patrimoine,
+    .mega-dropdown-menu a#commerce-artisanat, .mega-dropdown-menu a#zone-industrielle,
+    .mega-dropdown-menu a#dechets, .mega-dropdown-menu a#charte-zero-pesticides,
+    .mega-dropdown-menu a#hebergement,
+    .mega-dropdown-menu a#tourisme, .mega-dropdown-menu a#villes-jumelles{
+        color:white;
+    }
+    .mega-dropdown-menu > li > ul > li:not(.dropdown-header) > a{
+        padding:3px 20px 3px 55px
+    }
+}

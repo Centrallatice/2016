@@ -7,7 +7,9 @@ class Diaporama extends \Slim\Middleware{
     private $_id = null;
     private $_idModule = null;
     private $_strContenu = null;
+    private $_groupe = null;
     private $_strFilename = null;
+    private $_libelle = null;
 
     public function  __construct ($db) {
         $this->_db=$db;
@@ -91,11 +93,10 @@ class Diaporama extends \Slim\Middleware{
                     ,'message' => 'Une erreur est survenue lors de la création de l\'image');
             endif;
             $sql="
-                INSERT INTO diaporamas(idModule,Contenu,imageFile)
-                VALUES(:i,:c,:f)";
-
+                INSERT INTO diaporamas(idModule,Contenu,imageFile,libelle,groupe)
+                VALUES(:i,:c,:f,:l,:g)";
             $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
-            $sth->execute(array("i"=>$this->_idModule,"c"=>$this->_strContenu,"f"=>$this->_strFilename));
+            $sth->execute(array("i"=>$this->_idModule,"c"=>$this->_strContenu,"f"=>$this->_strFilename,"l"=>$this->_libelle,"g"=>$this->_groupe));
             if($sth){
                 $lastId = $this->_db->lastInsertId();
                 return array (
@@ -169,6 +170,12 @@ class Diaporama extends \Slim\Middleware{
     }
     public function setFile($f) {
         $this->_strFilename= $f;
+    }
+    public function setLibelle($f) {
+        $this->_libelle= $f;
+    }
+    public function setGroupe($f) {
+        $this->_groupe= $f;
     }
     public function call(){
         $this->next->call();

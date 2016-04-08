@@ -10,6 +10,7 @@ class Agenda extends \Slim\Middleware{
     private $_intIdCategorie = null;
     private $_intIdAgenda = null;
     private $_dDateEv = null;
+    private $_dDateEvFin = null;
     private $_db = null;
 
     public function  __construct ($db) {
@@ -26,7 +27,9 @@ class Agenda extends \Slim\Middleware{
                     A.resume,
                     DATE_FORMAT(A.dateAjout,'%d/%m/%Y %H:%i') as dateAjout,
                     DATE_FORMAT(A.dateEvenement,'%d/%m/%Y') as dateEvenement,
-                    C.Nom as CatNom
+                    DATE_FORMAT(A.dateEvenementFin,'%d/%m/%Y') as dateEvenementFin,
+                    C.Nom as CatNom,
+                    DATEDIFF(A.dateEvenement,A.dateEvenementFin) as MemeJour
                 FROM
                     evenements A
                 LEFT JOIN
@@ -71,7 +74,9 @@ class Agenda extends \Slim\Middleware{
                     A.resume,
                     DATE_FORMAT(A.dateAjout,'%d/%m/%Y %H:%i') as dateAjout,
                     DATE_FORMAT(A.dateEvenement,'%d/%m/%Y %H:%i') as dateEvenement,
+                    DATE_FORMAT(A.dateEvenementFin,'%d/%m/%Y %H:%i') as dateEvenementFin,
                     A.dateEvenement as dEvenementN,
+                    A.dateEvenementFin as dEvenementF,
                     C.Nom as CatNom,
                     A.idCategorie
                 FROM
@@ -90,6 +95,12 @@ class Agenda extends \Slim\Middleware{
                 $date = new \DateTime($r['dEvenementN']);
                 $finalDate=$date->format("d/m/Y");
                 $r['explodedDate']=  explode("/",$finalDate);
+                
+                $datef = new \DateTime($r['dEvenementF']);
+                $finalDatef=$datef->format("d/m/Y");
+                $r['explodedDateFin']=  explode("/",$finalDatef);
+                
+                
                 return array (
                     'success' => true
                     ,'donnees' => $r
@@ -181,9 +192,9 @@ class Agenda extends \Slim\Middleware{
             $sql="
                 INSERT INTO 
                     evenements
-                    (titre, contenu, dateAjout,resume, idCategorie,dateEvenement) 
+                    (titre, contenu, dateAjout,resume, idCategorie,dateEvenement,dateEvenementFin) 
                 VALUES 
-                    (:t,:c,NOW(),:r,:idc,:dateEvenement)
+                    (:t,:c,NOW(),:r,:idc,:dateEvenement,:dateEvenementFin)
             ";
             
             $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
@@ -192,11 +203,16 @@ class Agenda extends \Slim\Middleware{
             $date->add(new \DateInterval('PT13H'));
             $finalDate=$date->format("Y-m-d H:i:s");
             
+            $datef = new \DateTime($this->_dDateEvFin);
+            $datef->add(new \DateInterval('PT13H'));
+            $finalDatef=$datef->format("Y-m-d H:i:s");
+            
             $sth->bindParam(':t', $this->_strTitre, \PDO::PARAM_STR,255);
             $sth->bindParam(':c', $this->_strContent, \PDO::PARAM_STR);
             $sth->bindParam(':r', $this->_strResume, \PDO::PARAM_STR);
             $sth->bindParam(':idc', $this->_intIdCategorie, \PDO::PARAM_INT);
             $sth->bindParam(':dateEvenement', $finalDate, \PDO::PARAM_STR);
+            $sth->bindParam(':dateEvenementFin', $finalDatef, \PDO::PARAM_STR);
             
             if($sth->execute()){
                 $lastId = $this->_db->lastInsertId();
@@ -265,7 +281,8 @@ class Agenda extends \Slim\Middleware{
                     contenu=:c,
                     resume=:r,
                     idCategorie=:idc,
-                    dateEvenement=:dateEvenement
+                    dateEvenement=:dateEvenement,
+                    dateEvenementFin=:dateEvenementFin
                 WHERE
                     id=:idActu
             ";
@@ -276,11 +293,16 @@ class Agenda extends \Slim\Middleware{
             $date->add(new \DateInterval('PT13H'));
             $finalDate=$date->format("Y-m-d H:i:s");
             
+            $datef = new \DateTime($this->_dDateEvFin);
+            $datef->add(new \DateInterval('PT13H'));
+            $finalDatef=$datef->format("Y-m-d H:i:s");
+            
             $sth->bindParam(':t', $this->_strTitre, \PDO::PARAM_STR,255);
             $sth->bindParam(':c', $this->_strContent, \PDO::PARAM_STR);
             $sth->bindParam(':r', $this->_strResume, \PDO::PARAM_STR);
             $sth->bindParam(':idc', $this->_intIdCategorie, \PDO::PARAM_INT);
             $sth->bindParam(':dateEvenement', $finalDate, \PDO::PARAM_STR);
+            $sth->bindParam(':dateEvenementFin', $finalDatef, \PDO::PARAM_STR);
             $sth->bindParam(':idActu', $this->_intIdAgenda, \PDO::PARAM_INT);
             
             if($sth->execute()){
@@ -325,6 +347,9 @@ class Agenda extends \Slim\Middleware{
     }
     public function setDateEvenement($d){
         $this->_dDateEv= $d;
+    }
+    public function setDateEvenementFin($d){
+        $this->_dDateEvFin= $d;
     }
     public function call(){
         $this->next->call();

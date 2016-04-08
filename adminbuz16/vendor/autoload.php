@@ -41,8 +41,10 @@ define('ADMIN_VENDOR_PATH',BASE_URL.'adminbuz16/vendor/index.php');
 define('BASE_PATH_UPLOAD_DIR',BASE_PATH.'public/upload');
 define('BASE_PATH_UPLOAD_URL',BASE_URL.'public/upload');
 
-define('THEME_URL',BASE_URL.'themes/'.$theme);
-define('THEME_PATH',BASE_PATH.'themes/'.$theme);
+// define('THEME_URL',BASE_URL.'themes/'.$theme);
+define('THEME_URL',BASE_URL.'themes/');
+// define('THEME_PATH',BASE_PATH.'themes/'.$theme);
+define('THEME_PATH',BASE_PATH.'themes/');
 
 require_once 'framework/Bdd_GetConnexion.php';
 

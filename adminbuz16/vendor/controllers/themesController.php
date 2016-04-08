@@ -13,6 +13,7 @@ class themesController extends \Slim\Middleware{
 	function getAll(){
             $Theme = new Theme($this->_db);
             $result = $Theme->getAll();
+			
             echo json_encode($result);
 	}
        

@@ -1,4 +1,5 @@
 var app = angular.module('buzancais');
+
 app.controller('articlesListsController', ['$scope','articlesService','$location', function($scope,articlesService,$location) {
     $scope.articleError=null;
     $scope.init = function(){
@@ -14,14 +15,15 @@ app.controller('articlesListsController', ['$scope','articlesService','$location
             $scope.articleError="Une erreur est survenue lors de la récupération des articles";
         });
     };
-    $scope.delArticle = function(e){
+    $scope.delArticle = function(article){
+        
         if(!confirm("Êtes-vous sûr de vouloir supprimer cet article ?")) return false;
-        var delArticle= articlesService.delArticle(e);
+        var delArticle= articlesService.delArticle(article);
         delArticle.then(function (response) {
             if (response.data.success) {
                 var index=0;
                 for(var e in $scope.listeArticles){
-                    if($scope.listeArticles[e].id==e.id){
+                    if($scope.listeArticles[e].id==article.id){
                         $scope.listeArticles.splice(index,1);
                     }
                     index++;
@@ -37,34 +39,49 @@ app.controller('articlesListsController', ['$scope','articlesService','$location
     
     $scope.init();
 }]);
-app.controller('articlesAddController', ['$scope','articlesService','$location','categoriesService','pagesService', function($scope,articlesService,$location,categoriesService,pagesService) {
+app.controller('articlesAddController', ['$scope','articlesService','categoriesService','modulesService',
+    'pagesService','notifications', function($scope,articlesService,categoriesService,modulesService,pagesService,notifications) {
     $scope.ready=false;
-    $scope.pagesSuccess=false;
-    $scope.errorAjoutArticle=null;
+    
+    $scope.newArticle={
+        disposition:"TWO_COLS_IMG_LEFT",
+        showTitle:1,
+        showPointille:1
+    };
     $scope.init = function(){
         var getCategories = categoriesService.getCategories();
         getCategories.then(function (response) {
             if (response.data.categories.success) {
-                $scope.categoriesError=null;
                 $scope.listeCategories = response.data.categories.donnees;
             }
             else{
-                $scope.categoriesError = response.data.categories.message;
+                notifications.showError({message:response.data.categories.message});
             }
         }, function () {
-            $scope.categoriesError="Une erreur est survenue lors de la récupération des catégories";
+            notifications.showError({message:"Une erreur est survenue lors de la récupération des catégories"});
         });
         var getPages = pagesService.getPages();
         getPages.then(function (response) {
             if (response.data.success) {
-                $scope.pagesError=null;
                 $scope.listePages = response.data.donnees;
+            }
+            else{
+                notifications.showError({message:response.data.message});
+            }
+        }, function () {
+            notifications.showError({message:"Une erreur est survenue lors de la récupération des pages"});
+        });
+        var getDiapos = modulesService.getAllByType('caroussel');
+        getDiapos.then(function (response) {
+            if (response.data.success) {
+                $scope.listeModulesDiapo = response.data.donnees;
             }
             else{
                 $scope.pagesError = response.data.message;
             }
         }, function () {
-            $scope.pagesError="Une erreur est survenue lors de la récupération des pages";
+            $scope.Error = true;
+            $scope.Message="Une erreur est survenue lors de la récupération des diaporamas existants";
         });
         $scope.ready=true;
     };
@@ -75,32 +92,38 @@ app.controller('articlesAddController', ['$scope','articlesService','$location',
                 for(var e in $scope.newArticle){
                     $scope.newArticle[e]=null;
                 }
-                $scope.pagesError = null;
-                $scope.pagesSuccess = true;
+                notifications.showSuccess({
+                    message:'Votre article a bien été créé !',
+                    hideDelay: 5000,
+                    hide: true,
+                    acceptHTML:true
+                });
             }
             else{
-                $scope.pagesError = response.data.message;
+                notifications.showError({message:response.data.message});
             }
         }, function () {
-            $scope.pagesError="Une erreur est survenue lors de la création de l'article";
+            notifications.showError({message:"Une erreur est survenue lors de la création de l'article"});
         });
         $scope.ready=true;
     }
     $scope.init();
 }]);
 
-
-
-
-
-app.controller('articlesEditController', ['$scope','articlesService','categoriesService','$location','$route','pagesService', function($scope,articlesService,categoriesService,$location,$route,pagesService) {
+app.controller('articlesEditController', ['$scope','articlesService','categoriesService','modulesService',
+    '$location','$route','pagesService','$timeout', function($scope,articlesService,categoriesService,modulesService,
+    $location,$route,pagesService,$timeout) {
     $scope.ready=false;
     $scope.changed=false;
     $scope.pagesError=null;
     $scope.changeIcone=function(){
         if(!(confirm("Êtes-vous sûr de vouloir supprimer cette image ?"))) return false;
         $scope.newArticle.image=null;
+        $scope.newArticle.updateImage=true;
         document.getElementById('image').value="";
+    }
+	$scope.setNewImage=function(){
+        $scope.newArticle.updateImage=true;
     }
     $scope.init = function(){
         if(!$route.current.params.idArticle || $route.current.params.idArticle===null || $route.current.params.idArticle===""){
@@ -113,7 +136,16 @@ app.controller('articlesEditController', ['$scope','articlesService','categories
                 if (response.data.categories.success) {
                     $scope.pagesError=null;
                     $scope.listeCategories = response.data.categories.donnees;
-                    
+                    var getDiapos = modulesService.getAllByType('caroussel');
+                    getDiapos.then(function (response) {
+                        if (response.data.success) {
+                            $scope.listeModulesDiapo = response.data.donnees;
+                        }
+                    }, function () {
+                        $scope.Error = true;
+                        $scope.Message="Une erreur est survenue lors de la récupération des diaporamas existants";
+                    });
+                    $scope.ready=true;
                     var getPages = pagesService.getPages();
                     getPages.then(function (response) {
                         if (response.data.success) {
@@ -139,9 +171,15 @@ app.controller('articlesEditController', ['$scope','articlesService','categories
                                     
                                     if(response.data.donnees.idPage){
                                         for(var c in $scope.listePages){
-                                             
                                             if($scope.listePages[c].id===$scope.newArticle.idPage){
                                                 $scope.newArticle.idPage=$scope.listePages[c];
+                                            }
+                                        }
+                                    }
+                                    if(response.data.donnees.idCaroussel){
+                                        for(var c in $scope.listeModulesDiapo){
+                                            if($scope.listeModulesDiapo[c].id===$scope.newArticle.idCaroussel){
+                                                $scope.newArticle.idCarroussel=$scope.listeModulesDiapo[c];
                                             }
                                         }
                                     }
@@ -159,7 +197,6 @@ app.controller('articlesEditController', ['$scope','articlesService','categories
                     }, function () {
                         $scope.pagesError="Une erreur est survenue lors de la récupération des pages";
                     });                    
-                    
                 }
                 else{
                     $scope.pagesError = response.data.categories.message;
@@ -175,14 +212,9 @@ app.controller('articlesEditController', ['$scope','articlesService','categories
         var updateArticle = articlesService.updateArticle($scope.newArticle);
         updateArticle.then(function (response) {
             if (response.data.success) {
-//                for(var e in $scope.newArticle){
-//                    $scope.newArticle[e]=null;
-//                }
-//                document.getElementById('image').value='';
-                $scope.newArticle.image=response.data.donnees.nameimage;
-                $scope.pagesError = null;
-                $scope.pagesSuccess = true;
-                $scope.changed=true;
+                $timeout(function(){
+                        $location.path('/articles/lists');
+                },3000);
             }
             else{
                 $scope.pagesError = response.data.message;

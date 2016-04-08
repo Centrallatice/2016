@@ -1,0 +1,71 @@
+{% extends "base.twig" %}
+{% block title %}{{dataPage.titrePage}}{% endblock %}
+{% block description %}{{dataPage.descriptionPage}}{% endblock %}
+{% block keywords %}{{dataPage.motsclefsPage}}{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{BASETHEME}}/css/home.css" rel="stylesheet" type="text/css"/>
+    <link href="{{BASETHEME}}/modules/blocdownload/css/blocdownload.css" rel="stylesheet" type="text/css"/>
+    <link href="{{BASETHEME}}/blocks/coordonnees/css/coordonnees.css" rel="stylesheet" type="text/css"/>
+    <link href="{{BASETHEME}}/blocks/services/css/services.css" rel="stylesheet" type="text/css"/>
+    <link href="{{BASETHEME}}/blocks/phototheque/css/phototheque.css" rel="stylesheet" type="text/css"/>
+    <link href="{{BASETHEME}}/modules/actualite/css/actualite.css" rel="stylesheet" type="text/css"/>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+    
+{% block body %}
+    {% include 'global/header.twig' %}
+    <div class="bloc-maincontainer">
+        
+	
+		<div class="row">
+            <!-- COL_LEFT-->
+            <div class="hidden-xs col-sm-8 col-md-5 nopadding">
+                <!-- COL_LEFT_ONE -->
+                {% if pagemenu|length>0 %}
+                    {% include '/modules/menus/layout/displayLeftColumn.twig' %}
+                {% endif %}
+                
+                <!-- COL_LEFT_TWO -->
+                {% if modules['HEADER'] %}
+                    {% for headerModule in modules['COL_LEFT_TWO'] %}
+                        {% if headerModule.type=='blocdownload' %}
+                            {% include '/modules/blocdownload/layout/displayLeftColumn.twig' %}
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+                
+                <div class="hidden-xs col-sm-24 hidden-md hidden-lg nopadding">
+                    <!-- COL_RIGHT_ONE -->
+                    {% include '/blocks/coordonnees/layout/displayTopRight.twig' %}
+                    <div class="separight"></div>
+                    <!-- COL_RIGHT_CENTER -->
+                    {% include '/blocks/services/layout/displayCenterRight.twig' %}
+                    <div class="separight"></div>
+                    {% include '/blocks/phototheque/layout/displayCenterRight.twig' %}
+                    <div class="separight"></div>
+                    {% include '/modules/facebook/layout/displayBottomRight.twig' %}
+                </div>
+            </div>
+            <!-- COL_MIDDLE-->
+            <div class="col-xs-24 col-sm-16 col-md-13">
+                {% if actualites|length>0 %}
+                    {% include '/modules/actualites/layout/displayCenterColumn.twig' %}
+                {% endif %}
+            </div>
+            <!-- COL_RIGHT-->
+            <div class="col-xs-24 hidden-sm col-md-4 nopadding">
+                <!-- COL_RIGHT_ONE -->
+                {% include '/blocks/infospratiques/layout/displayTopRight.twig' %}
+            </div>
+            <div class="hidden-xs hidden-sm col-md-2 nopadding">
+                <!-- COL_RIGHT_ONE -->
+                {% include '/blocks/services/layout/displayMiniInnerColRight.twig' %}
+            </div>
+        </div>
+    {% include 'global/footer.twig' %}    
+    </div>
+    
+{% endblock %}

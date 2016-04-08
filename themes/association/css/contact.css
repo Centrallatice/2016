@@ -1,0 +1,24 @@
+.blocContact{
+    background-color: #fcfafb;
+    margin-top:50px;
+    border: 1px solid #ebebeb;
+    -moz-box-shadow: 1px 2px 10px 5px #cfcfcf;
+    -webkit-box-shadow: 1px 2px 10px 5px #cfcfcf;
+    -o-box-shadow: 1px 2px 10px 5px #cfcfcf;
+    box-shadow: 1px 2px 10px 5px #cfcfcf;
+    filter: progid:DXImageTransform.Microsoft.Shadow(color=#cfcfcf, Direction=153, Strength=10);
+}
+.blocContact h1{
+    text-align: left;
+}
+.blocContact .form-group{
+    padding:0 25px;
+}
+.blocContact fieldset legend{
+    font-size:14px;
+    font-style:italic;
+}
+.blocContact .star-obligatoire{
+    font-weight: bold;
+    color:red;
+}

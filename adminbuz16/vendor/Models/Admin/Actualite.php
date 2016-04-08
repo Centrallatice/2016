@@ -10,6 +10,7 @@ class Actualite extends \Slim\Middleware{
     private $_strResume = null;
     private $_strImage = null;
     private $_intIdCategorie = null;
+    private $_intIdCarou = null;
     private $_intIdActu = null;
     private $_db = null;
 
@@ -61,7 +62,7 @@ class Actualite extends \Slim\Middleware{
         try {
             $sql="
                 SELECT 
-                    A.id, A.titre, A.contenu,A.image,A.resume,A.url,
+                    A.id, A.titre, A.contenu,A.image,A.resume,A.url,A.idCarroussel,
                     DATE_FORMAT(A.dateAjout,'%d/%m/%Y %H:%i') as dateAjout,C.Nom as CatNom
                 FROM
                     actualites A
@@ -101,7 +102,7 @@ class Actualite extends \Slim\Middleware{
         try {
             $sql="
                 SELECT 
-                    A.id, A.titre, A.contenu,A.image,A.resume,A.idCategorie,A.url,
+                    A.id, A.titre, A.contenu,A.image,A.resume,A.idCategorie,A.url,A.idCarroussel,
                     DATE_FORMAT(A.dateAjout,'%d/%m/%Y %H:%i') as dateAjout,C.Nom as CatNom
                 FROM
                     actualites A
@@ -208,9 +209,9 @@ class Actualite extends \Slim\Middleware{
             $sql="
                 INSERT INTO 
                     actualites
-                    (titre, contenu, dateAjout,resume, idCategorie, idAuteur,image,url) 
+                    (titre, contenu, dateAjout,resume, idCategorie, idAuteur,image,url,idCarroussel) 
                 VALUES 
-                    (:t,:c,NOW(),:r,:idc,:Auteur,:image,:url)
+                    (:t,:c,NOW(),:r,:idc,:Auteur,:image,:url,:idCarroussel)
             ";
             
             $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
@@ -220,6 +221,7 @@ class Actualite extends \Slim\Middleware{
             $sth->bindParam(':r', $this->_strResume, \PDO::PARAM_STR);
             $sth->bindParam(':image', $this->_strImage, \PDO::PARAM_STR);
             $sth->bindParam(':idc', $this->_intIdCategorie, \PDO::PARAM_INT);
+            $sth->bindParam(':idCarroussel', $this->_intIdCarou, \PDO::PARAM_INT);
             $sth->bindParam(':Auteur', $_SESSION['DataUser']['id'], \PDO::PARAM_INT);
 			$url = StrTools::toAscii($this->_strTitre);
             $existe = $this->urlExiste($url);
@@ -295,8 +297,9 @@ class Actualite extends \Slim\Middleware{
                     contenu=:c,
                     resume=:r,
                     idCategorie=:idc,
+                    idCarroussel=:idCarroussel,
                     image=:image,
-					url=:url
+                    url=:url
                 WHERE
                     id=:idActu
             ";
@@ -314,6 +317,7 @@ class Actualite extends \Slim\Middleware{
             $sth->bindParam(':r', $this->_strResume, \PDO::PARAM_STR);
             $sth->bindParam(':image', $this->_strImage, \PDO::PARAM_STR);
             $sth->bindParam(':idc', $this->_intIdCategorie, \PDO::PARAM_INT);
+            $sth->bindParam(':idCarroussel', $this->_intIdCarou, \PDO::PARAM_INT);
             $sth->bindParam(':idActu', $this->_intIdActu, \PDO::PARAM_INT);
             $sth->bindParam(':url', $url, \PDO::PARAM_STR);
             
@@ -389,6 +393,9 @@ class Actualite extends \Slim\Middleware{
     }
     public function setIdCategorie($i){
         $this->_intIdCategorie = $i;
+    }
+    public function setIdCarou($i){
+        $this->_intIdCarou = $i;
     }
     public function setIdActu($i){
         $this->_intIdActu= $i;

@@ -4,32 +4,99 @@
             <header class="panel-heading">
                 <span class="title">Créer un article</span>
                 <div class="pull-right">
-                    <a class="btn btn-success btn-sm" href="#/article/lists" role="button"><i class="fa fa-arrow-left"></i> Annuler</a>
+                    <a class="btn btn-success btn-sm" href="#/articles/lists" role="button"><i class="fa fa-arrow-left"></i> Annuler</a>
                 </div>                
             </header>
             <div class="panel-body panel-action" ng-show="ready">
                 <div class="col-xs-12">
                     <form class="addCat-form" name="ajoutArticle" novalidate role="form" >
 					
-                        <div class="form-group" ng-class="{'has-error':ajoutArticle.titre.$error.required}">
+                        <div class="form-group">
                             <label for="titre">Titre</label>
-                            <input type="text" required  class="form-control" ng-model='newArticle.titre' id="titre" name="titre">
-                            <span ng-show="ajoutArticle.titre.$error.required" class="help-block">Ce champ est obligatoire.</span>
+                            <input type="text" class="form-control" ng-model='newArticle.titre' id="titre" name="titre">
                         </div>
                         <div class="row nopadding">
                             <div class="col-xs-6">
                                 <div class="form-group">
-                                    <label for="image">Image associée</label>
-                                    <input type="file" ng-model="newArticle.image" file-select="data"  id="image">
-                                    <span id="holder"></span>
-                               </div>
+                                    <label for="showTitle">Afficher le Titre ?</label>
+                                    <div class="radio">
+                                        <label>
+                                          <input type="radio" checked ng-model='newArticle.showTitle' value="1" id="showTitle" name="showTitle">
+                                          Oui
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                          <input type="radio" ng-model='newArticle.showTitle' value="0" id="showTitle" name="showTitle">
+                                          Non
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-xs-6" ng-show="newCategorie.toChange===true && newCategorie.icone!==null">
-                                <img ng-if="newCategorie.icone!==null" ng-src="{{baseIcone}}{{newCategorie.icone}}">
-                                <button class='btn btn-sm btn-defaut' title='Supprimer cette image' ng-click='changeIcone()'><i class='fa fa-times'></i></button>
-                            </div>
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label for="showTitle">Afficher des pointillés de séparation ?</label>
+                                    <div class="radio">
+                                        <label>
+                                          <input type="radio" checked ng-model='newArticle.showPointille' value="1" name="showPointille">
+                                          Oui
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                          <input type="radio" ng-model='newArticle.showPointille' value="0" name="showPointille">
+                                          Non
+                                        </label>
+                                    </div>
+                                </div>
+                             </div>
                         </div>
+                        <fieldset style="padding:25px; border:1px solid #ebebeb">
+                            <div class="row nopadding">
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label for="image">Image associée</label>
+                                        <input type="file" ng-model="newArticle.image" file-select="data"  id="image">
+                                        <span id="holder"></span>
+                                   </div>
+                                </div>
+                                <div class="col-xs-3" ng-show="newCategorie.toChange===true && newCategorie.icone!==null">
+                                    <img ng-if="newCategorie.icone!==null" ng-src="{{baseIcone}}{{newCategorie.icone}}">
+                                    <button class='btn btn-sm btn-defaut' title='Supprimer cette image' ng-click='changeIcone()'><i class='fa fa-times'></i></button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="legende">Légende de l'image</label>
+                                <input type="text" class="form-control" ng-model='newArticle.legende' id="legende" name="legende">
+                            </div>
+                            <div class="row nopadding">
+                                <div class="col-xs-12"><center><strong>OU</strong></center></div>
+                            </div>
+                            <div class="row nopadding">
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <label for="idCarroussel">Caroussel associé</label>
+                                        <select class="form-control" ng-model='newArticle.idCarroussel' id="listeModulesDiapo" name="listeModulesDiapo" ng-options="carou as carou.nom for carou in listeModulesDiapo track by carou.id "></select>
+                                   </div>
+                                </div>
+                            </div>
+                        </fieldset>
                         
+                        <div class="form-group" ng-class="{'has-error':ajoutArticle.disposition.$error.required}">
+                            <label for="disposition">Disposition de l'article</label>
+                            <select class="form-control" required ng-model='newArticle.disposition' id="disposition" name="disposition">
+                                    <option value="TWO_COLS_IMG_LEFT" selected="selected">Deux colonnes, image/caroussel à gauche</option>
+                                    <option value="TWO_COLS_IMG_RIGHT">Deux colonnes, image/caroussel à droite</option>
+                                    <option value="TWO_COLS_NO_IMG_LEFT">Deux colonnes, titre à gauche, pas d'image/caroussel</option>
+                                    <option value="TWO_COLS_NO_IMG_RIGHT">Deux colonnes, titre et texte à droite, pas d'image/caroussel</option>
+                                    <option value="TWO_COLS_IMG_LEFT_TITLE_RIGHT">Deux colonnes, titre et texte à droite, image/caroussel à gauche</option>
+                                    <option value="ONE_COL_NO_IMG">Une Colonne, pas d'image/caroussel</option>
+                                    <option value="ONE_COL_NO_TXT">Une Colonne, pas de texte</option>
+                                    <option value="ONE_COL_IMG_ABOVE_TXT">Une Colonne, image/caroussel au dessus du texte</option>
+                            </select>
+                            <span id="helpBlockCat" class="help-block" ng-show="ajoutArticle.disposition.$error.required">Ce champ est obligatoire.</span>
+                        </div>
+						
                         <div class="form-group" ng-class="{'has-error':ajoutArticle.idCategorie.$error.required}">
                             <label for="idCategorie">Catégorie</label>
                             <select class="form-control" required ng-model='newArticle.idCategorie' id="idCategorie" name="idCategorie" ng-options="categorie as categorie.Nom for categorie in listeCategories track by categorie.id "></select>
@@ -48,15 +115,14 @@
                             <span id="helpBlockResume" class="help-block" ng-show="ajoutArticle.resume.$error.required">Ce champ est obligatoire.</span>
                         </div>
 			
-                        <div class="form-group" ng-class="{'has-error':ajoutArticle.contenu.$error.required}">
+                        <div class="form-group">
                             <label for="contenu">Contenu</label>
-                            <textarea cols="30" rows="50" required
+                            <textarea cols="30" rows="50" 
                                     ng-model="newArticle.contenu"
                                     name="contenu"
                                     ckeditor="editorOptions" 
                                     aria-describedby="helpBlockContenu">
                             </textarea>
-                            <span id="helpBlockContenu" class="help-block" ng-show="ajoutArticle.contenu.$error.required">Ce champ est obligatoire.</span>
                         </div>
                         <hr /> 
                         <h4>Référencement</h4>
@@ -70,10 +136,7 @@
                             <input type="text"  required class="form-control" ng-model='newArticle.motsclefs' name="motsclefs" id="titre" aria-describedby="helpBlockKW">
                             <span id="helpBlockKW" class="help-block" ng-show="ajoutArticle.motsclefs.$error.required">Ce champ est obligatoire.</span>
                         </div>
-                        <div class="alert alert-danger" ng-if="errorAjoutArticle!==null">
-                            {{ errorAjoutArticle }}
-                        </div>
-                       
+                        
                         <div class="text-center block-center">
                             <button type="submit" class="btn btn-success" ng-disabled="ajoutArticle.$error.required" ng-click='addArticle()'>
                                Créer cette article
@@ -86,12 +149,7 @@
             <div class="panel-body panel-info" ng-show="!ready">
                 <div class="col-xs-12 text-center">Récupération des éléments en cours ....</div>
             </div>
-            <div class="panel-body panel-info" ng-show="ready && pagesError!==null">
-                <div class="col-xs-12 text-center alert alert-danger">{{pagesError}}</div>
-            </div>
-            <div class="panel-body panel-info" ng-show="ready && pagesSuccess">
-                <div class="col-xs-12 text-center alert alert-success">L'article a bien été créé !</div>
-            </div>
+            
 	</section>
     </div>
 </div>

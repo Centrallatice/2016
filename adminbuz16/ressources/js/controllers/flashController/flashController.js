@@ -95,6 +95,25 @@ app.controller('flashController', ['$rootScope','$scope','$location','flashsServ
     }
     $scope.init();
 }]);
+app.controller('listenlController', ['$scope','flashsService', function($scope,flashsService) {
+   
+    $scope.init = function(){
+        
+        var getUsers = flashsService.getUsers();
+        getUsers.then(function (response) {
+            if (response.data.success) {
+                $scope.listeUsers = response.data.donnees;
+            }
+            else{
+                
+            }
+        }, function () {
+        });
+		
+    };
+    
+    $scope.init();
+}]);
 app.factory('flashsService', ['$http', function($http) {
     return {
         getFlashs: function() {
@@ -102,6 +121,9 @@ app.factory('flashsService', ['$http', function($http) {
         },
         addFlash: function(f) {
             return $http.post('./vendor/index.php/flashsController/addFlash',{flash:f});
+        },
+        getUsers: function(f) {
+            return $http.get('./vendor/index.php/flashsController/getUsers');
         },
         delFlash: function(f) {
             return $http.post('./vendor/index.php/flashsController/deleteFlash',{flash:f});

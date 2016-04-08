@@ -1,0 +1,173 @@
+body .contentPage .colmiddle, body .contentPage .colmiddle {
+    -moz-box-shadow: 0px 5px 3px -3px #330001;
+    -webkit-box-shadow: 0px 5px 3px -3px #330001;
+    -o-box-shadow: 0px 5px 3px -3px #330001;
+    box-shadow: 0px 5px 3px -3px #330001;
+    filter: progid:DXImageTransform.Microsoft.Shadow(color=#330001, Direction=180, Strength=3);
+}
+body.École-de-musique .contentPage .innerArticle h2 .iconemusique{
+    min-height: 98px;
+    background: url("../img/articles/icone-haut.png") 80% 0px no-repeat;
+    position: absolute;
+    width:100%;
+    top:13px;
+}
+.contentPage .colmiddle {
+    background-color: #fcfafb;
+    padding: 0px 20px 120px 0px;
+    margin: 50px 0px 0px 0;
+}
+.container-article a.fancyboxme img{
+    border:2px solid #2e1c08;
+    -moz-box-shadow: 0px 5px 3px 0px #656565;
+    -webkit-box-shadow: 0px 5px 3px 0px #656565;
+    -o-box-shadow: 0px 5px 3px 0px #656565;
+    box-shadow: 0px 5px 3px 0px #656565;
+    filter:progid:DXImageTransform.Microsoft.Shadow(color=#656565, Direction=180, Strength=3);
+}
+section.container-article .caroussel  a.fancyboxme img{
+    
+}
+.triangle-picture{
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 10px 0 10px;
+    margin:auto;
+    position:relative;
+    z-index:100;
+}
+
+.titrePageActu span{
+    background-color:#39302b;
+    border-radius:5px;
+    padding:3px 10px;
+    color:#cfcfcf;
+    font-weight:700;   
+}
+
+.titrePageActu{
+    margin:10px 0 0 0px;
+}
+
+.container-article .titrePageActu{
+    margin:0 0 10px 0px;
+}
+.container-article.onecolnoimg .titrePageActu,
+.container-article.onecolnotxt .titrePageActu
+{
+    margin:auto;
+}
+.container-article.onecolnoimg,
+.container-article.onecolnotxt
+{
+    text-align: center;
+}
+.contenu-article{
+    padding-right:10px;
+}
+.contenu-article p{
+    margin:0 0 5px 0;
+    line-height: 16px;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif
+}
+.img-fullwidth {
+    width: 100%;
+}
+section.container-article{
+    margin-top:10px;
+    padding:10px 0;
+}
+section.container-article .caroussel:not(.innerarticlecarou) a.fancyboxme img{
+    -moz-box-shadow: 0px 5px 3px 0px #656565;
+    -webkit-box-shadow: 0px 5px 3px 0px #656565;
+    -o-box-shadow: 0px 5px 3px 0px #656565;
+    box-shadow: 0px 5px 3px 0px #656565;
+    filter:progid:DXImageTransform.Microsoft.Shadow(color=#656565, Direction=180, Strength=3);
+}
+section.container-article .innerarticlecarou .item a span:not(.white){
+    -moz-box-shadow: 0px 5px 3px 0px #656565;
+    -webkit-box-shadow: 0px 5px 3px 0px #656565;
+    -o-box-shadow: 0px 5px 3px 0px #656565;
+    box-shadow: 0px 5px 3px 0px #656565;
+    display:block;
+    filter:progid:DXImageTransform.Microsoft.Shadow(color=#656565, Direction=180, Strength=3);
+}
+.pointilleRose{
+    background: url('../img/articles/cerclerond-pointille.png')  bottom center repeat-x;
+    height: 3px;
+    margin: 0 20px 0 20px;
+    width: 90%;
+    float: left;
+}
+.contentPage .innerArticle{
+    padding-top:25px;
+    padding-left:20px;
+}
+.contentPage .innerArticle h2{
+    text-transform: uppercase;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-weight: 700;
+    vertical-align: bottom;
+    margin-bottom:0;
+    line-height: 42px;
+}
+.contentPage .colmiddle{
+     background-color: #fcfafb;
+    padding: 0px 20px 120px 0px;
+    margin: 50px 0px 0px 0;
+}
+body .contentPage .colmiddle,
+body .contentPage .colmiddle
+{
+   
+    -moz-box-shadow: 0px 5px 3px -3px #330001;
+    -webkit-box-shadow: 0px 5px 3px -3px #330001;
+    -o-box-shadow: 0px 5px 3px -3px #330001;
+    box-shadow: 0px 5px 3px -3px #330001;
+    filter:progid:DXImageTransform.Microsoft.Shadow(color=#330001, Direction=180, Strength=3);
+
+}
+
+
+
+.contentPage .colmiddle .media-left.media-left-categorie{
+    vertical-align:bottom;
+}
+.linebottomcat{
+    width:100%;
+    margin-top:-5px;
+    height:10px;
+    border-radius: 10px 0 0 10px;
+}
+.legende{
+    font-style: italic;
+    font-size:11px;
+    line-height:13px;
+    font-weight: bold;
+    color:#4a2902;
+    text-align:center;
+}
+hr{
+    margin:5px 0
+}
+
+
+@media only screen and (min-width : 1200px){
+    
+}
+@media only screen and (min-width : 979px) and (max-width : 1199px){
+   
+}
+
+@media only screen and (min-width : 767px) and (max-width : 978px){
+    
+}
+
+@media only screen and (min-width : 480px) and (max-width : 766px) {
+    
+}
+
+@media only screen and (min-width : 320px) and (max-width : 479px){
+    
+}

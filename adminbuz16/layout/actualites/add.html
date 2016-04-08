@@ -21,11 +21,28 @@
                             <select class="form-control" ng-model='newActualite.idCategorie' id="idCategorie" aria-describedby="helpBlockCat" ng-options="categorie as categorie.Nom for categorie in listeCategories track by categorie.id "></select>
                             <span id="helpBlockCat" class="help-block" ng-show="controleChamp.idCategorie">Ce champ est obligatoire.</span>
                         </div>
-                        <div class="form-group">
-                            <label for="Image">Image</label>
-                            <input type="file" ng-model="newActualite.image" file-select="data" file-loaded="myLoaded()" file-error="myError($error)" file-progress="myProgress($total,$loaded)" id="image">
-                            <span id="holder"></span>
-                        </div>
+                        <fieldset style="padding:25px; border:1px solid #ebebeb">
+                            <div class="row nopadding">
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label for="image">Image associée</label>
+                                        <input type="file" ng-model="newActualite.image" file-select="data"  id="image">
+                                        <span id="holder"></span>
+                                   </div>
+                                </div>
+                            </div>
+                            <div class="row nopadding">
+                                <div class="col-xs-12"><center><strong>OU</strong></center></div>
+                            </div>
+                            <div class="row nopadding">
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <label for="idCarroussel">Carrousel associé</label>
+                                        <select class="form-control" ng-model='newActualite.idCarroussel' id="listeModulesDiapo" name="listeModulesDiapo" ng-options="carou as carou.nom for carou in listeModulesDiapo track by carou.id "></select>
+                                   </div>
+                                </div>
+                            </div>
+                        </fieldset>
                         <div class="form-group" ng-class="{'has-error':controleChamp.resume}">
                             <label for="resume">Résumé</label>
                             <textarea class="form-control" ng-model='newActualite.resume' aria-describedby="helpBlockResume" rows="5"></textarea>

@@ -24,7 +24,7 @@
                         <thead>
                             <tr>
                                 <th>Nom</th>
-                                <th>Affiché sur la page</th>
+                                <!--<th>Affiché sur la page</th>-->
                                 <th>Position</th>
                                 <th width='80px'>Editer</th>
                                 <th width='80px'>Supprimer</th>
@@ -34,7 +34,7 @@
                         <tbody>
                             <tr ng-repeat="(k,v) in listeMenus|filter:filtreMenu">
                                 <td>{{v.nom}}</td>
-                                <td>{{v.nomPage}}</td>
+                                <!--<td>{{v.nomPage}}</td>-->
                                 <td ng-switch on="v.position">
                                     <span ng-switch-when="HEADER">Entête de page</span>
                                     <span ng-switch-when="COL_LEFT_ONE">Colonne de Gauche position 1</span>

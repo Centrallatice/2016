@@ -9,6 +9,10 @@ app.config(function($routeProvider) {
       controller:'loginController',
       templateUrl:'./layout/login.html'
     })
+    .when('/trombinoscope/lists', {
+      controller:'trombinoscopeController',
+      templateUrl:'./layout/trombinoscope/lists.html'
+    })
     .when('/articles/lists', {
       controller:'articlesListsController',
       templateUrl:'./layout/articles/lists.html'
@@ -52,40 +56,120 @@ app.config(function($routeProvider) {
     .when('/agenda/update/:idEvenement', {
       controller:'agendaUpdateController',
       templateUrl:'./layout/agenda/update.html'
-    }).when('/menus/update/:idMenu', {
+    })
+    .when('/menus/update/:idMenu', {
       controller:'menuUpdateController',
       templateUrl:'./layout/menus/update.html'
-    }).when('/menus/add/', {
+    })
+    .when('/menus/add/', {
       controller:'menuAddController',
       templateUrl:'./layout/menus/add.html'
-    }).when('/menus/lists', {
+    })
+    .when('/menus/lists', {
       controller:'menuListsController',
       templateUrl:'./layout/menus/lists.html'
-    }).when('/menus/linkLists/:idMenu', {
+    })
+    .when('/menus/linkLists/:idMenu', {
       controller:'menuLinksListsController',
       templateUrl:'./layout/menus/linkLists.html'
-    }).when('/menus/updatelink/:idMenu/:idLinkMenu', {
+    })
+    .when('/menus/updatelink/:idMenu/:idLinkMenu', {
       controller:'menuLinkUpdateController',
       templateUrl:'./layout/menus/updateLink.html'
-    }).when('/menus/addLink/:idMenu', {
+    })
+    .when('/menus/addLink/:idMenu', {
       controller:'menuLinkAddController',
       templateUrl:'./layout/menus/addLink.html'
-    }).when('/param/sociaux', {
+    })
+    .when('/param/sociaux', {
       controller:'sociauxController',
       templateUrl:'./layout/params/sociaux.html'
-    }).when('/photovideotheque/photo', {
+    })
+    .when('/param/coordonnees', {
+      controller:'coordonneesController',
+      templateUrl:'./layout/params/coordonnees.html'
+    })
+    .when('/photovideotheque/photo', {
       controller:'photothequeController',
       templateUrl:'./layout/photovideotheque/photos.html'
-    }).when('/flashinfos', {
+    })
+    .when('/photovideotheque/videos', {
+      controller:'videosthequeController',
+      templateUrl:'./layout/photovideotheque/videos.html'
+    })
+    .when('/medias/documents', {
+      controller:'mediasController',
+      templateUrl:'./layout/medias/documents.html'
+    })
+    .when('/flashinfos', {
       controller:'flashController',
       templateUrl:'./layout/flashinfos/flashinfos.html'
-    }).when('/modules/add/diaporama', {
+    })
+    .when('/listenl', {
+      controller:'listenlController',
+      templateUrl:'./layout/NewsletterUser/lists.html'
+    })
+    .when('/modules/add/diaporama', {
       controller:'diaporamaController',
       templateUrl:'./layout/modules/add/diaporamas.html'
-    }).when('/modules/add/blocdownload', {
+    })
+    .when('/modules/add/caroussel', {
+      controller:'carousselController',
+      templateUrl:'./layout/modules/add/caroussel.html'
+    })
+    .when('/modules/add/blocdownload', {
       controller:'blocDownloadController',
-      templateUrl:'./layout/modules/add/blocdownload.html'
-    }).otherwise({
+      templateUrl:'./layout/modules/add/blocdownload.html'    
+    })
+    .when('/modules/add/HTMLcontent', {
+      controller:'htmlContentAddController',
+      templateUrl:'./layout/modules/add/HTMLcontent.html'
+    })
+    .when('/modules/update/HTMLcontent/:idModule', {
+      controller:'htmlContentUpdateController',
+      templateUrl:'./layout/modules/update/HTMLcontent.html'
+    })
+    .when('/modules/lists/HTMLcontent', {
+      controller:'htmlContentListsController',
+      templateUrl:'./layout/modules/lists/HTMLcontent.html'
+    })
+    .when('/contact/service/add', {
+      controller:'contactAddServiceController',
+      templateUrl:'./layout/contact/service/add.html'
+    })
+    .when('/contact/service/lists', {
+      controller:'contactListsServiceController',
+      templateUrl:'./layout/contact/service/lists.html'
+    })
+    .when('/contact/service/update/:idService', {
+      controller:'contactUpdateServiceController',
+      templateUrl:'./layout/contact/service/update.html'
+    })
+    .when('/association/categories/update/:idCategorie', {
+      controller:'catAssoUpdateCatAssoController',
+      templateUrl:'./layout/association/categories/update.html'
+    })
+    .when('/association/categories/lists', {
+      controller:'catAssoListsCatAssoController',
+      templateUrl:'./layout/association/categories/lists.html'
+    })
+    .when('/association/categories/add', {
+      controller:'catAssoAddController',
+      templateUrl:'./layout/association/categories/add.html'
+    })
+    .when('/association/entites/update/:idAsso', {
+      controller:'assoUpdateAssoController',
+      templateUrl:'./layout/association/entites/update.html'
+    })
+    .when('/association/entites/lists', {
+      controller:'assoListsAssoController',
+      templateUrl:'./layout/association/entites/lists.html'
+    })
+    .when('/association/entites/add', {
+      controller:'assoAddController',
+      templateUrl:'./layout/association/entites/add.html'
+    })
+    .otherwise({
       redirectTo:'/404',
       templateUrl:'./layout/404.html'
     });

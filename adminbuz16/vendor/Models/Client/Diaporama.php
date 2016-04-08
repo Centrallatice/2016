@@ -19,7 +19,8 @@ class Diaporama extends \Slim\Middleware{
                 SELECT 
                     *
                 FROM 
-                    diaporamas where id=:i";
+                    diaporamas where id=:i ORDER BY
+                     groupe ASC,id ASC";
             $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
             $sth->execute(array("i"=>$id));
             if($sth){
@@ -55,7 +56,11 @@ class Diaporama extends \Slim\Middleware{
                 FROM 
                     diaporamas
                 WHERE
-                    idModule=:i";
+                    idModule=:i
+                ORDER BY
+                    groupe ASC,id ASC
+				";
+          
             $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
             $sth->execute(array("i"=>$id));
             if($sth){

@@ -2,6 +2,7 @@
 use Models\Client\Modules;
 use Models\Client\Diaporama;
 use Models\Client\BlocDownload;
+use Models\Client\Pages;
 
 class modulesController extends \Slim\Middleware{
     private $_db;
@@ -10,17 +11,22 @@ class modulesController extends \Slim\Middleware{
     }
 
     function getModulesFront($page,$isHome){
+        $P = new Pages($this->_db);
+        $index = $P->getPageByUrl($page);
+        
         
         $mod = new Modules($this->_db);
-        $resListe = $mod->getAllByPage($page,$isHome);
+        $resListe = $mod->getAllByPage(($index['success'] ? $index['donnees']['idPage']:$page),$isHome);
+      
         if($resListe['success'] && count($resListe['donnees'])>0):
             
             foreach($resListe['donnees'] as $k=>$v):
                 foreach($resListe['donnees'][$k] as $clePosition=>$valeurPosition):
 
-                    if($resListe['donnees'][$k][$clePosition]['type']=="diaporama"):
+                    if($resListe['donnees'][$k][$clePosition]['type']=="diaporama" || $resListe['donnees'][$k][$clePosition]['type']=="caroussel"):
                         $M = new Diaporama($this->_db);
                         $pictures = $M->getByIDModule($resListe['donnees'][$k][$clePosition]['id']);
+                        
                         if($pictures['success'] && count($pictures['donnees'])):
                             $resListe['donnees'][$k][$clePosition]['rep']=BASE_PATH_UPLOAD_URL.'/modules/diaporamas/';
                             $resListe['donnees'][$k][$clePosition]['pictures']=$pictures['success'] ? $pictures['donnees'] : array();
@@ -39,6 +45,16 @@ class modulesController extends \Slim\Middleware{
         else:
             return array();
         endif;
+        return $resListe;
+    }
+    function getModulesMultiple($page){
+        $P = new Pages($this->_db);
+        $index = $P->getPageByUrl($page);
+      
+        $mod = new Modules($this->_db);
+    
+        $resListe = $mod->getModuleByIdPage(($index['success'] ? $index['donnees']['idPage']:$page));
+          
         return $resListe;
     }
     public function call()
