@@ -69,9 +69,9 @@
                             <ul>
                                 {% for menuLinks in m.liens %}
                                     {% if menuLinks.type==1%}
-                                        <li><a href="index.html">{{menuLinks.nom}}</a></li>
+                                        <li><a href="{{BASEURL}}index.html">{{menuLinks.nom}}</a></li>
                                     {% else %}
-                                        <li><a href="{{menuLinks.url}}">{{menuLinks.nom}}</a></li>
+                                        <li><a href="{{BASEURL}}{{menuLinks.url}}.html">{{menuLinks.nom}}</a></li>
                                     {% endif %}
                                 {% endfor %}
                             </ul>
@@ -95,5 +95,8 @@
                 </div>
             </div>
         </div>    
+    </div>
+    <div class="row copyright">
+        <div class="col-xs-24">Conception <a href="http://www.aubeaufixe.fr" target="_blank">www.aubeaufixe.fr</a> - TOUS DROITS RESERVES - 2016</div>
     </div>
 </div>

@@ -25,10 +25,10 @@ class Actualite extends \Slim\Middleware{
             $sql="
                 SELECT 
                     A.id,A.url, A.titre, A.contenu,A.image,A.resume,
-                    DATE_FORMAT(A.dateAjout,'%d/%m/%Y %H:%i') as dateAjout,
-                    DATE_FORMAT(A.dateAjout,'%W') as jourEvenement,
-                    DATE_FORMAT(A.dateAjout,'%d') as chjourEvenement,
-                    DATE_FORMAT(A.dateAjout,'%M') as moisEvenement,
+                    DATE_FORMAT(A.dateEvenement,'%d/%m/%Y %H:%i') as dateEvenement,
+                    DATE_FORMAT(A.dateEvenement,'%W') as jourEvenement,
+                    DATE_FORMAT(A.dateEvenement,'%d') as chjourEvenement,
+                    DATE_FORMAT(A.dateEvenement,'%M') as moisEvenement,
                     C.Nom as CatNom,C.id as idCat,A.idCarroussel
                 FROM
                     actualites A
@@ -95,10 +95,10 @@ class Actualite extends \Slim\Middleware{
             $sql="
                 SELECT 
                     A.id, A.titre, A.contenu,A.image,A.resume,A.idCategorie,A.url,
-                    DATE_FORMAT(A.dateAjout,'%W') as jourEvenement,
-                    DATE_FORMAT(A.dateAjout,'%d') as chjourEvenement,
-                    DATE_FORMAT(A.dateAjout,'%M') as moisEvenement,
-                    DATE_FORMAT(A.dateAjout,'%d/%m/%Y %H:%i') as dateAjout,C.Nom as CatNom,A.idCarroussel
+                    DATE_FORMAT(A.dateEvenement,'%W') as jourEvenement,
+                    DATE_FORMAT(A.dateEvenement,'%d') as chjourEvenement,
+                    DATE_FORMAT(A.dateEvenement,'%M') as moisEvenement,
+                    DATE_FORMAT(A.dateEvenement,'%d/%m/%Y %H:%i') as dateEvenement,C.Nom as CatNom,A.idCarroussel
                 FROM
                     actualites A
                 LEFT JOIN
@@ -153,10 +153,10 @@ class Actualite extends \Slim\Middleware{
         try {
             $sql="
                 SELECT 
-                    A.id, A.titre, A.contenu,A.image,A.resume,A.idCategorie,A.url,DATE_FORMAT(A.dateAjout,'%W') as jourEvenement,
-                    DATE_FORMAT(A.dateAjout,'%d') as chjourEvenement,
-                    DATE_FORMAT(A.dateAjout,'%M') as moisEvenement,
-                    DATE_FORMAT(A.dateAjout,'%d/%m/%Y %H:%i') as dateAjout,C.Nom as CatNom,A.idCarroussel
+                    A.id, A.titre, A.contenu,A.image,A.resume,A.idCategorie,A.url,DATE_FORMAT(A.dateEvenement,'%W') as jourEvenement,
+                    DATE_FORMAT(A.dateEvenement,'%d') as chjourEvenement,
+                    DATE_FORMAT(A.dateEvenement,'%M') as moisEvenement,
+                    DATE_FORMAT(A.dateEvenement,'%d/%m/%Y %H:%i') as dateAjout,C.Nom as CatNom,A.idCarroussel
                 FROM
                     actualites A
                 LEFT JOIN
@@ -214,10 +214,10 @@ class Actualite extends \Slim\Middleware{
             $sql="
                 SELECT 
                     A.id, A.titre, A.contenu,A.image,A.resume,A.idCategorie,A.url,
-                    DATE_FORMAT(A.dateAjout,'%W') as jourEvenement,
-                    DATE_FORMAT(A.dateAjout,'%d') as chjourEvenement,
-                    DATE_FORMAT(A.dateAjout,'%M') as moisEvenement,
-                    DATE_FORMAT(A.dateAjout,'%d/%m/%Y %H:%i') as dateAjout,C.Nom as CatNom,A.idCarroussel
+                    DATE_FORMAT(A.dateEvenement,'%W') as jourEvenement,
+                    DATE_FORMAT(A.dateEvenement,'%d') as chjourEvenement,
+                    DATE_FORMAT(A.dateEvenement,'%M') as moisEvenement,
+                    DATE_FORMAT(A.dateEvenement,'%d/%m/%Y %H:%i') as dateAjout,C.Nom as CatNom,A.idCarroussel
                 FROM
                     actualites A
                 LEFT JOIN

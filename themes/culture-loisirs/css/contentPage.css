@@ -5,9 +5,9 @@ body .contentPage .colmiddle, body .contentPage .colmiddle {
     box-shadow: 0px 5px 3px -3px #330001;
     filter: progid:DXImageTransform.Microsoft.Shadow(color=#330001, Direction=180, Strength=3);
 }
-body.École-de-musique .contentPage .innerArticle h2 .iconemusique{
+body.École-de-musique-municipale .contentPage .innerArticle h2 .iconemusique{
     min-height: 98px;
-    background: url("../img/articles/icone-haut.png") 80% 0px no-repeat;
+    /*background: url("../img/articles/icone-haut.png") 80% 0px no-repeat;*/
     position: absolute;
     width:100%;
     top:13px;

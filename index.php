@@ -12,9 +12,9 @@ require BASE_PATH.'/adminbuz16/vendor/Slim/Slim.php';
 $loader = new Twig_Loader_Filesystem(BASE_PATH.'/themes/default','default');
     
 $twig = new Twig_Environment($loader, array(
-//    'cache' => BASE_PATH.'/cache',
-    'debug' => true,
-    'cache' => false
+    'cache' => BASE_PATH.'/cache',
+    'debug' => false,
+//    'cache' => true
 ));
 $twig->addExtension(new Twig_Extension_Debug());
 $twig->addExtension(new Twig_Extensions_Extension_Text());
@@ -65,7 +65,7 @@ $app->hook('slim.before.dispatch', function() use ($app,$db,$loader) {
    if($gCMeta['success'] && !is_null($gCMeta['donnees'])):
 	$baseParams['BASETHEME']= THEME_URL.$gCMeta['donnees']['themesRep'];
 	$baseParams['BASETHEMEPATH']= THEME_PATH.$gCMeta['donnees']['themesRep'];
-		
+	
         if(count($gCMeta['donnees'])==0):
             $gCMeta['donnees']=array(
                 "NomPage"=> "Ville de Buzançais : site officiel",

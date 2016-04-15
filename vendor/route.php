@@ -153,7 +153,7 @@ $app->get('/phototheque/(:param)(/:album)',  function ($param=null,$album=null) 
             endif;
             $baseParams["catPhotos"]=$param;
             $baseParams["album"]=(is_null($album)) ? $pageData['donnees']['Album'] : $album;
-
+            
             echo $twig->render('phototheque.twig', $baseParams);
         else:
             echo $twig->render('404.twig', $baseParams);
@@ -231,14 +231,14 @@ $app->get('/(:page)(/:param)',  function ($page='index',$param=null) use ($app,$
             // Page de formulaire de contact
             case 4:
                 require_once(BASE_PATH.'vendor/controllers/contactController.php');
-                $actualitesController = new contactController($db);
-                $pageData=$actualitesController->initAction($app);
+                $contactController = new contactController($db);
+                $pageData=$contactController->initAction($app);
                 if($pageData['success'] && isset($pageData['donnees'])):
                     $baseParams=array_merge($baseParams,$pageData['donnees']);
                 endif;
-                echo $twig->render('contact.twig', $baseParams);
-				
-				break;
+                $theme = ($baseParams['themesRep']=='default') ? '' : '@'.$baseParams['themesRep'].'/';
+		echo $twig->render($theme.'contact.twig', $baseParams);
+		break;
             // Page de l'agenda
             case 5:
                 

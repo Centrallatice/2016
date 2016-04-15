@@ -26,6 +26,7 @@ class Phototheque extends \Slim\Middleware{
                 
                 $r=$sth->fetchAll(\PDO::FETCH_ASSOC);
                 foreach($r as $k=>$v):
+                   
                     $r[$k]['albums']=$this->getAlbumByCategories($r[$k]['id']);
                 endforeach;
                 return array (
@@ -53,7 +54,7 @@ class Phototheque extends \Slim\Middleware{
     public function getAlbumByCategories ($idLiaison) {
         try {
             $sql="SELECT 
-                    DISTINCT(NomAlbum)
+                    DISTINCT(NomAlbum),nomclean
                 FROM 
                     medias
                 WHERE
@@ -65,6 +66,7 @@ class Phototheque extends \Slim\Middleware{
             $sth->execute(array());
             if($sth){
                 $r=$sth->fetchAll(\PDO::FETCH_ASSOC);
+                
                 return $r;
 
             }else{

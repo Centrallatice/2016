@@ -17,6 +17,7 @@ class Pages extends \Slim\Middleware{
     
     public function getPageByUrl($url,$depth=2){
         try {
+            $url = ($url=='nous-contacter') ? 'Nous contacter' : $url;
             $sql="SELECT 
                     P.id as idPage,
                     P.Nom as NomPage,
@@ -52,7 +53,7 @@ class Pages extends \Slim\Middleware{
                     P.id=(SELECT idPage FROM menulinks WHERE url=:url and depth=".$depth." LIMIT 0,1)
                 OR
                     P.Nom='".$url."'";
-           
+            
             $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
             $sth->execute(array("url"=>$url));
             if($sth){

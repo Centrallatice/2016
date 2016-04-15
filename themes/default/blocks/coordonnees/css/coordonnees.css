@@ -72,16 +72,24 @@
 
 @media only screen and (min-width : 480px) and (max-width : 766px) {
     .blocCoordonnesTRcontent{
-        bottom:5px;
+        bottom:0px;
         line-height:21px;
+        border-radius: 0 0 10px 10px ;padding-bottom: 10px;
     }
     .nopadding{
         padding:0 15px;
     }
     .blocCoordonnesTR {
-        background: url('../img/cadre-coordonnee.png')  top center  no-repeat;
-        background-size:cover;
-        height:550px;
+        background: #4a2902;
+        padding-top: 10px;
+        border-radius: 10px 10px 0 0;
+        height:auto;
+        margin-top:40px;
+    }
+    .blocCoordonnesTR .titre{
+        position:relative;
+        margin: 0;
+        padding-bottom: 10px;
     }
 }
 
@@ -90,6 +98,20 @@
         padding:0 15px;
     }
     .blocCoordonnesTR {
-        background: url('../img/cadre-coordonnee.png') top left no-repeat;
+        background: #4a2902;
+        
+        padding-top: 10px;
+        border-radius: 10px 10px 0 0;
+        margin-top:40px;
+    }
+    .blocCoordonnesTR .titre{
+        position:relative;
+        margin: 0;
+        padding-bottom: 10px;
+    }
+    .blocCoordonnesTRcontent{
+        bottom:0px;
+        line-height:21px;padding-bottom: 10px;
+        border-radius: 0 0 10px 10px ;
     }
 }

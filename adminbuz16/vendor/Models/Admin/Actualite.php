@@ -12,6 +12,7 @@ class Actualite extends \Slim\Middleware{
     private $_intIdCategorie = null;
     private $_intIdCarou = null;
     private $_intIdActu = null;
+    private $_strDate = null;
     private $_db = null;
 
     public function  __construct ($db) {
@@ -63,7 +64,7 @@ class Actualite extends \Slim\Middleware{
             $sql="
                 SELECT 
                     A.id, A.titre, A.contenu,A.image,A.resume,A.url,A.idCarroussel,
-                    DATE_FORMAT(A.dateAjout,'%d/%m/%Y %H:%i') as dateAjout,C.Nom as CatNom
+                    DATE_FORMAT(A.dateAjout,'%d/%m/%Y %H:%i') as dateAjout,DATE_FORMAT(A.dateEvenement,'%d/%m/%Y %H:%i') as dateEvenement,C.Nom as CatNom
                 FROM
                     actualites A
                 LEFT JOIN
@@ -103,7 +104,9 @@ class Actualite extends \Slim\Middleware{
             $sql="
                 SELECT 
                     A.id, A.titre, A.contenu,A.image,A.resume,A.idCategorie,A.url,A.idCarroussel,
-                    DATE_FORMAT(A.dateAjout,'%d/%m/%Y %H:%i') as dateAjout,C.Nom as CatNom
+                    DATE_FORMAT(A.dateAjout,'%d/%m/%Y %H:%i') as dateAjout,
+                    DATE_FORMAT(A.dateEvenement,'%d/%m/%Y %H:%i') as dateEvenement,
+                    C.Nom as CatNom
                 FROM
                     actualites A
                 LEFT JOIN
@@ -209,10 +212,13 @@ class Actualite extends \Slim\Middleware{
             $sql="
                 INSERT INTO 
                     actualites
-                    (titre, contenu, dateAjout,resume, idCategorie, idAuteur,image,url,idCarroussel) 
+                    (titre, contenu, dateAjout,resume, idCategorie, idAuteur,image,url,idCarroussel,dateEvenement) 
                 VALUES 
-                    (:t,:c,NOW(),:r,:idc,:Auteur,:image,:url,:idCarroussel)
+                    (:t,:c,NOW(),:r,:idc,:Auteur,:image,:url,:idCarroussel,:dateEvenement)
             ";
+            $date = new \DateTime($this->_strDate);
+            $date->add(new \DateInterval('PT13H'));
+            $finalDate=$date->format("Y-m-d H:i:s");
             
             $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
            
@@ -223,7 +229,9 @@ class Actualite extends \Slim\Middleware{
             $sth->bindParam(':idc', $this->_intIdCategorie, \PDO::PARAM_INT);
             $sth->bindParam(':idCarroussel', $this->_intIdCarou, \PDO::PARAM_INT);
             $sth->bindParam(':Auteur', $_SESSION['DataUser']['id'], \PDO::PARAM_INT);
-			$url = StrTools::toAscii($this->_strTitre);
+            $sth->bindParam(':dateEvenement', $finalDate, \PDO::PARAM_STR);
+            
+            $url = StrTools::toAscii($this->_strTitre);
             $existe = $this->urlExiste($url);
             if($existe['success']):
                 if($existe['donnees']['TOTAL']!=0) $url.='-'.$existe['donnees']['TOTAL'];
@@ -299,11 +307,14 @@ class Actualite extends \Slim\Middleware{
                     idCategorie=:idc,
                     idCarroussel=:idCarroussel,
                     image=:image,
-                    url=:url
+                    url=:url,
+                    dateEvenement=:dateEvenement
                 WHERE
                     id=:idActu
             ";
-            
+            $date = new \DateTime($this->_strDate);
+            $date->add(new \DateInterval('PT13H'));
+            $finalDate=$date->format("Y-m-d H:i:s");
             $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
 			
 			$url = StrTools::toAscii($this->_strTitre);
@@ -320,6 +331,7 @@ class Actualite extends \Slim\Middleware{
             $sth->bindParam(':idCarroussel', $this->_intIdCarou, \PDO::PARAM_INT);
             $sth->bindParam(':idActu', $this->_intIdActu, \PDO::PARAM_INT);
             $sth->bindParam(':url', $url, \PDO::PARAM_STR);
+            $sth->bindParam(':dateEvenement', $finalDate, \PDO::PARAM_STR);
             
             if($sth->execute()){
                 return array (
@@ -399,6 +411,9 @@ class Actualite extends \Slim\Middleware{
     }
     public function setIdActu($i){
         $this->_intIdActu= $i;
+    }
+    public function setDate($i){
+        $this->_strDate= $i;
     }
     public function call(){
         $this->next->call();

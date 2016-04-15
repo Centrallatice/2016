@@ -1,0 +1,51 @@
+<div class="row">
+    <div class="col-xs-12">
+        <section class="panel">
+            <header class="panel-heading">
+                <span class="title">Gestion des demande provenant du formulaire de contact</span>
+            </header>
+            <br />
+            <div class='row'>
+                <div class='col-xs-4 col-xs-offset-8'>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">Rechercher</span>
+                        <input type="text" class="form-control" ng-model='filtreDemandes' aria-describedby="basic-addon1">
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="panel-body" ng-show="contactError===null && demandes.length>0">
+                <table class="table table-hover table-responsive">
+                    <thead>
+                        <tr>
+                            
+                            <th>Date</th>
+                            <th>Nom</th>
+                            <th>EMail</th>
+                            <th>Sujet</th>
+                            <th>Message</th>
+                        </tr>
+                    </thead>
+                    <tbody >
+                        <tr ng-repeat="(item,value) in demandes |filter:filtreDemandes">
+                            
+                            <td>{{value.datedemande}}</td>
+                            <td>{{value.nom}}</td>
+                            <td><a href="mailto:{{value.mail}}">{{value.mail}}</a></td>
+                            <td>{{value.sujet}}</td>
+                            <td>{{value.message}}</td>
+                        </tr>
+                </table>
+            </div>
+            <div class="panel-body" ng-show="contactError!==null || demandes.length==0">
+                <div class="col-xs-12" ng-show="contactError!==null">
+                    {{ contactError }}
+                </div>
+                <div class="col-xs-12 alert alert-warning" ng-show="contactError===null && demandes.length==0">
+                    Vous n'avez aucune demande
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

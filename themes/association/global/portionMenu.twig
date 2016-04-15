@@ -6,7 +6,8 @@
                 <ul class="dropdown-menu mega-dropdown-menu row">
                     {% if menuLinks.liens|length>0 %}
                         {% for menuLinks1 in menuLinks.liens %}
-                            <li class="innerLiDepth1">
+                            <li class="innerLiDepth1{% if compteur==2 %} col-lg-5{% endif %}{% if compteur==1 %} col-lg-4{% endif %}">
+                            
                                 <ul>
                                     <li class="dropdown-header">
                                         <a id="{{menuLinks1.url}}" href="{{menuLinks1.url}}.html">{{menuLinks1.nom}}</a>

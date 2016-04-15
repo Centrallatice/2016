@@ -35,6 +35,11 @@ app.controller('actualitesAddController', ['$scope','actualitesService','$locati
     $scope.newActualite=null;
     $scope.errorAjoutActu=null;
     $scope.categoriesError=null;
+    $scope.opendebut = function($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+        $scope.openeddebut = true;
+    };
     $scope.editorOptions = {
         language: 'fr',
         allowedContent: true,
@@ -44,7 +49,8 @@ app.controller('actualitesAddController', ['$scope','actualitesService','$locati
             titre:false,
             idCategorie:false,
             resume:false,
-            contenu:false
+            contenu:false,
+            dateEvenement:false
     };
     $scope.annuleCreation = function(){
             $scope.newActualite=null;
@@ -117,11 +123,16 @@ app.controller('actualitesUpdateController', ['$scope','actualitesService','cate
     $scope.newActualite=null;
     $scope.errorAjoutActu=null;
     $scope.categoriesError=null;
-    
+    $scope.opendebut = function($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+        $scope.openeddebut = true;
+    };
     $scope.controleChamp={
         titre:false,
         idCategorie:false,
         resume:false,
+        dateEvenement:false,
         contenu:false
     };
     
@@ -160,6 +171,11 @@ app.controller('actualitesUpdateController', ['$scope','actualitesService','cate
                             $scope.newActualite = response.data.donnees;
                             $scope.baseImage = response.data.pathImage;
                             $scope.newActualite.updateImage=false;
+                            
+                            var retDate = response.data.donnees.dateEvenement.split('/');
+                            var retAnnee = retDate[2].split(' ');
+                            var dEvenementF = new Date(retAnnee[0],retDate[1]-1,retDate[0],1,0,0);
+                            $scope.newActualite.dateEvenement=dEvenementF;
                             
                             if(response.data.donnees.idCategorie){
                                 for(var c in $scope.listeCategories){

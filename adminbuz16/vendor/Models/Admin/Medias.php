@@ -1,6 +1,7 @@
 <?php
 
 namespace Models\Admin;
+use Tools\StrTools;
 
 class Medias extends \Slim\Middleware{
 
@@ -106,10 +107,10 @@ class Medias extends \Slim\Middleware{
             endif;
             $sql="
                   INSERT INTO medias(
-                    type, rep, filename, idLiaison,nom,urlRelatif,NomAlbum
+                    type, rep, filename, idLiaison,nom,urlRelatif,NomAlbum,nomclean
                   )
                   VALUES(
-                    :type, :rep, :filename, :idLiaison,:nom,:urlRelatif,:NomAlbum
+                    :type, :rep, :filename, :idLiaison,:nom,:urlRelatif,:NomAlbum,:nomclean
                   )
                 ";
             
@@ -122,6 +123,11 @@ class Medias extends \Slim\Middleware{
             $sth->bindParam(':urlRelatif', $this->_strUrlRelatif, \PDO::PARAM_STR,255);
             $sth->bindParam(':idLiaison', $this->_intIdLiaison, \PDO::PARAM_INT);
             $sth->bindParam(':NomAlbum', $this->_strAlbum, \PDO::PARAM_STR,255);
+            
+            $clean = StrTools::toAscii($this->_strAlbum);
+            
+            
+            $sth->bindParam(':nomclean', $clean, \PDO::PARAM_STR,255);
             
             if($sth->execute()):
                 $lastId = $this->_db->lastInsertId();
@@ -138,6 +144,39 @@ class Medias extends \Slim\Middleware{
                     )
                     ,'message' => null
                 );
+            else:
+                return array (
+                    'success' => false
+                    ,'donnees' => null
+                    ,'message' => null
+                );
+            endif;
+        } catch ( Exception $exception ) {
+            return array (
+                'success' => false
+                ,'donnees' => null
+                ,'message' => 'Une erreur est survenue lors de la récupération des données'
+            );
+        }
+    }
+    
+    public function nettoieMedias () {
+        try {
+            
+            $sql="SELECT * FROM medias WHERE nomclean IS NULL";
+            
+            $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
+            
+            if($sth->execute()):
+                $r=$sth->fetchAll(\PDO::FETCH_ASSOC);
+                foreach($r as $k=>$v):
+                    $clean = StrTools::toAscii($r[$k]['NomAlbum']);
+                    
+                    $sqlUpdate = "UPDATE medias set nomclean='".$clean."' WHERE id=".$r[$k]['id'];
+                    
+                    $sth2=$this->_db->prepare($sqlUpdate,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
+                  
+                endforeach;
             else:
                 return array (
                     'success' => false

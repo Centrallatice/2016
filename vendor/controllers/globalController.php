@@ -47,7 +47,7 @@ class globalController extends \Slim\Middleware{
         else:
             $dataPage = $P->getPageByUrl($pageName);
         endif;
-        
+      
         if(isset($dataPage['donnees']) && count($dataPage['donnees'])>0 && $dataPage['donnees']!==false):
             foreach($dataPage['donnees'] as $k=>$v):
                 $dataPage['donnees'][$k]=utf8_decode($dataPage['donnees'][$k]);

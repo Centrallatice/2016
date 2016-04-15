@@ -101,13 +101,13 @@
 
 @media only screen and (min-width : 767px) and (max-width : 978px){
     .blocServices .tuile a span{
-	display:none;
+	/*display:none;*/
     }
     .blocServices .tuile a img{
 	max-width:90%;
     }
     .blocServices .tuile{
-        height: 65px;
+        height: 95px;
     }
     .blocServices .titre {
         font-size: 14px;
@@ -116,13 +116,13 @@
 
 @media only screen and (min-width : 480px) and (max-width : 766px) {
     .blocServices .tuile a span{
-	display:none;
+	/*display:none;*/
     }
     .blocServices .tuile a img{
 	max-width:90%;
     }
     .blocServices .tuile{
-        height: 65px;
+        height: 95px;
     }
     .blocServices .titre {
         font-size: 12px;
@@ -131,13 +131,13 @@
 
 @media only screen and (min-width : 320px) and (max-width : 479px){
     .blocServices .tuile a span{
-	display:none;
+	/*display:none;*/
     }
     .blocServices .tuile a img{
 	max-width:90%;
     }
     .blocServices .tuile{
-        height: 65px;
+        height: 95px;
     }
     .blocServices .titre {
         font-size: 12px;

@@ -50,7 +50,7 @@ class actualiteController extends \Slim\Middleware{
     }
     public function getPrevNextPos($idActu){
         $A = new Actualite($this->_db);
-        $allActu = $A->getActualites('dateAjout','DESC');
+        $allActu = $A->getActualites('dateEvenement','DESC');
         $prev = null;
         $next = null;
         if($allActu['success']):

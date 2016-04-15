@@ -32,7 +32,7 @@ class actualitesController extends \Slim\Middleware{
         endif;
         
         $Actu = new Actualite($this->_db);
-        $actualites = $Actu->getActualites('dateAjout','DESC');
+        $actualites = $Actu->getActualites('dateEvenement','DESC');
         
         return array(
             "success"=>true,"donnees"=>array(

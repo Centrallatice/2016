@@ -189,6 +189,17 @@ ul li a.documentpdf{
 .BlocDLWithPicture{
     margin-top:15px;
 }
+.blocFooter .copyright{
+    text-align: right;
+    color:white;
+    background: #202e3b;
+    padding:5px 0;
+    font-family: "Roboto";
+}
+.blocFooter .copyright a{
+    text-decoration: none;
+    color:white;
+}
 @media only screen and (min-width : 1400px) {
     .container-fluid{
         width:1500px;

@@ -20,6 +20,7 @@ class actualitesController extends \Slim\Middleware{
             $A->setResume($body->actualite->resume);
             $A->setIdCategorie($body->actualite->idCategorie->id);
             $A->setIdCarou($body->actualite->idCarroussel->id);
+            $A->setDate($body->actualite->dateEvenement);
             
             
             if(isset($body->actualite->image) && !is_null($body->actualite->image)):
@@ -55,6 +56,7 @@ class actualitesController extends \Slim\Middleware{
             $A->setIdCategorie($body->actualite->idCategorie->id);
             $A->setIdCarou($body->actualite->idCarroussel->id);
             $A->setIdActu($body->actualite->id);
+            $A->setDate($body->actualite->dateEvenement);
             
             
             
@@ -100,7 +102,12 @@ class actualitesController extends \Slim\Middleware{
             $request = $this->_request->request();
             $body = json_decode($request->getBody());
             $A = new Actualite($this->_db);
-            $result = $A->getActualites('dateAjout','DESC');
+            $result = $A->getActualites('dateEvenement','DESC');
+            if($result['success']):
+                foreach($result['donnees'] as $k=>$v):
+                    $result['donnees'][$k]['dateEvenement']=substr($result['donnees'][$k]['dateEvenement'],0,10);
+                endforeach;
+            endif;
             echo json_encode($result);
 	}
 	function getActuByID(){

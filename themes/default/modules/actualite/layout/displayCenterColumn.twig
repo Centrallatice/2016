@@ -50,8 +50,8 @@
 </div>
 <div class="pageractualite noPrint">
     <ul class="pager">
-        <li><a href="{{BASEURL}}actualite/{{pager.prev.urlCatNom}}/{{pager.prev.url}}.html">< Précèdent</a></li>
-        <li><a href="{{BASEURL}}actualite/{{pager.next.urlCatNom}}/{{pager.next.url}}.html">Suivant ></a></li>
+        {% if pager.prev.url!='' %} <li><a href="{{BASEURL}}actualite/{{pager.prev.urlCatNom}}/{{pager.prev.url}}.html">< Précèdent</a></li> {% endif %}
+        {% if pager.next.url!='' %} <li><a href="{{BASEURL}}actualite/{{pager.next.urlCatNom}}/{{pager.next.url}}.html">Suivant ></a></li> {% endif %}
        
     </ul></div>
     

@@ -133,18 +133,22 @@ app.config(function($routeProvider) {
       controller:'htmlContentListsController',
       templateUrl:'./layout/modules/lists/HTMLcontent.html'
     })
-    .when('/contact/service/add', {
-      controller:'contactAddServiceController',
-      templateUrl:'./layout/contact/service/add.html'
+    .when('/formcontact/lists', {
+      controller:'formcontactController',
+      templateUrl:'./layout/formcontact/lists.html'
     })
-    .when('/contact/service/lists', {
-      controller:'contactListsServiceController',
-      templateUrl:'./layout/contact/service/lists.html'
-    })
-    .when('/contact/service/update/:idService', {
-      controller:'contactUpdateServiceController',
-      templateUrl:'./layout/contact/service/update.html'
-    })
+//    .when('/contact/service/add', {
+//      controller:'contactAddServiceController',
+//      templateUrl:'./layout/contact/service/add.html'
+//    })
+//    .when('/contact/service/lists', {
+//      controller:'contactListsServiceController',
+//      templateUrl:'./layout/contact/service/lists.html'
+//    })
+//    .when('/contact/service/update/:idService', {
+//      controller:'contactUpdateServiceController',
+//      templateUrl:'./layout/contact/service/update.html'
+//    })
     .when('/association/categories/update/:idCategorie', {
       controller:'catAssoUpdateCatAssoController',
       templateUrl:'./layout/association/categories/update.html'

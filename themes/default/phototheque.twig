@@ -95,7 +95,7 @@ pratique,randonnée,séjours,hébergement{% endblock %}
                             </div>
                             <div class="media-body">
                                 <h2 class="media-heading">
-                                    Notre Photothèque - {{album}}
+                                    Notre Photothèque - {{Contenu[0].NomAlbum}}
                                 </h2>
                                 <div class="linebottomcat"></div>
                             </div>
@@ -139,7 +139,7 @@ pratique,randonnée,séjours,hébergement{% endblock %}
                                 <ul id='bloc-{{c.id}}' class='innerAlbum collapse {% if catPhotos==c.id %}in{% endif %}'>
                                 {% for a in c.albums %}
                                     <li class="{% if album==a.NomAlbum %}active{% endif %}">
-                                        <a href="{{BASEURL}}phototheque/{{c.id}}/{{a.NomAlbum}}">{{a.NomAlbum}}</a></li>
+                                        <a href="{{BASEURL}}phototheque/{{c.id}}/{{a.nomclean}}">{{a.NomAlbum}}</a></li>
                                 {% endfor %}
                                 </ul>
                             {% endif %}

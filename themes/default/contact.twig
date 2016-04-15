@@ -6,7 +6,7 @@
     {{ parent() }}
     <link href="{{BASETHEME}}/css/home.css" rel="stylesheet" type="text/css"/>
     <link href="{{BASETHEME}}/css/contact.css" rel="stylesheet" type="text/css"/>
-   <link href="{{BASETHEME}}/blocks/coordonnees/css/coordonnees.css" rel="stylesheet" type="text/css"/>
+    <link href="{{BASETHEME}}/blocks/coordonnees/css/coordonnees.css" rel="stylesheet" type="text/css"/>
     <link href="{{BASETHEME}}/blocks/services/css/services.css" rel="stylesheet" type="text/css"/>
     <link href="{{BASETHEME}}/blocks/services/css/contact-services.css" rel="stylesheet" type="text/css"/>
     
@@ -17,35 +17,48 @@
     
 {% block body %}
     {% include 'global/header.twig' %}
+
     <div class="bloc-container-inner blocContact">
         <div class="row">
             <!-- Show form contact -->
             <div class="col-xs-22 col-sm-16 col-md-15 col-xs-offset-1">
                 <h3>Formulaire de Contact</h3>			
                 <div class="contact-form">
-                    <form id="contact-form" method="post" class="form-validate form-horizontal">
-                        <fieldset>
-                            <legend>Envoyer un e-mail. Tous les champs précédés d'un <span class="star-obligatoire">*</span> sont obligatoires.</legend>
-                            <div class="form-group">
-                                <label for="contact-nom">Nom <span class="star-obligatoire">*</span></label>
-                                <input type="text" required class="form-control" id="contact-nom" name="contact-nom" placeholder="Votre Nom">
-                            </div>
-                            <div class="form-group">
-                                <label for="contact-email">E-mail <span class="star-obligatoire">*</span></label>
-                                <input type="email" required class="form-control" name="contact-email" id="contact-email" placeholder="Email">
-                            </div>
-                            <div class="form-group">
-                                <label for="contact-sujet">Sujet <span class="star-obligatoire">*</span></label>
-                                <input type="text" required class="form-control" name="contact-sujet" id="contact-sujet" placeholder="">
-                            </div>
-                            <div class="form-group">
-                                <label for="contact-message">Message  <span class="star-obligatoire">*</span></label>
-                                <textarea class="form-control" required  name="contact-message" rows="7" id="contact-message"></textarea>
-                            </div>
+                    {% if (demandeExiste and successDemande) %}
+                        <div class="alert alert-success">
+                            <strong>Merci ! Nous avons bien reçu votre message </strong>
+                        </div>
+                    {% endif %}
+                    {% if (demandeExiste and not successDemande) %}
+                        <div class="alert alert-danger">
+                            Une erreur est survenue lors de l'envoi de votre message, merci de réessayer ultérieurement
+                        </div>
+                    {% endif %}
+                    {% if not demandeExiste %}
+                        <form id="contact-form" method="post" class="form-validate form-horizontal">
+                            <fieldset>
+                                <legend>Envoyer un e-mail. Tous les champs précédés d'un <span class="star-obligatoire">*</span> sont obligatoires.</legend>
+                                <div class="form-group">
+                                    <label for="contact-nom">Nom <span class="star-obligatoire">*</span></label>
+                                    <input type="text" required class="form-control" id="contact-nom" name="contact-nom" placeholder="Votre Nom">
+                                </div>
+                                <div class="form-group">
+                                    <label for="contact-email">E-mail <span class="star-obligatoire">*</span></label>
+                                    <input type="email" required class="form-control" name="contact-email" id="contact-email" placeholder="Email">
+                                </div>
+                                <div class="form-group">
+                                    <label for="contact-sujet">Sujet <span class="star-obligatoire">*</span></label>
+                                    <input type="text" required class="form-control" name="contact-sujet" id="contact-sujet" placeholder="">
+                                </div>
+                                <div class="form-group">
+                                    <label for="contact-message">Message  <span class="star-obligatoire">*</span></label>
+                                    <textarea class="form-control" required  name="contact-message" rows="7" id="contact-message"></textarea>
+                                </div>
 
-                            <button type="submit" class="btn btn-info block-center">Envoyer</button>
-                        </fieldset>                    
-                    </form>
+                                <button type="submit"  name="nouvelleDemande" class="btn btn-info block-center">Envoyer</button>
+                            </fieldset>                    
+                        </form>
+                    {% endif %}
                 </div>
             </div>
             <div class="hidden-xs col-sm-7 col-md-6 contact-information">

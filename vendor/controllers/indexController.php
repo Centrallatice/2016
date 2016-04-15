@@ -45,7 +45,7 @@ class indexController extends \Slim\Middleware{
         endif;
         
         $Actu = new Actualite($this->_db);
-        $actualites = $Actu->getActualites('dateAjout','DESC');
+        $actualites = $Actu->getActualites('dateEvenement','DESC');
         
         $A = new Agenda($this->_db);
         $agendas = $A->getAgendas('dateEvenement','ASC');

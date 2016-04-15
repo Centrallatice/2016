@@ -111,13 +111,13 @@
 }
 .mega-dropdown-menu a#patrimoine,
 .mega-dropdown-menu a#histoire{
-    color:#c74a0c;
+    color:#6a3000;
 }
 .mega-dropdown-menu a#vie-economique{
-    color:#0277fa;
+    color:#a50000;
 }
 .mega-dropdown-menu a#commerce-artisanat,.mega-dropdown-menu a#zone-industrielle{
-    color:#02b1fa;
+    color:#a50000;
 }
 .mega-dropdown-menu a#environnement{
     color:#70a907;
@@ -131,7 +131,9 @@
 .mega-dropdown-menu a#hebergement{
     color:#c74a0c;
 }
-
+.mega-dropdown-menu a#plan{
+    color:#6a3000;
+}
 
 
 
@@ -345,8 +347,11 @@
         margin-left:-10px;
         margin-right:-10px;
     }
-    .navbar-inverse .navbar-nav .mega-dropdown, .navbar-default .navbar-nav>li.no-dropdown>a{
-        background: none;
+   .navbar-inverse .navbar-nav .mega-dropdown, 
+    .navbar-inverse .navbar-nav .mega-dropdown .mega-dropdown-menu.row, 
+    .navbar-default .navbar-nav>li.no-dropdown>a{
+        background:none;
+        padding-top:0px; 
     }
     .mega-dropdown-menu a{
         color:white !important;
@@ -363,8 +368,11 @@
         margin-left:-10px;
         margin-right:-10px;
     }
-    .navbar-inverse .navbar-nav .mega-dropdown, .navbar-default .navbar-nav>li.no-dropdown>a{
-        background: none;
+    .navbar-inverse .navbar-nav .mega-dropdown, 
+    .navbar-inverse .navbar-nav .mega-dropdown .mega-dropdown-menu.row, 
+    .navbar-default .navbar-nav>li.no-dropdown>a{
+        background:none;
+        padding-top:0px; 
     }
     .mega-dropdown-menu a{
         color:white !important;
@@ -375,8 +383,8 @@
     .navbar-inverse .navbar-nav .mega-dropdown, .navbar-default .navbar-nav>li.no-dropdown>a{
         background:none;
     }
-    .mega-dropdown-menu a#histoire,
     .mega-dropdown-menu a#patrimoine,
+    .mega-dropdown-menu a#histoire,
     .mega-dropdown-menu a#commerce-artisanat, .mega-dropdown-menu a#zone-industrielle,
     .mega-dropdown-menu a#dechets, .mega-dropdown-menu a#charte-zero-pesticides,
     .mega-dropdown-menu a#hebergement,
@@ -402,11 +410,14 @@
     .mega-dropdown-menu li.innerLiDepth1 ul li:not(.dropdown-header){
         padding-left: 30px;
     }
-    .navbar-inverse .navbar-nav .mega-dropdown, .navbar-default .navbar-nav>li.no-dropdown>a{
+    .navbar-inverse .navbar-nav .mega-dropdown, 
+    .navbar-inverse .navbar-nav .mega-dropdown .mega-dropdown-menu.row, 
+    .navbar-default .navbar-nav>li.no-dropdown>a{
         background:none;
+        padding-top:0px; 
     }
-    .mega-dropdown-menu a#histoire,
     .mega-dropdown-menu a#patrimoine,
+    .mega-dropdown-menu a#histoire,
     .mega-dropdown-menu a#commerce-artisanat, .mega-dropdown-menu a#zone-industrielle,
     .mega-dropdown-menu a#dechets, .mega-dropdown-menu a#charte-zero-pesticides,
     .mega-dropdown-menu a#hebergement,
@@ -414,16 +425,19 @@
         color:white;
     }
     .mega-dropdown-menu > li > ul > li:not(.dropdown-header) > a{
-        padding:3px 20px 3px 55px
+        padding:3px 20px 3px 25px
     }
 }
 
 @media only screen and (min-width : 320px) and (max-width : 479px){
-.navbar-inverse .navbar-nav .mega-dropdown, .navbar-default .navbar-nav>li.no-dropdown>a{
+    .navbar-inverse .navbar-nav .mega-dropdown, 
+    .navbar-inverse .navbar-nav .mega-dropdown .mega-dropdown-menu.row, 
+    .navbar-default .navbar-nav>li.no-dropdown>a{
         background:none;
+        padding-top:0px; 
     }
-    .mega-dropdown-menu a#histoire,
     .mega-dropdown-menu a#patrimoine,
+    .mega-dropdown-menu a#histoire,
     .mega-dropdown-menu a#commerce-artisanat, .mega-dropdown-menu a#zone-industrielle,
     .mega-dropdown-menu a#dechets, .mega-dropdown-menu a#charte-zero-pesticides,
     .mega-dropdown-menu a#hebergement,

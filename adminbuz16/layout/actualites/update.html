@@ -16,6 +16,16 @@
                             <input type="text" class="form-control" ng-model='newActualite.titre' id="titre" aria-describedby="helpBlockTitre">
                             <span id="helpBlockTitre" class="help-block" ng-show="controleChamp.titre">Ce champ est obligatoire.</span>
                         </div>
+                        <div class="form-group" ng-class="{'has-error':controleChamp.dateEvenement}">
+                            <label for="dateEvenement">Date</label>
+                            <p class="input-group">
+                                <input uib-datepicker-popup="dd/MM/yyyy" ng-focus="opendebut($event)" ng-model="newActualite.dateEvenement" is-open="openeddebut" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" type="text" class="form-control" ng-model='newActualite.dateEvenement' id="titre" aria-describedby="helpBlockDateEvenement">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="opendebut($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                </span>
+                            </p>
+                            <span id="helpBlockDateEvenement" class="help-block" ng-show="controleChamp.dateEvenement">Ce champ est obligatoire.</span>
+                        </div>
                         <div class="form-group" ng-class="{'has-error':controleChamp.idCategorie}" ng-if="categoriesError==null">
                             <label for="idCategorie">Catégorie</label>
                             <select class="form-control" ng-model='newActualite.idCategorie' id="idCategorie" aria-describedby="helpBlockCat" ng-options="categorie as categorie.Nom for categorie in listeCategories track by categorie.id "></select>

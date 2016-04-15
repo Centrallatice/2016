@@ -65,7 +65,7 @@ class Medias extends \Slim\Middleware{
     }
     public function getByTypeAndAlbum($type,$id,$album) {
         try {
-            $sql="SELECT * FROM medias WHERE idLiaison=:id AND type=:type and NomAlbum=:a";
+            $sql="SELECT * FROM medias WHERE idLiaison=:id AND type=:type and nomclean=:a";
             $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
             $sth->execute(array("id"=>$id,"type"=>$type,"a"=>$album));
             $r=$sth->fetchAll(\PDO::FETCH_ASSOC);

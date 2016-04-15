@@ -151,6 +151,12 @@ class photothequeController extends \Slim\Middleware{
             
             
 	}
+    public function nettoieMedias(){
+        $request = $this->_request->request();
+        $body = json_decode($request->getBody());
+        $Medias=new Medias($this->_db);
+        $Medias->nettoieMedias();
+    }
     public function addPicture($datas,$files){
             $request = $this->_request->request();
             $body = json_decode($request->getBody());
