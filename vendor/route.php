@@ -192,7 +192,7 @@ $app->get('/(:page)(/:param)',  function ($page='index',$param=null) use ($app,$
     require_once(BASE_PATH.'vendor/controllers/globalController.php');
     $globalController = new globalController($db);
     $dataPage=$globalController->getDataPage($page);
-  
+   
     if(!$dataPage['success'] || !isset($dataPage['donnees']['idPage'])):
         require_once(BASE_PATH.'/vendor/controllers/notFoundController.php');
         $notFoundController=new notFoundController($app,$db);
@@ -211,12 +211,12 @@ $app->get('/(:page)(/:param)',  function ($page='index',$param=null) use ($app,$
                 $contentController = new contentController($db,$dataPage['donnees']['idPage']);
                 $pageData=$contentController->initAction($app);
                 if($pageData['success'] && isset($pageData['donnees'])):
+                    
                     $baseParams=array_merge($baseParams,$pageData['donnees']);
                 endif;
-				
+                
                 $theme = ($baseParams['themesRep']=='default') ? '' : '@'.$baseParams['themesRep'].'/';
 		echo $twig->render($theme.'contentPage.twig', $baseParams);
-                // echo $twig->render('contentPage.twig', $baseParams);
                 break;
                 
             // Page d'affichage des actualités 

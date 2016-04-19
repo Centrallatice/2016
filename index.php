@@ -13,7 +13,7 @@ $loader = new Twig_Loader_Filesystem(BASE_PATH.'/themes/default','default');
     
 $twig = new Twig_Environment($loader, array(
     // 'cache' => BASE_PATH.'/cache',
-    'debug' => false,
+    'debug' => true,
    'cache' => false
 ));
 $twig->addExtension(new Twig_Extension_Debug());
@@ -31,12 +31,12 @@ $app = new Slim(array(
 $app->configureMode('production', function () use ($app) {
     $app->config(array(
         'log.enable' => true,
-        'debug' => false
+        'debug' => true
     ));
 });
 $app->configureMode('development', function () use ($app) {
     $app->config(array(
-        'log.enable' => false,
+        'log.enable' => true,
         'debug' => true
     ));
 });

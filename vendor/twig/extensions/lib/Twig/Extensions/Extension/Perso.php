@@ -62,15 +62,21 @@ function twig_menu_child_is_actif($arrayMenu,$menuLinks)
 {
     if(is_null($menuLinks)) return false;
     $found=false;
+  
     foreach($arrayMenu as $k1 => $v1):
-        
         if($arrayMenu['idPage']==$menuLinks) $found=true;
+        
+        
         foreach($arrayMenu['liens'] as $k2 => $v2):
             
             if($arrayMenu['liens'][$k2]['idPage']==$menuLinks) $found=true;
-            foreach($arrayMenu['liens'][$k2]['liens'] as $k3 => $v3):
-                if($arrayMenu['liens'][$k2]['liens'][$k3]['idPage']==$menuLinks) $found=true;
-            endforeach;
+            
+            
+            if(isset($arrayMenu['liens'][$k2]['liens'])):
+                foreach($arrayMenu['liens'][$k2]['liens'] as $k3 => $v3):
+                    if($arrayMenu['liens'][$k2]['liens'][$k3]['idPage']==$menuLinks) $found=true;
+                endforeach;
+            endif;
         endforeach;
     endforeach;
     return $found;
