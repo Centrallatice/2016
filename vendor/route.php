@@ -213,6 +213,7 @@ $app->get('/(:page)(/:param)',  function ($page='index',$param=null) use ($app,$
                 if($pageData['success'] && isset($pageData['donnees'])):
                     $baseParams=array_merge($baseParams,$pageData['donnees']);
                 endif;
+				
                 $theme = ($baseParams['themesRep']=='default') ? '' : '@'.$baseParams['themesRep'].'/';
 		echo $twig->render($theme.'contentPage.twig', $baseParams);
                 // echo $twig->render('contentPage.twig', $baseParams);

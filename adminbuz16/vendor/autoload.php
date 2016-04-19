@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 if($_SERVER['SERVER_NAME']=='127.0.0.1') define('LOCAL',1);
 else define('LOCAL',0);
 
@@ -8,12 +8,11 @@ if(LOCAL==1):
     define('BASE_URL','http://127.0.0.1:82/2016/');
     define('BASE_PATH','C:/wamp/www/2016/');
 else:
-    define('BASE_URL','http://www.buzancais.fr/');
-    define('BASE_PATH','/web/npdn/fr/b/buzancais.fr/www.buzancais.fr/');
+    define('BASE_URL','http://www.krealine.fr/Works/ngCMS/');
+    define('BASE_PATH','/home/krealinefi/www/Works/ngCMS/');
 endif;
 
-
-define('SITENAME','Mairie de Buzançais');
+define('SITENAME','DEMO KreaCMS');
 
 define('CSS_CLIENT_URL',BASE_URL.'public/css/');
 define('CSS_ADMIN_URL',BASE_URL.'adminbuz16/ressources/css/');

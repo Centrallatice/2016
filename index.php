@@ -12,9 +12,9 @@ require BASE_PATH.'/adminbuz16/vendor/Slim/Slim.php';
 $loader = new Twig_Loader_Filesystem(BASE_PATH.'/themes/default','default');
     
 $twig = new Twig_Environment($loader, array(
-    'cache' => BASE_PATH.'/cache',
+    // 'cache' => BASE_PATH.'/cache',
     'debug' => false,
-//    'cache' => true
+   'cache' => false
 ));
 $twig->addExtension(new Twig_Extension_Debug());
 $twig->addExtension(new Twig_Extensions_Extension_Text());
