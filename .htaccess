@@ -1,0 +1,10 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    #RewriteBase /www/Works/ngCMS/
+    RewriteRule ^index\.html$ index.php [L]
+    RewriteRule ^([A-Za-z0-9-]*)\.html$ index.php?page=$1 [L]
+    RewriteRule ^([A-Za-z0-9-]*)\.html$ index.php?page=$1 [L]
+    RewriteRule ^([A-Za-z0-9-]*)/([A-Za-z0-9-]+)$ index.php?page=$1&id=$2 [L]
+    RewriteRule ^actualite/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)\.html$ index.php?page=actualite&categorie=$1&url=$2 [L]
+    RewriteRule ^phototheque/([A-Za-z0-9-]+)/([A-Za-z0-9-]+) index.php?page=phototheque&param=$1&album=$2 [L]
+</IfModule>

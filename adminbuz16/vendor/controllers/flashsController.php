@@ -35,7 +35,7 @@ class flashsController extends \Slim\Middleware{
                 $result = $p->updateFlash();
             else:
                 $result = $p->addFlash();
-                $this->sendMails($p);
+//                $this->sendMails($p);
             endif;
             
             echo json_encode($result);
