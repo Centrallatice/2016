@@ -27,6 +27,7 @@
                             <th>Créé le</th>
                             <th width='80px'>Editer</th>
                             <th width='80px'>Supprimer</th>
+                            <th width='80px'>Etat</th>
                         </tr>
                     </thead>
                     <tbody >
@@ -45,6 +46,12 @@
                                 <button class='btn btn-sm btn-danger block-center text-center' title='Supprimer' ng-click='delArticle(value)'>
                                     <i class='fa fa-times'></i>
                                 </button>
+                            </td>
+                            <td class="text-center" ng-if='value.actif==1'>
+                                <button class='btn btn-success' ng-click='setEtatArticle(value.id,0)' title='Dépublier cet article'><i class='fa fa-eye'></i></button>
+                            </td>
+                            <td class="text-center" ng-if='value.actif==0'>
+                                <button class='btn btn-danger' ng-click='setEtatArticle(value.id,1)' title='Publier cet article'><i class='fa fa-eye-slash'></i></button>
                             </td>
                             
                         </tr>

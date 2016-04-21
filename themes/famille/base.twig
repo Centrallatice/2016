@@ -8,7 +8,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
         <title>{% block title %}Bienvenue!{% endblock %}</title>
-        <link rel="icon" type="image/png" href="{{BASEPATH}}themes/default/img/favicon.png" />
+        <link rel="icon" type="image/png" href="{{BASEURL}}themes/default/img/favicon.png" />
         <meta name="description" content="{% block description %}{% endblock %}">
         <meta name="keywords" content="{% block keywords %}{% endblock %}">
         
@@ -44,7 +44,7 @@
         <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-        <a class="noPrint" href="modals/modalNewsletter.twig"></a>
+{#        <a class="noPrint" href="modals/modalNewsletter.twig"></a>#}
         {% include '/modals/modalNewsletter.twig' %}
         <div class="container-fluid nopaddingtop">
             {% block body %}{% endblock %}

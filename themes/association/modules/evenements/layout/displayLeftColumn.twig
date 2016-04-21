@@ -1,0 +1,15 @@
+<div class="blocAgendas">
+    <div id="titreAgendas">Agenda</div>
+    <div id="contentAgendas">
+        {% for evenement in agendas %}
+            <div class="slide">
+                <div id="titreAgenda">{{evenement.titre}}</div>
+                <div id="dateAgenda">{{evenement.dateEvenementFR}}</div>
+                <div id="contentAgenda">{{evenement.resume}}</div>
+            </div>
+        {% endfor %}
+    </div>
+    {% if pdfAgendaEncours != false %} <div id="downloadPDFAgenda"><a href='{{pdfAgendaEncours}}' target="_blank">> Téléchargez l'agenda en PDF</a></div>{% endif %}
+    <div id="moreagenda"><a href='{{BASEURL}}agenda.html'>> Visualiser l'agenda du mois</a></div>
+</div>
+<div class="footerTriangle"></div>

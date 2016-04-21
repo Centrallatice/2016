@@ -1,0 +1,51 @@
+body .caroussel.bottompage{
+    float:left;
+    width:100%;
+    padding:10px 35px 10px 35px;
+}
+
+.caroussel .titre span{
+    background-color:#39302b;
+    border-radius:5px;
+    padding:3px 10px;
+    color:white;
+    font-weight:700; 
+}
+body .caroussel .titre span{
+    background-color:transparent;
+    border-radius:5px;
+    padding:3px 10px;
+    color:#e0007e;
+    font-weight:700; 
+}
+
+body .caroussel .item img{
+    border:2px solid #5a493f !important;
+}
+body .triangle-picture{
+    border-color: #5a493f transparent transparent transparent !important;
+}
+body .caroussel .titre {
+    margin:15px auto;
+    text-align: center;
+}
+
+body .caroussel{
+    margin-left:30px
+}
+.knowmorecarou{
+    font-size:11px;
+    color:white;
+    text-align:center;
+    padding:3px 0;
+}
+.pointilleDecale{
+    margin-left:35px;
+}
+
+
+
+.innerarticlecarou{
+    padding-left:0 !important;
+    margin:0 !important;
+}

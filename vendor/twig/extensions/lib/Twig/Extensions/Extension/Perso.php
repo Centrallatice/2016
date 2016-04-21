@@ -49,12 +49,15 @@ class Twig_Extensions_Extension_Perso extends Twig_Extension
  */
 function twig_child_is_actif($array,$idsearch)
 {
-    if(count($array['liens'])>0):
-        foreach($array['liens'] as $k=>$v):
-            if($array['liens'][$k]['idPage']==$idsearch) $found=true;
-        endforeach;
-    else:
-        return false;
+    $found=false;
+    if(isset($array['liens'])):
+        if(count($array['liens'])>0):
+            foreach($array['liens'] as $k=>$v):
+                if($array['liens'][$k]['idPage']==$idsearch) $found=true;
+            endforeach;
+        else:
+            return false;
+        endif;
     endif;
     return $found;
 }

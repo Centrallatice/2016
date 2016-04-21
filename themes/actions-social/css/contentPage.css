@@ -10,7 +10,6 @@ body .contentPage .colmiddle, body .contentPage .colmiddle {
 }
 body.École-de-musique-municipale .contentPage .innerArticle h2 .iconemusique{
     min-height: 98px;
-    /*background: url("../img/articles/icone-haut.png") 80% 0px no-repeat;*/
     position: absolute;
     width:60%;
     top:13px;

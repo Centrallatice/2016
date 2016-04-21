@@ -21,6 +21,10 @@ app.config(function($routeProvider) {
       controller:'articlesAddController',
       templateUrl:'./layout/articles/add.html'
     })
+    .when('/articles/ordre', {
+      controller:'articlesOrdreController',
+      templateUrl:'./layout/articles/ordre.html'
+    })
     .when('/articles/edit/:idArticle', {
       controller:'articlesEditController',
       templateUrl:'./layout/articles/update.html'

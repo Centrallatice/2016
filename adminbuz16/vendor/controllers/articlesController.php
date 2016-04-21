@@ -138,6 +138,32 @@ class articlesController extends \Slim\Middleware{
             $result = $A->getArticles('dateAjout','DESC');
             echo json_encode($result);
 	}
+	function getArticlesByIdPage(){
+            $request = $this->_request->request();
+            $body = json_decode($request->getBody());
+            
+            $A = new Article($this->_db);
+            /*****
+             * TEMPORARY REORGANISATION
+             */
+//            $result = $A->reorganisation();
+            
+            $result = $A->getArticlesByIdPage($body->idPage->id);
+            echo json_encode($result);
+	}
+	function setEtatArticle(){
+            $request = $this->_request->request();
+            $body = json_decode($request->getBody());
+            
+            $A = new Article($this->_db);
+            /*****
+             * TEMPORARY REORGANISATION
+             */
+//            $result = $A->reorganisation();
+            
+            $result = $A->setEtatArticle($body->idArticle,$body->etat);
+            echo json_encode($result);
+	}
 	function getArticleByID(){
             $request = $this->_request->request();
             $body = json_decode($request->getBody());
@@ -147,6 +173,14 @@ class articlesController extends \Slim\Middleware{
             $result = $A->getArticle();
             
             $result['pathImage']=BASE_PATH_UPLOAD_URL.'/article/';
+            echo json_encode($result);
+	}
+	function updateSens(){
+            $request = $this->_request->request();
+            $body = json_decode($request->getBody());
+            $A = new Article($this->_db);
+            $result = $A->updateSens($body->idArticle,$body->action,$body->idPage->id,$body->ordreActuel);
+
             echo json_encode($result);
 	}
 	function delArticle(){

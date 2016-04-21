@@ -162,7 +162,7 @@ $useruploadpath = $usersiteroot."$useruploadfolder/";
 $foldershistory[] = $useruploadfolder;
 
 
-    $useruploadfolder = "2016/public/upload/divers/";
+    $useruploadfolder = "public/upload/divers";
     $useruploadpath = $usersiteroot."$useruploadfolder/";
-    $foldershistory[] = "2016/public/upload/divers/";
+    $foldershistory[] = "public/upload/divers";
         

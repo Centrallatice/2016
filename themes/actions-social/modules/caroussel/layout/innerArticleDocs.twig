@@ -1,0 +1,21 @@
+<div class="caroussel innerarticlecarou">
+    <div class="owl-horizontal blocDownload displayInnerArticle owl-center owl-docs">
+        {% for i in carou %}
+                <div class="item">
+                    <div class="docDownload ">
+                        <div class="docDownloadlink">
+                            <a href="{{BASEURL}}public/upload/modules/blocDownload/pdf/{{i.pdf}}" target="_blank"><img src="{{BASEURL}}public/upload/modules/blocDownload/picture/{{i.image}}" border="0" class="img img-responsive thumbnail"></a>
+                        </div>
+                        <div class="description ">
+                            <p class="docTitre">{{i.titre}}</p>
+                            <p class="docSSTitre">{{i.sstitre}}</p>
+                            <p class="docIntitule ">{{i.intitule}}</p>
+                            <p class="docDownloadLink"><a href="{{BASEURL}}public/upload/modules/blocDownload/pdf/{{i.pdf}}" target="_blank"><span class="white">></span> Visualiser et Télécharger ce document</a></p>
+                        </div>
+                        </div>
+                </div>  
+                    
+        {% endfor %}
+    </div>
+   
+</div>

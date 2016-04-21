@@ -18,7 +18,7 @@ class contentController extends \Slim\Middleware{
         $MenusPage = $Menus->getMenusByIdPage($this->_id);
       
         $Arti = new Article($this->_db);
-        $articles = $Arti->getArticlesByPage($this->_id,'dateAjout','Desc');
+        $articles = $Arti->getArticlesByPage($this->_id,'ordreArticle','ASC');
         $aenfantsfinal=array();
         if($MenusPage['success'] && count($MenusPage['donnees'])>0):
             foreach($MenusPage['donnees'] as $k=>$v):

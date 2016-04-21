@@ -84,7 +84,9 @@ class Article extends \Slim\Middleware{
                     A.disposition,
                     A.showtitre as showTitle,
                     A.showpointilles as showPointille,
-                    A.idCaroussel 
+                    A.idCaroussel,
+                    A.ordreArticle,
+                    A.actif
                 FROM
                     articles A
                 LEFT JOIN
@@ -106,6 +108,167 @@ class Article extends \Slim\Middleware{
                     ,'donnees' => $r
                     ,'message' => null
                 );
+            }else{
+                return array (
+                    'success' => false
+                    ,'donnees' => null
+                    ,'message' => null
+                );
+            }
+            
+        } catch ( PDOException $exception ) {
+            return array (
+                'success' => false
+                ,'donnees' => null
+                ,'message' => 'Une erreur est survenue lors de la récupération des données'
+            );
+        }
+    }
+    public function getArticlesByIdPage($idPage){
+        try {
+            $sql="
+                SELECT 
+                    *
+                FROM
+                    articles A
+                WHERE
+                    idPage = '".$idPage."' 
+                ORDER BY 
+                    ordreArticle ASC";
+            $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
+            if($sth->execute()){
+                $r=$sth->fetchAll(\PDO::FETCH_ASSOC);
+                return array (
+                    'success' => true
+                    ,'donnees' => $r
+                    ,'message' => null
+                );
+            }else{
+                return array (
+                    'success' => false
+                    ,'donnees' => null
+                    ,'message' => null
+                );
+            }
+            
+        } catch ( PDOException $exception ) {
+            return array (
+                'success' => false
+                ,'donnees' => null
+                ,'message' => 'Une erreur est survenue lors de la récupération des données'
+            );
+        }
+    }
+    public function updateSens($idArticle,$sens,$idPage,$ordreActu){
+        try {
+            
+                $sql="
+                    UPDATE Articles SET ordreArticle = ordreArticle ".(($sens=='-') ? '+' : '-')." 1
+                    WHERE
+                        idPage='".$idPage."'
+                    AND
+                        ordreArticle = ".(($sens=='-') ? $ordreActu-1 : $ordreActu+1).";
+                    UPDATE Articles SET ordreArticle = ordreArticle ".$sens." 1
+                    WHERE
+                        id='".$idArticle."'";
+           
+            $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
+            if($sth->execute()){
+                
+                return array (
+                    'success' => true
+                    ,'donnees' => null
+                    ,'message' => null
+                );
+            }else{
+                return array (
+                    'success' => false
+                    ,'donnees' => null
+                    ,'message' => null
+                );
+            }
+            
+        } catch ( PDOException $exception ) {
+            return array (
+                'success' => false
+                ,'donnees' => null
+                ,'message' => 'Une erreur est survenue lors de la récupération des données'
+            );
+        }
+    }
+    public function setEtatArticle($idArticle,$etat){
+        try {
+            
+                $sql="
+                    UPDATE Articles SET actif =  ".$etat." 
+                    WHERE
+                        id='".$idArticle."'";
+           
+            $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
+            if($sth->execute()){
+                
+                return array (
+                    'success' => true
+                    ,'donnees' => null
+                    ,'message' => null
+                );
+            }else{
+                return array (
+                    'success' => false
+                    ,'donnees' => null
+                    ,'message' => null
+                );
+            }
+            
+        } catch ( PDOException $exception ) {
+            return array (
+                'success' => false
+                ,'donnees' => null
+                ,'message' => 'Une erreur est survenue lors de la récupération des données'
+            );
+        }
+    }
+    public function reorganisation(){
+        try {
+            $sql="
+                SELECT 
+                    *
+                FROM
+                    pages ORDER BY id ASC";
+            $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
+            if($sth->execute()){
+                $r=$sth->fetchAll(\PDO::FETCH_ASSOC);
+                
+                foreach($r as $k=>$v):
+                    $compteur = 1;
+                    $sql2="
+                        SELECT 
+                            *
+                        FROM
+                            articles A
+                        WHERE
+                            idPage = '".$r[$k]['id']."'
+                        ORDER BY 
+                            dateAjout DESC
+                    ";
+                    $sth2=$this->_db->prepare($sql2,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
+                    if($sth2->execute()){
+                        $r2=$sth2->fetchAll(\PDO::FETCH_ASSOC);
+                        foreach($r2 as $k2=>$v2):
+                            echo $r2[$k2]['titre']." ".$compteur." ".$r[$k]['id']." <br />";
+                            $update = "
+                                UPDATE articles
+                                set ordreArticle='".$compteur."'
+                                WHERE id='".$r2[$k2]['id']."' 
+                                ";
+                            $sth3=$this->_db->prepare($update,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
+                            if(!$sth3->execute()){
+                                echo $update." <br />";
+                            }
+                            $compteur++;
+                        endforeach;
+                    }
+                endforeach;
             }else{
                 return array (
                     'success' => false

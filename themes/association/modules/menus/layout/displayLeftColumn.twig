@@ -1,0 +1,14 @@
+{% for menu in pagemenu %}
+    {% if menu.position=='COL_LEFT_ONE' %}
+        <div class='menuLeftInnerPage' id="menu-{{menu.idMenu}}">
+            <div class="content">
+                <p class='titre'>{{menu.nom}}</p>
+                <div class="backBrown">
+                    {% include 'modules/menus/layout/depthMenu.twig' with {'menu': menu} %}
+                </div>
+            </div>
+            
+        </div>
+        <div class="triangle-menu"></div>
+    {% endif %}
+{% endfor %}

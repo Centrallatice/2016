@@ -11,7 +11,7 @@
                     <a {% if i.groupe!='' %} rel="{{i.groupe}}" {% endif %}
                        class="{% if i.Contenu is null %}fancyboxme{% else %}fancycontent{% endif %}" 
                        {% if i.Contenu is not null %} id="{{i.id}}"{% endif %}
-                       href="{{carou.rep}}/{{i.imageFile}}">
+                       href="{{carou.rep}}{{i.imageFile}}">
                        <img style="border:2px solid {{dataPage.ColorCategorie}}" class="img img-fullwidth"
                              src="{{carou.rep}}300x300/{{i.imageFile}}">
                        {% if i.libelle!='' %}
@@ -38,9 +38,9 @@
             <a style="display:none" rel="{{i.groupe}}"
                 class="{% if i.Contenu is null %}fancyboxme{% else %}fancycontent{% endif %}" 
                 {% if i.Contenu is not null %} id="{{i.id}}"{% endif %}
-                href="{{carou.rep}}/{{i.imageFile}}">
+                href="{{carou.rep}}{{i.imageFile}}">
                 <img style="border:2px solid {{dataPage.ColorCategorie}}" class="img img-fullwidth"
-                      src="{{carou.rep}}/{{i.imageFile}}">
+                      src="{{carou.rep}}{{i.imageFile}}">
                 {% if i.libelle!='' %}
                     <span style="font-style:italic;margin-top:2px;text-align:center;font-size:11px;display:block;
                           line-height:11px;color:{{dataPage.ColorCategorie}}"><strong>{{i.libelle}}</strong></span>

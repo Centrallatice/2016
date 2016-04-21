@@ -1,0 +1,180 @@
+.displayLeftColumn.blocDownload:not(.BlocDLWithPicture){
+    border:3px solid #e2007a;
+    padding:10px;
+    margin: 40px 0 0 0;
+}
+.displayLeftColumn.blocDownload:not(.BlocDLWithPicture) #titreDownload{
+    background:url('../img/cadre-telechargement.png') center left no-repeat;
+    height:51px;
+    line-height: 51px;
+    vertical-align: middle;
+    color:black;
+    font-weight:bold;
+    font-size: 24px;
+    color:black;
+    padding-left:55px;
+    margin-bottom:10px;
+}
+.displayLeftColumn .docDownload{
+    position:relative;
+}
+.displayLeftColumn .docDownload p.docTitre{
+    color:#fee100;
+    text-transform: uppercase;
+    margin:0;
+    font-weight:700;
+    font-size: 12px;
+    padding:0 5px;
+}
+.displayLeftColumn .docDownload p.docSSTitre{
+    color:#0c225c;
+    text-transform: uppercase;
+    margin:0;
+    font-weight:700;
+    padding:0 5px;
+    font-size: 12px;
+}
+.displayLeftColumn .docDownload p.docIntitule{
+    color:white;
+    margin:0;
+    padding:0 5px;
+    font-size: 12px;
+}
+.displayLeftColumn .docDownload p.docDownloadLink{
+    color:#fee100;
+    margin:0;
+    font-size: 12px;
+    background-color:#131313;
+}
+.displayLeftColumn .docDownload p.docDownloadLink .white{
+    color:white;
+}
+.displayLeftColumn .docDownload .thumbnail{
+    margin-bottom:10px;
+}
+.displayLeftColumn .docDownload p.docDownloadLink a{
+    color:#fee100;
+    background:url('../img/petiteloupe.png') 3px center no-repeat;
+    min-height:28px;
+    padding:3px 5px 3px 25px;
+    display:block;
+    margin-bottom:5px;
+    margin-top:5px;
+}
+.displayLeftColumn .pointilleRose{
+    background:url('../img/pointille-rose.png') center center no-repeat;
+    height:3px;
+    margin:8px 0;
+}
+.displayLeftColumn .docDownloadlink{
+    position:relative;
+    z-index: 0;
+}
+.displayLeftColumn.blocDownload .description{
+    margin:0px 5px 5px 5px;
+    background-color:#e2017b;
+    position:absolute;
+    bottom:0;
+    padding:0;
+}
+
+/******** displayRightColumn ***********/
+.blocDownload.displayRightColumn:not(.BlocDLWithPicture){
+    background-color: #38312b;
+    margin-top:15px;
+}
+.blocDownload.displayRightColumn:not(.BlocDLWithPicture) .titreDownload{
+    text-transform: uppercase;
+    color:#cd6d00;
+    font-size: 16px;
+    padding:10px 10px;
+    border-bottom:1px solid #5f4d39;
+    font-weight: 700;
+    font-family: 'Lato', sans-serif;
+}
+.blocDownload.displayRightColumn.BlocDLWithPicture #titreDownload{
+    display:none;
+}
+.displayRightColumn .media .media-body a{
+    color:white;
+    text-decoration: none;
+}
+.displayRightColumn .media .media-body{
+    padding-right:10px;
+    font-size:11px;
+    line-height: 13px;
+}
+.displayRightColumn .media .media-body p.docIntitule a{
+    color:#f9ed0d;
+    font-size:11px;
+}
+.displayRightColumn .media .media-left{
+    vertical-align: top;
+    padding-left:10px;
+}
+
+
+.displayRightColumn.BlocDLWithPicture .docDownload{
+    position:relative;
+}
+.displayRightColumn.BlocDLWithPicture .docDownload p.docTitre{
+    color:#fee100;
+    text-transform: uppercase;
+    margin:10px 0 0 0;
+    font-weight:700;
+    font-size: 14px;
+    letter-spacing: -1px;
+    padding:0 5px;
+}
+.displayRightColumn.BlocDLWithPicture .docDownload p.docSSTitre{
+    color:#010f8c;
+    text-transform: uppercase;
+    margin:0;
+    font-size: 14px;
+    letter-spacing: -1px;
+    font-weight:700;
+    padding:0 5px;
+}
+.displayRightColumn.BlocDLWithPicture .docDownload p.docIntitule{
+    color:white;
+    margin:0;
+    padding:0 5px;
+    font-size: 12px;
+}
+.displayRightColumn.BlocDLWithPicture .docDownload p.docDownloadLink{
+    color:#fee100;
+    margin:0;
+    font-size: 12px;
+    background-color:#131313;
+}
+.displayRightColumn.BlocDLWithPicture .docDownload p.docDownloadLink .white{
+    color:white;
+}
+.displayRightColumn.BlocDLWithPicture .docDownload .thumbnail{
+    margin-bottom:10px;
+}
+.displayRightColumn.BlocDLWithPicture .docDownload p.docDownloadLink a{
+    color:#fee100;
+    background:url('../img/petiteloupe.png') 3px center no-repeat;
+    min-height:28px;
+    padding:3px 5px 3px 25px;
+    display:block;
+    margin-bottom:5px;
+    margin-top:5px;
+}
+.displayRightColumn.BlocDLWithPicture .pointilleRose{
+    background:url('../img/pointille-rose.png') center center no-repeat;
+    height:3px;
+    margin:8px 0;
+}
+.displayRightColumn.BlocDLWithPicture .docDownloadlink{
+    position:relative;
+    z-index: 0;
+}
+.displayRightColumn.BlocDLWithPicture.blocDownload .description{
+    margin:0px 5px 5px 5px;
+    background-color:#e2017b;
+    position:absolute;
+    bottom:0;
+    padding:0;
+}

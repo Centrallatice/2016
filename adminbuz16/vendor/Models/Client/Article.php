@@ -55,6 +55,8 @@ class Article extends \Slim\Middleware{
                     A.idPage=P.id 
                 WHERE
                     P.id=".$idPage." 
+                AND
+                    A.actif=1
                 ORDER BY 
                     A.".$trie." ".$ordreTrie;
             

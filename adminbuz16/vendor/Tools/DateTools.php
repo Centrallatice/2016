@@ -31,7 +31,7 @@ class DateTools {
             case 'may':
                 return 'mai';
                 break;
-            case 'juny':
+            case 'june':
                 return 'juin';
                 break;
             case 'july':

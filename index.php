@@ -40,6 +40,7 @@ $app->configureMode('development', function () use ($app) {
         'debug' => true
     ));
 });
+$decoupe = explode('/',$_SERVER['SCRIPT_FILENAME']);
 
 $baseParams = array(
     'BASECSS' => CSS_CLIENT_URL,
@@ -48,7 +49,7 @@ $baseParams = array(
     'BASEURL'=>BASE_URL,
     'BASEPATH'=>BASE_PATH,
     'BASE_PATH_UPLOAD_URL'=>BASE_PATH_UPLOAD_URL,
-    'REDIRECT_SCRIPT_URI'=>$_SERVER['REDIRECT_SCRIPT_URI']
+    'REDIRECT_SCRIPT_URI'=>(isset($_SERVER['REDIRECT_SCRIPT_URI']) ? $_SERVER['REDIRECT_SCRIPT_URI'] : (isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'].substr($_SERVER['SCRIPT_NAME'],1) : '/'.$decoupe[count($decoupe)-2].'/') )
 );
 
 $app->hook('slim.before.dispatch', function() use ($app,$db,$loader) { 

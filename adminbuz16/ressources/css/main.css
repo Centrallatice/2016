@@ -16,6 +16,22 @@
     margin:auto;
     display:block;
 }
+.blockArticleTrie{
+    border:1px solid grey;
+    padding:10px;
+    margin-bottom:3px;
+}
+.blockArticleTrie .text-center{
+    font-weight: bold;
+    text-align: center;
+}
+.titleHeaderArticle{
+    margin-bottom:10px;
+}
+.titleHeaderArticle>div{
+    font-weight: bold;
+    text-align: center;
+}
 .panel-action{
     margin-top:10px;
     border-bottom:1px solid black;

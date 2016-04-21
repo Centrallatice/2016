@@ -6,7 +6,7 @@ $theme='default';
 
 if(LOCAL==1):
     define('BASE_URL','http://127.0.0.1:82/2016/');
-    define('BASE_PATH','C:/wamp/www/2016/');
+    define('BASE_PATH','C:/Users/sylvain.dupont/Desktop/Projets Web/2016/');
 else:
     define('BASE_URL','http://www.krealine.fr/Works/ngCMS/');
     define('BASE_PATH','/home/krealinefi/www/Works/ngCMS/');

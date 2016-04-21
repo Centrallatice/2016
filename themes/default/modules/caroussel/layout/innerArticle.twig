@@ -7,7 +7,7 @@
                     <a {% if i.groupe!='' %} rel="{{i.groupe}}" {% endif %}
                        class="{% if i.Contenu is null %}fancyboxme{% else %}fancycontent{% endif %}" 
                        {% if i.Contenu is not null %} id="{{i.id}}"{% endif %}
-                       href="{{repimg}}/{{i.imageFile}}">
+                       href="{{repimg}}{{i.imageFile}}">
                        <img style="border:2px solid {{dataPage.ColorCategorie}}" class="img img-fullwidth"
                              src="{{repimg}}300x300/{{i.imageFile}}">
                        {% if i.libelle!='' %}
@@ -34,9 +34,9 @@
             <a style="display:none" rel="{{i.groupe}}"
                 class="{% if i.Contenu is null %}fancyboxme{% else %}fancycontent{% endif %}" 
                 {% if i.Contenu is not null %} id="{{i.id}}"{% endif %}
-                href="{{repimg}}/{{i.imageFile}}">
+                href="{{repimg}}{{i.imageFile}}">
                 <img style="border:2px solid {{dataPage.ColorCategorie}}" class="img img-fullwidth"
-                      src="{{repimg}}/{{i.imageFile}}">
+                      src="{{repimg}}{{i.imageFile}}">
                 {% if i.libelle!='' %}
                     <span style="font-style:italic;margin-top:2px;text-align:center;font-size:11px;display:block;
                           line-height:11px;color:{{dataPage.ColorCategorie}}"><strong>{{i.libelle}}</strong></span>

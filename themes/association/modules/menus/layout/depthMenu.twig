@@ -1,0 +1,13 @@
+{% if menu.liens|length>0 %}
+    <ul>
+	{% for menuLinks in menu.liens %}
+                {% set test=(menuLinks|childactif(idPage)) %} 
+		<li class="depth-{{menuLinks.depth}} {% if (test or idPage == menuLinks.idPage) %} active {% endif %}"><a href="{{BASEURL}}{{menuLinks.url}}.html">> {{menuLinks.nom}}</a>
+                               
+                {% if (test or idPage == menuLinks.idPage) %}
+                    {% include 'modules/menus/layout/depthMenu.twig' with {'menu': menuLinks} %}                    
+                {% endif %}
+                </li>
+	{% endfor %}
+    </ul>
+{% endif %}

@@ -10,7 +10,7 @@
     <link href="{{BASETHEME}}/blocks/services/css/services.css" rel="stylesheet" type="text/css"/>
     <link href="{{BASETHEME}}/blocks/phototheque/css/phototheque.css" rel="stylesheet" type="text/css"/>
     {% if agendas|length>0 %}
-        <link href="{{BASEURL}}/libs/bxslider/jquery.bxslider.css" rel="stylesheet" type="text/css"/>
+        <link href="{{BASEURL}}libs/bxslider/jquery.bxslider.css" rel="stylesheet" type="text/css"/>
         <link href="{{BASETHEME}}/modules/evenements/css/resume-evenements.css" rel="stylesheet" type="text/css"/>
         <link href="{{BASETHEME}}/modules/actualites/css/actualites.css" rel="stylesheet" type="text/css"/>
     {% endif %}
@@ -18,8 +18,8 @@
 {% block javascripts %}
     {{ parent() }}
     {% if agendas|length>0 %}
-        <script type="text/javascript" src="{{BASEURL}}/libs/bxslider/plugins/jquery.easing.1.3.js"></script>
-        <script type="text/javascript" src="{{BASEURL}}/libs/bxslider/jquery.bxslider.min.js"></script>
+        <script type="text/javascript" src="{{BASEURL}}libs/bxslider/plugins/jquery.easing.1.3.js"></script>
+        <script type="text/javascript" src="{{BASEURL}}libs/bxslider/jquery.bxslider.min.js"></script>
         <script type="text/javascript" src="{{BASETHEME}}/modules/evenements/js/resume-evenements.js"></script>
         <script type="text/javascript" src="{{BASETHEME}}/modules/actualites/js/actualites.js"></script>
     {% endif %}
