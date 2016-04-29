@@ -13,7 +13,12 @@
                 <p class='legende'>{{arti.legende}}</p>
             </div>
         {% elseif (arti.idCaroussel and arti.contentCarou|length >0) %}
-            {% include '/modules/caroussel/layout/innerArticle.twig'  with {carou:arti.contentCarou,repimg:arti.urlCarou} %}
+            
+            {% if arti.typeCaroussel=='images' %}
+                {% include '@'~themesRep~'/modules/caroussel/layout/innerArticle.twig'  with {carou:arti.contentCarou,repimg:arti.urlCarou} %}
+            {% elseif arti.typeCaroussel=='documents' %}
+                {% include '@'~themesRep~'/modules/caroussel/layout/innerArticleDocs.twig'  with {carou:arti.contentCarou,repimg:arti.urlCarou} %}
+            {% endif %}
         {% endif %}
     </div>
 </section>

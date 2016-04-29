@@ -35,7 +35,7 @@ class flashsController extends \Slim\Middleware{
                 $result = $p->updateFlash();
             else:
                 $result = $p->addFlash();
-//                $this->sendMails($p);
+                $this->sendMails($p);
             endif;
             
             echo json_encode($result);
@@ -45,15 +45,23 @@ class flashsController extends \Slim\Middleware{
             require_once BASE_PATH.'vendor/swiftmailer/swiftmailer/lib/swift_required.php';
             $subs=$p->getSubscribers();
             if($subs['success'] && count($subs['donnees'])>0):
-                $transport = Swift_SmtpTransport::newInstance('smtp.orange.fr', 995,'tls')->setUsername('communication@buzancais.fr')->setPassword('Mairie36500!');
+				// $subs['donnees']=array("dupont.sylvain59@gmail.com","renaudbuguet@gmail.com");
+                $transport = Swift_SmtpTransport::newInstance("smtp-out.obh.oleane.net")->setUsername('site-internet@buzancais.fr')->setPassword('Site-internet36500');
                 $mailer = Swift_Mailer::newInstance($transport);
                 $message = Swift_Message::newInstance()
                   ->setSubject('Information du site Ville de buzancais : '.$p->getTitre())
-                  ->setFrom(array('buzancaisevenement@gmail.com' => 'Ville de buzancais'))
-                  ->setTo($subs['donnees'])
+                  ->setFrom(array('site-internet@buzancais.fr' => 'Ville de buzancais'))
+                  ->setBcc($subs['donnees'])
                   ->setBody($p->getContenu());
-                $numSent = $mailer->send($message);
-                printf("Sent %d messages\n", $numSent);
+				  
+				$message->setReturnPath('site-internet@buzancais.fr');
+
+
+				$type = $message->getHeaders()->get('Content-Type');
+                $type->setValue('text/html');
+                $type->setParameter('charset', 'utf-8');
+				
+                $numSent = $mailer->send($message);				
             endif;
         }
         function deleteFlash(){

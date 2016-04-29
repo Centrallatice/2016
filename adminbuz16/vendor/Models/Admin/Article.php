@@ -163,15 +163,15 @@ class Article extends \Slim\Middleware{
         try {
             
                 $sql="
-                    UPDATE Articles SET ordreArticle = ordreArticle ".(($sens=='-') ? '+' : '-')." 1
+                    UPDATE articles SET ordreArticle = ordreArticle ".(($sens=='-') ? '+' : '-')." 1
                     WHERE
                         idPage='".$idPage."'
                     AND
                         ordreArticle = ".(($sens=='-') ? $ordreActu-1 : $ordreActu+1).";
-                    UPDATE Articles SET ordreArticle = ordreArticle ".$sens." 1
+                    UPDATE articles SET ordreArticle = ordreArticle ".$sens." 1
                     WHERE
                         id='".$idArticle."'";
-           
+            
             $sth=$this->_db->prepare($sql,array(\PDO::ATTR_CURSOR => \PDO::CURSOR_FWDONLY));
             if($sth->execute()){
                 
@@ -200,7 +200,7 @@ class Article extends \Slim\Middleware{
         try {
             
                 $sql="
-                    UPDATE Articles SET actif =  ".$etat." 
+                    UPDATE articles SET actif =  ".$etat." 
                     WHERE
                         id='".$idArticle."'";
            

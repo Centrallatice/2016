@@ -4,6 +4,32 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/sylvain.dupont/Desktop/Projets%20Web/2016/themes/default/phototheque.twig</file>
+            <file>file:/C:/Users/sylvain.dupont/Desktop/Projets%20Web/2016/adminbuz16/layout/articles/ordre.html</file>
+            <file>file:/C:/Users/sylvain.dupont/Desktop/Projets%20Web/2016/adminbuz16/vendor/controllers/articlesController.php</file>
+            <file>file:/C:/Users/sylvain.dupont/Desktop/Projets%20Web/2016/adminbuz16/vendor/Models/Admin/Article.php</file>
+            <file>file:/C:/Users/sylvain.dupont/Desktop/Projets%20Web/2016/adminbuz16/ressources/css/main.css</file>
+            <file>file:/C:/Users/sylvain.dupont/Desktop/Projets%20Web/2016/adminbuz16/ressources/js/controllers/articles/articles.js</file>
+            <file>file:/C:/Users/sylvain.dupont/Desktop/Projets%20Web/2016/vendor/controllers/contentController.php</file>
+            <file>file:/C:/Users/sylvain.dupont/Desktop/Projets%20Web/2016/adminbuz16/vendor/Models/Client/Article.php</file>
+            <file>file:/C:/Users/sylvain.dupont/Desktop/Projets%20Web/2016/index.php</file>
+            <file>file:/C:/Users/sylvain.dupont/Desktop/Projets%20Web/2016/adminbuz16/layout/articles/lists.html</file>
+            <file>file:/C:/Users/sylvain.dupont/Desktop/Projets%20Web/2016/adminbuz16/vendor/controllers/flashsController.php</file>
+            <file>file:/C:/Users/sylvain.dupont/Desktop/Projets%20Web/2016/vendor/controllers/contactController.php</file>
+            <file>file:/C:/Users/sylvain.dupont/Desktop/Projets%20Web/2016/themes/culture-loisirs/contentPage.twig</file>
+            <file>file:/C:/Users/sylvain.dupont/Desktop/Projets%20Web/2016/themes/default/contentPage.twig</file>
+            <file>file:/C:/Users/sylvain.dupont/Desktop/Projets%20Web/2016/themes/default/modules/caroussel/layout/displayBottomPage.twig</file>
+            <file>file:/C:/Users/sylvain.dupont/Desktop/Projets%20Web/2016/themes/culture-loisirs/modules/caroussel/layout/displayBottomPage.twig</file>
+            <file>file:/C:/Users/sylvain.dupont/Desktop/Projets%20Web/2016/themes/culture-loisirs/modules/caroussel/layout/innerArticle.twig</file>
+            <file>file:/C:/Users/sylvain.dupont/Desktop/Projets%20Web/2016/themes/actions-social/articlesLayout/default.twig</file>
+            <file>file:/C:/Users/sylvain.dupont/Desktop/Projets%20Web/2016/themes/culture-loisirs/articlesLayout/default.twig</file>
+            <file>file:/C:/Users/sylvain.dupont/Desktop/Projets%20Web/2016/themes/culture-loisirs/articlesLayout/ONE_COL_NO_TXT.twig</file>
+            <file>file:/C:/Users/sylvain.dupont/Desktop/Projets%20Web/2016/themes/default/articlesLayout/ONE_COL_NO_TXT.twig</file>
+            <file>file:/C:/Users/sylvain.dupont/Desktop/Projets%20Web/2016/themes/default/modules/caroussel/layout/innerArticleDocs.twig</file>
+            <file>file:/C:/Users/sylvain.dupont/Desktop/Projets%20Web/2016/themes/culture-loisirs/modules/blocdownload/css/blocdownload.css</file>
+            <file>file:/C:/Users/sylvain.dupont/Desktop/Projets%20Web/2016/themes/default/modules/blocdownload/css/blocdownload.css</file>
+            <file>file:/C:/Users/sylvain.dupont/Desktop/Projets%20Web/2016/themes/famille/articlesLayout/ONE_COL_NO_TXT.twig</file>
+            <file>file:/C:/Users/sylvain.dupont/Desktop/Projets%20Web/2016/themes/association/articlesLayout/ONE_COL_NO_TXT.twig</file>
+            <file>file:/C:/Users/sylvain.dupont/Desktop/Projets%20Web/2016/themes/actions-social/articlesLayout/ONE_COL_NO_TXT.twig</file>
         </group>
     </open-files>
 </project-private>
