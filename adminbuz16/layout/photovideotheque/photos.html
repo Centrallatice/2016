@@ -120,13 +120,14 @@
 
                             
                             <div class="panel panel-info">
-                                <div class="panel-heading">
-                                      {{value.nom}} - {{value.filename}}
+                                <div class="panel-heading" style="text-transform:lowercase">
+                                      <span style="text-transform:uppercase">Album : </span>{{value.NomAlbum}}<br />
+                                      <span style="text-transform:uppercase">Titre : </span>{{value.nom}}
                                       <button ng-click="deletePicture(value)" class="close"><span aria-hidden="true">&times;</span></button>
                                 </div>
                                 <div class="panel-body">
                                     <a ng-click="openLightboxModal($index)" class="thumbnail">
-                                        <img ng-src="{{basePathRep}}/{{value.rep}}/{{value.filename}}">
+                                        <img ng-src="{{value.thumbUrl}}">
                                     </a>
                                 </div>
                             </div>
